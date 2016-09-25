@@ -1,5 +1,5 @@
-sdlmove:	sdlmove.c
-	g++ sdlmove.c `sdl-config --cflags --libs` -o sdlmove
+survival:	survival.c
+	g++ survival.c `sdl-config --cflags --libs` -o survival
 
 clean:
-	rm sdlmove
+	rm survival
