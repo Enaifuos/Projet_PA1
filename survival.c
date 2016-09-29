@@ -35,7 +35,6 @@ int main(int argc, char* argv[])
   Uint8 *keystate;
   int colorkey, gameover;
   int i, j;
-
 	/* initialize video system */
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -58,12 +57,12 @@ int main(int argc, char* argv[])
 	SDL_SetColorKey(sprite, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
 
 	/* load grass */
-	temp  = SDL_LoadBMP("grass.bmp");
+	temp  = SDL_LoadBMP("herbe.bmp");
 	grass = SDL_DisplayFormat(temp);
 	SDL_FreeSurface(temp);
 
 	/* load water */
-	temp = SDL_LoadBMP("water.bmp");
+	temp = SDL_LoadBMP("water2.bmp");
 	water = SDL_DisplayFormat(temp);
 	SDL_FreeSurface(temp);
 
@@ -78,17 +77,35 @@ int main(int argc, char* argv[])
 	  {
 	    for( j=0 ; j < (SCREEN_HEIGHT/SPRITE_SIZE) ; j++)
 	      {
-		MAP[i][j] = 0;
-	      }
+	        
+		MAP[i][j] = 0;}
+        
 	  }
 	/* Test to see if water work */
 	MAP[0][0] = 1; 
 	MAP[0][1] = 1;
+	MAP[0][2] = 1;
+		for( i=0 ; i < (SCREEN_WIDTH/SPRITE_SIZE) ; i++)
+	  {
+	    for( j=0 ; j < (SCREEN_HEIGHT/SPRITE_SIZE) ; j++){
+	      if(i==0 || i==19 || j==0 || j==14){
+		//	MAP[i][j] = 1 ;
+	      }
+	    }
+	  }
 	MAP[1][SCREEN_HEIGHT/SPRITE_SIZE-1] = 1;
-
+       for( i=0 ; i < (SCREEN_WIDTH/SPRITE_SIZE) ; i++)
+	  {
+	    for( j=0 ; j < (SCREEN_HEIGHT/SPRITE_SIZE) ; j++)
+	      {
+		printf("%d ",MAP[j][i]);
+	      }
+	    printf("\n");
+	  }
 	/* message pump */
 	while (!gameover)
 	{
+	 //  printf("\n%d,%d\n",rcSprite.x,rcSprite.y);
 		/* look for an event */
 		if (SDL_PollEvent(&event))
 		  {
@@ -121,7 +138,7 @@ int main(int argc, char* argv[])
 		      {
 			rcSprite.x -= 1;
 			if(MAP[rcSprite.x/SPRITE_SIZE][rcSprite.y/SPRITE_SIZE])
-			  {
+	  {
 			    rcWater.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
 			    rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
 			    SDL_BlitSurface(water, NULL, screen, &rcWater);
@@ -155,6 +172,7 @@ int main(int argc, char* argv[])
 		      {
 			for( i=0 ; i<SPRITE_SIZE ; i++)
 			  {
+			    
 			    rcSprite.x += 1;
 			    if(MAP[rcSprite.x/SPRITE_SIZE][rcSprite.y/SPRITE_SIZE])
 			      {
@@ -266,9 +284,10 @@ int main(int argc, char* argv[])
 		  }
 
 		/* collide with edges of screen */
-		if ( rcSprite.x < 0 )
+		if ( rcSprite.x == 0 )
 		  {
 		    rcSprite.x = 0;
+		   
 		  }
 		
 		else if ( rcSprite.x > SCREEN_WIDTH-SPRITE_SIZE )
@@ -337,3 +356,7 @@ int check_move(int x, int y)
     }
   return res;
 }
+
+
+
+
