@@ -8,14 +8,20 @@
    /* global variable */
 
 int MAP[SCREEN_WIDTH/SPRITE_SIZE+1][SCREEN_HEIGHT/SPRITE_SIZE+1];
-
+SDL_Surface *screen, *temp, *sprite, *grass, *water;
+SDL_Rect rcSprite, rcGrass, rcWater;
+SDL_Event event;
+Uint8 *keystate;
+int colorkey, gameover;
 
 
      /* prototypes  */
 
-int check_move(int x, int y);
-
-
+int check_move_ground(int x, int y);
+void move_down();
+void move_up();
+void move_right();
+void move_left();
 
 
 
@@ -29,11 +35,6 @@ int check_move(int x, int y);
 
 int main(int argc, char* argv[])
 {
-  SDL_Surface *screen, *temp, *sprite, *grass, *water;
-  SDL_Rect rcSprite, rcGrass, rcWater;
-  SDL_Event event;
-  Uint8 *keystate;
-  int colorkey, gameover;
   int i, j;
 	/* initialize video system */
 	SDL_Init(SDL_INIT_VIDEO);
@@ -94,9 +95,10 @@ int main(int argc, char* argv[])
 	    }
 	  }
 	MAP[1][SCREEN_HEIGHT/SPRITE_SIZE-1] = 1;
-       for( i=0 ; i < (SCREEN_WIDTH/SPRITE_SIZE) ; i++)
+
+       for( i=0 ; i < (SCREEN_HEIGHT/SPRITE_SIZE) ; i++)
 	  {
-	    for( j=0 ; j < (SCREEN_HEIGHT/SPRITE_SIZE) ; j++)
+	    for( j=0 ; j < (SCREEN_WIDTH/SPRITE_SIZE) ; j++)
 	      {
 		printf("%d ",MAP[j][i]);
 	      }
@@ -134,160 +136,26 @@ int main(int argc, char* argv[])
 		
 		if (keystate[SDLK_LEFT] )
 		  {
-		    for( i=0 ; i<SPRITE_SIZE ; i++)
-		      {
-			rcSprite.x -= 1;
-			if(MAP[rcSprite.x/SPRITE_SIZE][rcSprite.y/SPRITE_SIZE])
-	  {
-			    rcWater.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-			    rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-			    SDL_BlitSurface(water, NULL, screen, &rcWater);
-			  }
-			else
-			  {
-			    rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-			    rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-			    SDL_BlitSurface(grass, NULL, screen, &rcGrass);
-			  }
-			if(MAP[(rcSprite.x/SPRITE_SIZE)+1][rcSprite.y/SPRITE_SIZE])
-			  {
-			   rcWater.x =  rcSprite.x - (rcSprite.x % SPRITE_SIZE) + SPRITE_SIZE;
-			   rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-			   SDL_BlitSurface(water, NULL, screen, &rcWater);
-			  }
-			else
-			  {
-			    rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE) + SPRITE_SIZE;
-			    rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-			    SDL_BlitSurface(grass, NULL, screen, &rcGrass);						    
-			  }
-			SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
-			SDL_UpdateRect(screen,0,0,0,0);
-		      }
-		    SDL_Delay(150);		    
+		    move_left();		    
 		  }
 		if (keystate[SDLK_RIGHT] )
 		  {
-		    if(rcSprite.x <= SCREEN_WIDTH - SPRITE_SIZE -1)
-		      {
-			for( i=0 ; i<SPRITE_SIZE ; i++)
-			  {
-			    
-			    rcSprite.x += 1;
-			    if(MAP[rcSprite.x/SPRITE_SIZE][rcSprite.y/SPRITE_SIZE])
-			      {
-				rcWater.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-				rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-				SDL_BlitSurface(water, NULL, screen, &rcWater);
-			      }
-			    else
-			      {
-				rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-				rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-				SDL_BlitSurface(grass, NULL, screen, &rcGrass);
-			      }
-			    if(MAP[(rcSprite.x/SPRITE_SIZE)+1][rcSprite.y/SPRITE_SIZE])
-			      {
-				rcWater.x =  rcSprite.x - (rcSprite.x % SPRITE_SIZE) + SPRITE_SIZE;
-				rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-				SDL_BlitSurface(water, NULL, screen, &rcWater);
-			      }
-			    else
-			      {
-				rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE) + SPRITE_SIZE;
-				rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-				SDL_BlitSurface(grass, NULL, screen, &rcGrass);						    
-			      }
-			    SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
-			    SDL_UpdateRect(screen,0,0,0,0);
-			  }
-			
-			SDL_Delay(150);
-		      }
+		    move_right();
 		  }
 		if (keystate[SDLK_UP] )
 		  {
-		    if(rcSprite.y > SPRITE_SIZE -1)
-		      {
-			for( i=0 ; i<SPRITE_SIZE ; i++)
-			  {
-			    rcSprite.y -= 1;
-			    if(MAP[rcSprite.x/SPRITE_SIZE][rcSprite.y/SPRITE_SIZE])
-			      {
-				rcWater.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-				rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-				SDL_BlitSurface(water, NULL, screen, &rcWater);
-			      }
-			    else
-			      {
-				rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-				rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-				SDL_BlitSurface(grass, NULL, screen, &rcGrass);
-			      }
-			    if(MAP[(rcSprite.x/SPRITE_SIZE)][rcSprite.y/SPRITE_SIZE+1])
-			      {
-				rcWater.x =  rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-				rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE) + SPRITE_SIZE;
-				SDL_BlitSurface(water, NULL, screen, &rcWater);
-			      }
-			    else
-			      {
-				rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-				rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE) + SPRITE_SIZE;
-				SDL_BlitSurface(grass, NULL, screen, &rcGrass);						    
-			      }
-			    SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
-			    SDL_UpdateRect(screen,0,0,0,0);
-			  }
-			
-			SDL_Delay(150);
-		      }
+		    move_up();
 		  }
 		
 		if (keystate[SDLK_DOWN] )
 		  {
-		    if(rcSprite.y < SCREEN_HEIGHT - SPRITE_SIZE -1)
-		      {
-			for( i=0 ; i<SPRITE_SIZE ; i++)
-			  {
-			    rcSprite.y += 1;
-			    if(MAP[rcSprite.x/SPRITE_SIZE][rcSprite.y/SPRITE_SIZE])
-			      {
-				rcWater.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-				rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-				SDL_BlitSurface(water, NULL, screen, &rcWater);
-			      }
-			    else
-			      {
-				rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-				rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-				SDL_BlitSurface(grass, NULL, screen, &rcGrass);
-			      }
-			    if(MAP[(rcSprite.x/SPRITE_SIZE)][rcSprite.y/SPRITE_SIZE+1])
-			      {
-				rcWater.x =  rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-				rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE) + SPRITE_SIZE;
-				SDL_BlitSurface(water, NULL, screen, &rcWater);
-			      }
-			    else
-			      {
-				rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-				rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE) + SPRITE_SIZE;
-				SDL_BlitSurface(grass, NULL, screen, &rcGrass);						    
-			      }
-			    SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
-			    SDL_UpdateRect(screen,0,0,0,0);
-			  }
-			
-			SDL_Delay(150);
-		      }
+		    move_down();
 		  }
 
 		/* collide with edges of screen */
 		if ( rcSprite.x == 0 )
 		  {
 		    rcSprite.x = 0;
-		   
 		  }
 		
 		else if ( rcSprite.x > SCREEN_WIDTH-SPRITE_SIZE )
@@ -347,7 +215,7 @@ int main(int argc, char* argv[])
 
 /*  function  */
 
-int check_move(int x, int y)
+int check_move_ground(int x, int y)
 {
   int res = 1;
   if(MAP[x][y])
@@ -358,5 +226,177 @@ int check_move(int x, int y)
 }
 
 
+void move_down()
+{
+  if(check_move_ground(rcSprite.x/SPRITE_SIZE , (rcSprite.y/SPRITE_SIZE)+1))
+    {
+      int i,j;
+      if(rcSprite.y < SCREEN_HEIGHT - SPRITE_SIZE -1)
+	{
+	  for( i=0 ; i<SPRITE_SIZE ; i++)
+	    {
+	      SDL_Delay(2);
+	      rcSprite.y += 1;
+	      if(MAP[rcSprite.x/SPRITE_SIZE][rcSprite.y/SPRITE_SIZE])
+		{
+		  rcWater.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
+		  rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
+		  SDL_BlitSurface(water, NULL, screen, &rcWater);
+		}
+	      else
+		{
+		  rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
+		  rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
+		  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
+		}
+	      if(MAP[(rcSprite.x/SPRITE_SIZE)][rcSprite.y/SPRITE_SIZE+1])
+		{
+		  rcWater.x =  rcSprite.x - (rcSprite.x % SPRITE_SIZE);
+		  rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE) + SPRITE_SIZE;
+		  SDL_BlitSurface(water, NULL, screen, &rcWater);
+		}
+	      else
+		{
+		  rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
+		  rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE) + SPRITE_SIZE;
+		  SDL_BlitSurface(grass, NULL, screen, &rcGrass);						    
+		}
+	      SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
+	      SDL_UpdateRect(screen,0,0,0,0);
+	    }
+	  SDL_Delay(150);
+	}
+    }
+}
 
 
+
+void move_up()
+{
+  if(check_move_ground(rcSprite.x/SPRITE_SIZE , (rcSprite.y/SPRITE_SIZE)-1))
+    {
+      int i,j;
+      if(rcSprite.y > SPRITE_SIZE -1)
+	{
+	  for( i=0 ; i<SPRITE_SIZE ; i++)
+	    {
+	      SDL_Delay(2);
+	      rcSprite.y -= 1;
+	      if(MAP[rcSprite.x/SPRITE_SIZE][rcSprite.y/SPRITE_SIZE])
+		{
+		  rcWater.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
+		  rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
+		  SDL_BlitSurface(water, NULL, screen, &rcWater);
+		}
+	      else
+		{
+		  rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
+		  rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
+		  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
+		}
+	      if(MAP[(rcSprite.x/SPRITE_SIZE)][rcSprite.y/SPRITE_SIZE+1])
+		{
+		  rcWater.x =  rcSprite.x - (rcSprite.x % SPRITE_SIZE);
+		  rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE) + SPRITE_SIZE;
+		  SDL_BlitSurface(water, NULL, screen, &rcWater);
+		}
+	      else
+		{
+		  rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
+		  rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE) + SPRITE_SIZE;
+				SDL_BlitSurface(grass, NULL, screen, &rcGrass);						    
+		}
+	      SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
+	      SDL_UpdateRect(screen,0,0,0,0);
+	    }
+	  SDL_Delay(150);
+	}
+    }
+}
+
+void move_right()
+{
+  if(check_move_ground((rcSprite.x/SPRITE_SIZE)+1 , rcSprite.y/SPRITE_SIZE))
+    {
+      int i,j;
+      if(rcSprite.x <= SCREEN_WIDTH - SPRITE_SIZE -1)
+	{
+	  for( i=0 ; i<SPRITE_SIZE ; i++)
+	    {
+	      SDL_Delay(2);
+	      rcSprite.x += 1;
+	      if(MAP[rcSprite.x/SPRITE_SIZE][rcSprite.y/SPRITE_SIZE])
+		{
+		  rcWater.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
+		  rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
+		  SDL_BlitSurface(water, NULL, screen, &rcWater);
+		}
+	      else
+		{
+		  rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
+		  rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
+		  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
+		}
+	      if(MAP[(rcSprite.x/SPRITE_SIZE)+1][rcSprite.y/SPRITE_SIZE])
+		{
+		  rcWater.x =  rcSprite.x - (rcSprite.x % SPRITE_SIZE) + SPRITE_SIZE;
+		  rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
+		  SDL_BlitSurface(water, NULL, screen, &rcWater);
+		}
+	      else
+		{
+		  rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE) + SPRITE_SIZE;
+		  rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
+		  SDL_BlitSurface(grass, NULL, screen, &rcGrass);						    
+		}
+	      SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
+	      SDL_UpdateRect(screen,0,0,0,0);
+	    }     
+	  SDL_Delay(150);
+	}
+    }
+}
+
+
+
+
+
+void move_left()
+{
+  if(check_move_ground((rcSprite.x/SPRITE_SIZE)-1 , rcSprite.y/SPRITE_SIZE))
+    {
+      int i,j;
+      for( i=0 ; i<SPRITE_SIZE ; i++)
+	{
+	  SDL_Delay(2);
+	  rcSprite.x -= 1;
+	  if(MAP[rcSprite.x/SPRITE_SIZE][rcSprite.y/SPRITE_SIZE])
+	    {
+	      rcWater.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
+	      rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
+	      SDL_BlitSurface(water, NULL, screen, &rcWater);
+	    }
+	  else
+	    {
+	      rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
+	      rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
+	      SDL_BlitSurface(grass, NULL, screen, &rcGrass);
+	    }
+	  if(MAP[(rcSprite.x/SPRITE_SIZE)+1][rcSprite.y/SPRITE_SIZE])
+	    {
+	      rcWater.x =  rcSprite.x - (rcSprite.x % SPRITE_SIZE) + SPRITE_SIZE;
+	      rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
+	      SDL_BlitSurface(water, NULL, screen, &rcWater);
+	    }
+	  else
+	    {
+	      rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE) + SPRITE_SIZE;
+	      rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
+	      SDL_BlitSurface(grass, NULL, screen, &rcGrass);						    
+	    }
+	  SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
+	  SDL_UpdateRect(screen,0,0,0,0);
+	}
+      SDL_Delay(150);
+    }
+}
