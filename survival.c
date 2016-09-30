@@ -8,7 +8,7 @@
 
    /* global variable */
 
-int MAP[SCREEN_WIDTH/SPRITE_SIZE+1][SCREEN_HEIGHT/SPRITE_SIZE+1];
+int MAP[2 * (SCREEN_WIDTH/SPRITE_SIZE+1)][2 * (SCREEN_HEIGHT/SPRITE_SIZE+1)];
 SDL_Surface *screen, *temp, *sprite, *grass, *water;
 SDL_Rect rcSprite, rcGrass, rcWater;
 SDL_Event event;
@@ -23,6 +23,7 @@ int colorkey, gameover;
 int main(int argc, char* argv[])
 {
   int i, j;
+
 	/* initialize video system */
 	SDL_Init(SDL_INIT_VIDEO);
 
@@ -55,32 +56,19 @@ int main(int argc, char* argv[])
 	SDL_FreeSurface(temp);
 
 	/* set sprite position */
-	rcSprite.x = 0;
-	rcSprite.y = 0;
+	rcSprite.x = 4*SPRITE_SIZE;
+	rcSprite.y = 4*SPRITE_SIZE;
 
 	gameover = 0;
 
 	/* set the MAP */
-	for( i=0 ; i < (SCREEN_WIDTH/SPRITE_SIZE) ; i++)
-	  {
-	    for( j=0 ; j < (SCREEN_HEIGHT/SPRITE_SIZE) ; j++)
-	      {
-	        
-		MAP[i][j] = 0;}
-        
-	  }
+	
+	set_map();
+	
 	/* Test to see if water work */
 	MAP[0][0] = 1; 
 	MAP[0][1] = 1;
 	MAP[0][2] = 1;
-		for( i=0 ; i < (SCREEN_WIDTH/SPRITE_SIZE) ; i++)
-	  {
-	    for( j=0 ; j < (SCREEN_HEIGHT/SPRITE_SIZE) ; j++){
-	      if(i==0 || i==19 || j==0 || j==14){
-		//	MAP[i][j] = 1 ;
-	      }
-	    }
-	  }
 	MAP[1][SCREEN_HEIGHT/SPRITE_SIZE-1] = 1;
 
        for( i=0 ; i < (SCREEN_HEIGHT/SPRITE_SIZE) ; i++)
@@ -94,8 +82,7 @@ int main(int argc, char* argv[])
 	/* message pump */
 	while (!gameover)
 	{
-	 //  printf("\n%d,%d\n",rcSprite.x,rcSprite.y);
-		/* look for an event */
+	  /* look for an event */
 		if (SDL_PollEvent(&event))
 		  {
 		    /* an event was found */
@@ -161,11 +148,11 @@ int main(int argc, char* argv[])
 		  }
 
 		/* draw the grass */
-		for( i=0 ; i < SCREEN_WIDTH/SPRITE_SIZE ; i++)
+		for( i=0 ; i < SCREEN_WIDTH/SPRITE_SIZE ; i++ )
 		  {
-		    for( j=0 ; j < SCREEN_HEIGHT/SPRITE_SIZE ; j++)
+		    for( j=0 ; j < SCREEN_HEIGHT/SPRITE_SIZE ; j++ )
 		      {
-			if(MAP[i][j] == 0)
+			if( MAP[i][j] == 0 )
 			  { 
 			    rcGrass.x = i * SPRITE_SIZE;
 			    rcGrass.y = j * SPRITE_SIZE;
@@ -197,41 +184,3 @@ int main(int argc, char* argv[])
 }
 
 
-
-  if(check_move_ground((rcSprite.x/SPRITE_SIZE)-1 , rcSprite.y/SPRITE_SIZE))
-    {
-      int i,j;
-      for( i=0 ; i<SPRITE_SIZE ; i++)
-	{
-	  SDL_Delay(2);
-	  rcSprite.x -= 1;
-	  if(MAP[rcSprite.x/SPRITE_SIZE][rcSprite.y/SPRITE_SIZE])
-	    {
-	      rcWater.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-	      rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-	      SDL_BlitSurface(water, NULL, screen, &rcWater);
-	    }
-	  else
-	    {
-	      rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-	      rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-	      SDL_BlitSurface(grass, NULL, screen, &rcGrass);
-	    }
-	  if(MAP[(rcSprite.x/SPRITE_SIZE)+1][rcSprite.y/SPRITE_SIZE])
-	    {
-	      rcWater.x =  rcSprite.x - (rcSprite.x % SPRITE_SIZE) + SPRITE_SIZE;
-	      rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-	      SDL_BlitSurface(water, NULL, screen, &rcWater);
-	    }
-	  else
-	    {
-	      rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE) + SPRITE_SIZE;
-	      rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-	      SDL_BlitSurface(grass, NULL, screen, &rcGrass);						    
-	    }
-	  SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
-	  SDL_UpdateRect(screen,0,0,0,0);
-	}
-      SDL_Delay(150);
-    }
-}

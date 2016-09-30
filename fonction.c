@@ -6,7 +6,7 @@
 #define SPRITE_SIZE    32
 
 
-extern int MAP[SCREEN_WIDTH/SPRITE_SIZE+1][SCREEN_HEIGHT/SPRITE_SIZE+1];
+extern int MAP[2 * (SCREEN_WIDTH/SPRITE_SIZE+1)][2 * (SCREEN_HEIGHT/SPRITE_SIZE+1)];
 extern SDL_Surface *screen, *temp, *sprite, *grass, *water;
 extern SDL_Rect rcSprite, rcGrass, rcWater;
 extern SDL_Event event;
@@ -15,6 +15,10 @@ extern int colorkey, gameover;
 
 /*---Prototypes---*/
 
+//setting
+void set_map();
+
+//movement
 int check_move_ground(int x, int y);
 void move_down();
 void move_up();
@@ -31,8 +35,33 @@ void move_left();
 
 
 
+
 /*-----function------*/
 
+void set_map()
+{
+  int i,j;
+  for( i=0 ; i < 2 * (SCREEN_WIDTH/SPRITE_SIZE) ; i++)
+    {
+      for( j=0 ; j < 2 * (SCREEN_HEIGHT/SPRITE_SIZE) ; j++)
+	{
+	  MAP[i][j] = 0;
+	}
+    }
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+//-----movement
 int check_move_ground(int x, int y)
 {
   int res = 1;
