@@ -1,7 +1,7 @@
 #include "SDL.h"
 
 
-#define SCREEN_WIDTH  640
+#define SCREEN_WIDTH  608
 #define SCREEN_HEIGHT 480
 #define SPRITE_SIZE    32
 
@@ -12,6 +12,9 @@ extern SDL_Rect rcSprite, rcGrass, rcWater;
 extern SDL_Event event;
 extern Uint8 *keystate;
 extern int colorkey, gameover;
+extern int coordplayerx, coordplayery;
+
+
 
 /*---Prototypes---*/
 
@@ -25,7 +28,8 @@ void move_up();
 void move_right();
 void move_left();
 
-
+//screen printing
+void screen_printing(); //New function
 
 
 
@@ -75,41 +79,16 @@ int check_move_ground(int x, int y)
 
 void move_down()
 {
-  if(check_move_ground(rcSprite.x/SPRITE_SIZE , (rcSprite.y/SPRITE_SIZE)+1))
+  if(check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)+1))
     {
-      int i,j;
-      if(rcSprite.y < SCREEN_HEIGHT - SPRITE_SIZE -1)
+      if(rcSprite.y <= SCREEN_HEIGHT - SPRITE_SIZE)
 	{
+	  int i,j;
 	  for( i=0 ; i<SPRITE_SIZE ; i++)
 	    {
+	      coordplayery += 1;
 	      SDL_Delay(2);
-	      rcSprite.y += 1;
-	      if(MAP[rcSprite.x/SPRITE_SIZE][rcSprite.y/SPRITE_SIZE])
-		{
-		  rcWater.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-		  rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-		  SDL_BlitSurface(water, NULL, screen, &rcWater);
-		}
-	      else
-		{
-		  rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-		  rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-		  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
-		}
-	      if(MAP[(rcSprite.x/SPRITE_SIZE)][rcSprite.y/SPRITE_SIZE+1])
-		{
-		  rcWater.x =  rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-		  rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE) + SPRITE_SIZE;
-		  SDL_BlitSurface(water, NULL, screen, &rcWater);
-		}
-	      else
-		{
-		  rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-		  rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE) + SPRITE_SIZE;
-		  SDL_BlitSurface(grass, NULL, screen, &rcGrass);						    
-		}
-	      SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
-	      SDL_UpdateRect(screen,0,0,0,0);
+	      screen_printing();
 	    }
 	  SDL_Delay(150);
 	}
@@ -120,41 +99,16 @@ void move_down()
 
 void move_up()
 {
-  if(check_move_ground(rcSprite.x/SPRITE_SIZE , (rcSprite.y/SPRITE_SIZE)-1))
+  if(check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)-1))
     {
-      int i,j;
-      if(rcSprite.y > SPRITE_SIZE -1)
+      if(coordplayery >= SPRITE_SIZE)
 	{
+	  int i,j;
 	  for( i=0 ; i<SPRITE_SIZE ; i++)
 	    {
+	      coordplayery -= 1;
 	      SDL_Delay(2);
-	      rcSprite.y -= 1;
-	      if(MAP[rcSprite.x/SPRITE_SIZE][rcSprite.y/SPRITE_SIZE])
-		{
-		  rcWater.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-		  rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-		  SDL_BlitSurface(water, NULL, screen, &rcWater);
-		}
-	      else
-		{
-		  rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-		  rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-		  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
-		}
-	      if(MAP[(rcSprite.x/SPRITE_SIZE)][rcSprite.y/SPRITE_SIZE+1])
-		{
-		  rcWater.x =  rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-		  rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE) + SPRITE_SIZE;
-		  SDL_BlitSurface(water, NULL, screen, &rcWater);
-		}
-	      else
-		{
-		  rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-		  rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE) + SPRITE_SIZE;
-				SDL_BlitSurface(grass, NULL, screen, &rcGrass);						    
-		}
-	      SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
-	      SDL_UpdateRect(screen,0,0,0,0);
+	      screen_printing();
 	    }
 	  SDL_Delay(150);
 	}
@@ -163,41 +117,16 @@ void move_up()
 
 void move_right()
 {
-  if(check_move_ground((rcSprite.x/SPRITE_SIZE)+1 , rcSprite.y/SPRITE_SIZE))
+  if(check_move_ground((coordplayerx/SPRITE_SIZE)+1 , coordplayery/SPRITE_SIZE))
     {
-      int i,j;
-      if(rcSprite.x <= SCREEN_WIDTH - SPRITE_SIZE -1)
+      if(coordplayerx <= SCREEN_WIDTH - SPRITE_SIZE)
 	{
+	  int i,j;
 	  for( i=0 ; i<SPRITE_SIZE ; i++)
 	    {
+	      coordplayerx += 1;
 	      SDL_Delay(2);
-	      rcSprite.x += 1;
-	      if(MAP[rcSprite.x/SPRITE_SIZE][rcSprite.y/SPRITE_SIZE])
-		{
-		  rcWater.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-		  rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-		  SDL_BlitSurface(water, NULL, screen, &rcWater);
-		}
-	      else
-		{
-		  rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-		  rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-		  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
-		}
-	      if(MAP[(rcSprite.x/SPRITE_SIZE)+1][rcSprite.y/SPRITE_SIZE])
-		{
-		  rcWater.x =  rcSprite.x - (rcSprite.x % SPRITE_SIZE) + SPRITE_SIZE;
-		  rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-		  SDL_BlitSurface(water, NULL, screen, &rcWater);
-		}
-	      else
-		{
-		  rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE) + SPRITE_SIZE;
-		  rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-		  SDL_BlitSurface(grass, NULL, screen, &rcGrass);						    
-		}
-	      SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
-	      SDL_UpdateRect(screen,0,0,0,0);
+	      screen_printing(); //New 
 	    }     
 	  SDL_Delay(150);
 	}
@@ -210,40 +139,87 @@ void move_right()
 
 void move_left()
 {
-  if(check_move_ground((rcSprite.x/SPRITE_SIZE)-1 , rcSprite.y/SPRITE_SIZE))
+  if(check_move_ground((coordplayerx/SPRITE_SIZE)-1 , coordplayery/SPRITE_SIZE))
     {
-      int i,j;
-      for( i=0 ; i<SPRITE_SIZE ; i++)
+      if(coordplayerx >= SPRITE_SIZE)
 	{
-	  SDL_Delay(2);
-	  rcSprite.x -= 1;
-	  if(MAP[rcSprite.x/SPRITE_SIZE][rcSprite.y/SPRITE_SIZE])
+	  int i,j;
+	  for( i=0 ; i<SPRITE_SIZE ; i++)
 	    {
-	      rcWater.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-	      rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-	      SDL_BlitSurface(water, NULL, screen, &rcWater);
+	      coordplayerx -= 1;
+	      SDL_Delay(2);
+	      screen_printing(); //New
 	    }
-	  else
-	    {
-	      rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE);
-	      rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-	      SDL_BlitSurface(grass, NULL, screen, &rcGrass);
-	    }
-	  if(MAP[(rcSprite.x/SPRITE_SIZE)+1][rcSprite.y/SPRITE_SIZE])
-	    {
-	      rcWater.x =  rcSprite.x - (rcSprite.x % SPRITE_SIZE) + SPRITE_SIZE;
-	      rcWater.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-	      SDL_BlitSurface(water, NULL, screen, &rcWater);
-	    }
-	  else
-	    {
-	      rcGrass.x = rcSprite.x - (rcSprite.x % SPRITE_SIZE) + SPRITE_SIZE;
-	      rcGrass.y = rcSprite.y - (rcSprite.y % SPRITE_SIZE);
-	      SDL_BlitSurface(grass, NULL, screen, &rcGrass);						    
-	    }
-	  SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
-	  SDL_UpdateRect(screen,0,0,0,0);
+	  SDL_Delay(150);
 	}
-      SDL_Delay(150);
+    }
+}
+
+
+
+
+
+void screen_printing()        //New  fonction which move the ground, like if the player was moving
+{
+  int i, j, x, y;
+  if( (coordplayerx % SPRITE_SIZE) == 0 &&  (coordplayery % SPRITE_SIZE) == 0 )
+    {
+      /* draw the grass or the water */
+      for( i=0 ; i < SCREEN_WIDTH/SPRITE_SIZE ; i++ )
+	{
+	  for( j=0 ; j < SCREEN_HEIGHT/SPRITE_SIZE ; j++ )
+	    {
+	      x = (coordplayerx - rcSprite.x)/SPRITE_SIZE + i;
+	      y = (coordplayery - rcSprite.y)/SPRITE_SIZE + j;
+	      if( MAP[x][y] == 0 )
+		{ 
+		  rcGrass.x = i * SPRITE_SIZE;
+		  rcGrass.y = j * SPRITE_SIZE;
+		  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
+		}
+	      else
+		{
+		  rcWater.x = i * SPRITE_SIZE;
+		  rcWater.y = j * SPRITE_SIZE;
+		  SDL_BlitSurface(water, NULL, screen, &rcWater);
+		}
+	    }
+	}
+      
+      /* draw the sprite */
+      SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
+      
+      /* update the screen */
+      SDL_UpdateRect(screen,0,0,0,0);
+    }
+  else
+    {
+      /* draw the grass or the water */
+      for( i = 0 ; i < (SCREEN_WIDTH/SPRITE_SIZE)+1 ; i++ )
+	{
+	  for( j = 0 ; j < (SCREEN_HEIGHT/SPRITE_SIZE)+1 ; j++ )
+	    {
+	      x = (coordplayerx - rcSprite.x) / SPRITE_SIZE +i ;
+	      y = (coordplayery - rcSprite.y) / SPRITE_SIZE +j;
+	      if( MAP[x][y] == 0 )
+		{ 
+		  rcGrass.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+		  rcGrass.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+		  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
+		}
+	      else
+		{
+		  rcWater.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+		  rcWater.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+		  SDL_BlitSurface(water, NULL, screen, &rcWater);
+		}
+	    }
+	}
+      
+      /* draw the sprite */
+      SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
+      
+      /* update the screen */
+      SDL_UpdateRect(screen,0,0,0,0);
     }
 }
