@@ -1,7 +1,7 @@
 #include "SDL.h"
 #include "fonction.c"
 
-#define SCREEN_WIDTH  608         //taille de l'écran changée
+#define SCREEN_WIDTH  608   
 #define SCREEN_HEIGHT 480
 #define SPRITE_SIZE    32
 
@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
   /* set sprite position */
   rcSprite.x = 9*SPRITE_SIZE;
   rcSprite.y = 7*SPRITE_SIZE;
-  coordplayerx = 9*SPRITE_SIZE;                  //creation de 2 variables coordx et y du player
+  coordplayerx = 9*SPRITE_SIZE;   
   coordplayery = 7*SPRITE_SIZE;
 
   

@@ -29,7 +29,7 @@ void move_right();
 void move_left();
 
 //screen printing
-void screen_printing(); //New function
+void screen_printing(); 
 
 
 
@@ -81,7 +81,7 @@ void move_down()
 {
   if(check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)+1))
     {
-      if(rcSprite.y <= SCREEN_HEIGHT - SPRITE_SIZE)
+      if(coordplayerx <= SCREEN_HEIGHT - SPRITE_SIZE)
 	{
 	  int i,j;
 	  for( i=0 ; i<SPRITE_SIZE ; i++)
@@ -126,7 +126,7 @@ void move_right()
 	    {
 	      coordplayerx += 1;
 	      SDL_Delay(2);
-	      screen_printing(); //New 
+	      screen_printing();  
 	    }     
 	  SDL_Delay(150);
 	}
@@ -148,7 +148,7 @@ void move_left()
 	    {
 	      coordplayerx -= 1;
 	      SDL_Delay(2);
-	      screen_printing(); //New
+	      screen_printing(); 
 	    }
 	  SDL_Delay(150);
 	}
@@ -159,7 +159,7 @@ void move_left()
 
 
 
-void screen_printing()        //New  fonction which move the ground, like if the player was moving
+void screen_printing() 
 {
   int i, j, x, y;
   if( (coordplayerx % SPRITE_SIZE) == 0 &&  (coordplayery % SPRITE_SIZE) == 0 )
