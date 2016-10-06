@@ -4,11 +4,13 @@
 #define SCREEN_WIDTH  608   
 #define SCREEN_HEIGHT 480
 #define SPRITE_SIZE    32
-
+#define MAPlength      64
+#define MAPheight      44
 
    /* global variable */
 
-int MAP[2 * (SCREEN_WIDTH/SPRITE_SIZE+1)][2 * (SCREEN_HEIGHT/SPRITE_SIZE+1)];
+
+int MAP[MAPlength][MAPheight];
 SDL_Surface *screen, *temp, *sprite, *grass, *water;
 SDL_Rect rcSprite, rcGrass, rcWater;
 SDL_Event event;
@@ -68,14 +70,6 @@ int main(int argc, char* argv[])
   /* set the MAP */
   
   set_map();
-  
-  /* Test to see if water work */
-  MAP[0][0] = 1; 
-  MAP[0][1] = 1;
-  MAP[0][2] = 1;
-  MAP[0][3] = 1;
-  MAP[1][8] = 1;
-  MAP[3][2] = 1;
   
   for( i=0 ; i < (SCREEN_HEIGHT/SPRITE_SIZE) ; i++)
     {
@@ -138,9 +132,9 @@ int main(int argc, char* argv[])
 	  coordplayerx = 0;
 	}
       
-      else if ( coordplayerx > (2*SCREEN_WIDTH) - SPRITE_SIZE )
+      else if ( coordplayerx > (MAPlength-1) * SPRITE_SIZE )
 	{
-	  coordplayerx = (2*SCREEN_WIDTH) - SPRITE_SIZE;
+	  coordplayerx = (MAPlength-1) * SPRITE_SIZE;
 	}
       
       if ( coordplayery < 0 )
@@ -148,9 +142,9 @@ int main(int argc, char* argv[])
 	  coordplayery = 0;
 	}
       
-      else if ( coordplayery > (2*SCREEN_HEIGHT) - SPRITE_SIZE )
+      else if ( coordplayery > (MAPheight-1) * SPRITE_SIZE )
 	{
-	  coordplayery = (2*SCREEN_HEIGHT)-SPRITE_SIZE;
+	  coordplayery = (MAPheight-1) * SPRITE_SIZE;
 	}
       
       screen_printing();

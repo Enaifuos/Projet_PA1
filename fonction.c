@@ -4,9 +4,11 @@
 #define SCREEN_WIDTH  608
 #define SCREEN_HEIGHT 480
 #define SPRITE_SIZE    32
+#define MAPlength      64
+#define MAPheight      44
 
 
-extern int MAP[2 * (SCREEN_WIDTH/SPRITE_SIZE+1)][2 * (SCREEN_HEIGHT/SPRITE_SIZE+1)];
+extern int MAP[MAPlength][MAPheight];
 extern SDL_Surface *screen, *temp, *sprite, *grass, *water;
 extern SDL_Rect rcSprite, rcGrass, rcWater;
 extern SDL_Event event;
@@ -45,13 +47,19 @@ void screen_printing();
 void set_map()
 {
   int i,j;
-  for( i=0 ; i < 2 * (SCREEN_WIDTH/SPRITE_SIZE) ; i++)
+  for( i=0 ; i < MAPlength ; i++)
     {
-      for( j=0 ; j < 2 * (SCREEN_HEIGHT/SPRITE_SIZE) ; j++)
+      for( j=0 ; j < MAPheight  ; j++)
 	{
 	  MAP[i][j] = 0;
 	}
     }
+  MAP[0][0] = 1; 
+  MAP[0][1] = 1;
+  MAP[0][2] = 1;
+  MAP[0][3] = 1;
+  MAP[1][8] = 1;
+  MAP[3][2] = 1;
   
 }
 
@@ -81,10 +89,10 @@ void move_down()
 {
   if(check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)+1))
     {
-      if(coordplayerx <= SCREEN_HEIGHT - SPRITE_SIZE)
+      if(coordplayery <= (MAPheight-1) *  SPRITE_SIZE)
 	{
 	  int i,j;
-	  for( i=0 ; i<SPRITE_SIZE ; i++)
+	  for( i=0 ; i < SPRITE_SIZE ; i++)
 	    {
 	      coordplayery += 1;
 	      SDL_Delay(2);
@@ -119,7 +127,7 @@ void move_right()
 {
   if(check_move_ground((coordplayerx/SPRITE_SIZE)+1 , coordplayery/SPRITE_SIZE))
     {
-      if(coordplayerx <= SCREEN_WIDTH - SPRITE_SIZE)
+      if(coordplayerx <= (MAPlength-1) * SPRITE_SIZE)
 	{
 	  int i,j;
 	  for( i=0 ; i<SPRITE_SIZE ; i++)
