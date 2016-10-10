@@ -133,6 +133,7 @@ void move_right()
 	  int i;
 	  if( coordplayerx/SPRITE_SIZE >= MAPlength - 10 || coordplayerx/SPRITE_SIZE <= 8 )
 	    {
+	      SDL_Delay(20);
 	      for( i=0 ; i < SPRITE_SIZE ; i++ )
 		{
 		  rcSprite.x += 1;
@@ -168,6 +169,7 @@ void move_left()
 	  int i;
 	  if( coordplayerx/SPRITE_SIZE >= MAPlength - 9  || coordplayerx/SPRITE_SIZE <= 9 ) 
 	    {
+	      SDL_Delay(20);
 	      for( i=0 ; i < SPRITE_SIZE ; i++ )
 		{
 		  rcSprite.x -= 1;
