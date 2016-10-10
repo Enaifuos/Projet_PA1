@@ -31,7 +31,8 @@ void move_right();
 void move_left();
 
 //screen printing
-void screen_printing(); 
+void screen_printing();
+void screen_printing_Pmove();
 
 
 
@@ -127,16 +128,29 @@ void move_right()
 {
   if(check_move_ground((coordplayerx/SPRITE_SIZE)+1 , coordplayery/SPRITE_SIZE))
     {
-      if(coordplayerx <= (MAPlength-1) * SPRITE_SIZE)
+      if( coordplayerx < (MAPlength-1) * SPRITE_SIZE)
 	{
-	  int i,j;
-	  for( i=0 ; i<SPRITE_SIZE ; i++)
+	  int i;
+	  if( coordplayerx/SPRITE_SIZE >= MAPlength - 10 || coordplayerx/SPRITE_SIZE <= 8 )
 	    {
-	      coordplayerx += 1;
-	      SDL_Delay(2);
-	      screen_printing();  
-	    }     
-	  SDL_Delay(150);
+	      for( i=0 ; i < SPRITE_SIZE ; i++ )
+		{
+		  rcSprite.x += 1;
+		  coordplayerx += 1;
+		  SDL_Delay(2);
+		  screen_printing_Pmove();
+		}
+	    }
+	   else
+	    {
+	      for( i=0 ; i < SPRITE_SIZE ; i++ )
+		{
+		  coordplayerx += 1;
+		  SDL_Delay(2);
+		  screen_printing(); 
+		}
+	      SDL_Delay(150);
+	    }	  
 	}
     }
 }
@@ -147,18 +161,31 @@ void move_right()
 
 void move_left()
 {
-  if(check_move_ground((coordplayerx/SPRITE_SIZE)-1 , coordplayery/SPRITE_SIZE))
+  if( check_move_ground((coordplayerx/SPRITE_SIZE)-1 , coordplayery/SPRITE_SIZE) )
     {
-      if(coordplayerx >= SPRITE_SIZE)
+      if( coordplayerx >= SPRITE_SIZE )
 	{
-	  int i,j;
-	  for( i=0 ; i<SPRITE_SIZE ; i++)
+	  int i;
+	  if( coordplayerx/SPRITE_SIZE >= MAPlength - 9  || coordplayerx/SPRITE_SIZE <= 9 ) 
 	    {
-	      coordplayerx -= 1;
-	      SDL_Delay(2);
-	      screen_printing(); 
+	      for( i=0 ; i < SPRITE_SIZE ; i++ )
+		{
+		  rcSprite.x -= 1;
+		  coordplayerx -= 1;
+		  SDL_Delay(2);
+		  screen_printing_Pmove();
+		}
 	    }
-	  SDL_Delay(150);
+	  else
+	    {
+	      for( i=0 ; i < SPRITE_SIZE ; i++ )
+		{
+		  coordplayerx -= 1;
+		  SDL_Delay(2);
+		  screen_printing(); 
+		}
+	      SDL_Delay(150);
+	    }
 	}
     }
 }
@@ -230,4 +257,40 @@ void screen_printing()
       /* update the screen */
       SDL_UpdateRect(screen,0,0,0,0);
     }
+}
+
+
+
+
+void screen_printing_Pmove()
+{
+  int i, j, x, y;
+  
+  /* draw the grass or the water */
+  for( i=0 ; i < SCREEN_WIDTH/SPRITE_SIZE ; i++ )
+    {
+      for( j=0 ; j < SCREEN_HEIGHT/SPRITE_SIZE ; j++ )
+	{
+	  x = (coordplayerx - rcSprite.x)/SPRITE_SIZE + i;
+	  y = (coordplayery - rcSprite.y)/SPRITE_SIZE + j;
+	  if( MAP[x][y] == 0 )
+	    { 
+	      rcGrass.x = i * SPRITE_SIZE;
+	      rcGrass.y = j * SPRITE_SIZE;
+	      SDL_BlitSurface(grass, NULL, screen, &rcGrass);
+	    }
+	  else
+	    {
+	      rcWater.x = i * SPRITE_SIZE;
+	      rcWater.y = j * SPRITE_SIZE;
+	      SDL_BlitSurface(water, NULL, screen, &rcWater);
+	    }
+	}
+    }
+  
+  /* draw the sprite */
+  SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
+  
+  /* update the screen */
+  SDL_UpdateRect(screen,0,0,0,0);
 }
