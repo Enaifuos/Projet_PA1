@@ -48,6 +48,8 @@ void screen_printing_Pmove();
 void set_map()
 {
   int i,j;
+  
+     /* set grass everywhere */  
   for( i=0 ; i < MAPlength ; i++)
     {
       for( j=0 ; j < MAPheight  ; j++)
@@ -55,13 +57,15 @@ void set_map()
 	  MAP[i][j] = 0;
 	}
     }
-  MAP[0][0] = 1; 
-  MAP[0][1] = 1;
-  MAP[0][2] = 1;
-  MAP[0][3] = 1;
-  MAP[1][8] = 1;
-  MAP[3][2] = 1;
-  
+
+     /* set whater */
+  for( j=1 ; j < 3 ; j++ )
+    {
+      for( i=0 ; i < MAPlength ; i++ )
+	{
+	  MAP[i][MAPheight-j] = 1;
+	}
+    }
 }
 
 
@@ -93,7 +97,7 @@ void move_down()
       if(coordplayery <= (MAPheight-1) *  SPRITE_SIZE)
 	{
 	  int i;
-	  if( coordplayery/SPRITE_SIZE > MAPheight - 7 || coordplayery/SPRITE_SIZE <= 6 )
+	  if( coordplayery/SPRITE_SIZE > MAPheight - 9 || coordplayery/SPRITE_SIZE <= 6 )
 	    {
 	      for( i=0 ; i<SPRITE_SIZE ; i++ )
 		{
