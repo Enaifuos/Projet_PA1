@@ -31,7 +31,7 @@ void move_right();
 void move_left();
 
 //screen printing
-void screen_printing();
+void screen_printing_Gmove();
 void screen_printing_Pmove();
 
 
@@ -92,14 +92,27 @@ void move_down()
     {
       if(coordplayery <= (MAPheight-1) *  SPRITE_SIZE)
 	{
-	  int i,j;
-	  for( i=0 ; i < SPRITE_SIZE ; i++)
+	  int i;
+	  if( coordplayery/SPRITE_SIZE > MAPheight - 7 || coordplayery/SPRITE_SIZE <= 6 )
 	    {
-	      coordplayery += 1;
-	      SDL_Delay(2);
-	      screen_printing();
+	      for( i=0 ; i<SPRITE_SIZE ; i++ )
+		{
+		  rcSprite.y += 1;
+		  coordplayery += 1;
+		  SDL_Delay(2);
+		  screen_printing_Pmove();
+		}
 	    }
-	  SDL_Delay(150);
+	  else
+	    {
+	      for( i=0 ; i < SPRITE_SIZE ; i++)
+		{
+		  coordplayery += 1;
+		  SDL_Delay(2);
+		  screen_printing_Gmove();
+		}
+	      SDL_Delay(150);
+	    }
 	}
     }
 }
@@ -108,18 +121,31 @@ void move_down()
 
 void move_up()
 {
-  if(check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)-1))
+  if( check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)-1))
     {
       if(coordplayery >= SPRITE_SIZE)
 	{
-	  int i,j;
-	  for( i=0 ; i<SPRITE_SIZE ; i++)
+	  int i;
+	  if( coordplayery/SPRITE_SIZE > MAPheight - 8 || coordplayery/SPRITE_SIZE <= 8 )
 	    {
-	      coordplayery -= 1;
-	      SDL_Delay(2);
-	      screen_printing();
+	      for( i=0 ; i<SPRITE_SIZE ; i++ )
+		{
+		  rcSprite.y -= 1;
+		  coordplayery -= 1;
+		  SDL_Delay(2);
+		  screen_printing_Pmove();
+		}
 	    }
-	  SDL_Delay(150);
+	  else
+	    {
+	      for( i=0 ; i<SPRITE_SIZE ; i++)
+		{
+		  coordplayery -= 1;
+		  SDL_Delay(2);
+		  screen_printing_Gmove();
+		}
+	      SDL_Delay(150);
+	    }
 	}
     }
 }
@@ -148,7 +174,7 @@ void move_right()
 		{
 		  coordplayerx += 1;
 		  SDL_Delay(2);
-		  screen_printing(); 
+		  screen_printing_Gmove(); 
 		}
 	      SDL_Delay(150);
 	    }	  
@@ -184,7 +210,7 @@ void move_left()
 		{
 		  coordplayerx -= 1;
 		  SDL_Delay(2);
-		  screen_printing(); 
+		  screen_printing_Gmove(); 
 		}
 	      SDL_Delay(150);
 	    }
@@ -196,7 +222,7 @@ void move_left()
 
 
 
-void screen_printing() 
+void screen_printing_Gmove() 
 {
   int i, j, x, y;
   if( (coordplayerx % SPRITE_SIZE) == 0 &&  (coordplayery % SPRITE_SIZE) == 0 )

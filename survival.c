@@ -147,7 +147,7 @@ int main(int argc, char* argv[])
 	  coordplayery = (MAPheight-1) * SPRITE_SIZE;
 	}
       
-      screen_printing();
+      screen_printing_Gmove();
     }
   
   /* clean up */
