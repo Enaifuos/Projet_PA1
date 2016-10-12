@@ -1,5 +1,5 @@
 #include "SDL.h"
-
+#include "setting.c" // NEW
 
 #define SCREEN_WIDTH  608
 #define SCREEN_HEIGHT 480
@@ -20,9 +20,6 @@ extern int coordplayerx, coordplayery;
 
 /*---Prototypes---*/
 
-//setting
-void set_map();
-
 //movement
 int check_move_ground(int x, int y);
 void move_down();
@@ -30,9 +27,14 @@ void move_up();
 void move_right();
 void move_left();
 
+
+//action in the game
+void you_loose(); //NEW
+
+
 //screen printing
-void screen_printing_Gmove();
-void screen_printing_Pmove();
+void screen_printing_Gmove(); //NEW
+void screen_printing_Pmove(); //NEW
 
 
 
@@ -43,42 +45,10 @@ void screen_printing_Pmove();
 
 
 
-/*-----function------*/
-
-void set_map()
-{
-  int i,j;
-  
-     /* set grass everywhere */  
-  for( i=0 ; i < MAPlength ; i++)
-    {
-      for( j=0 ; j < MAPheight  ; j++)
-	{
-	  MAP[i][j] = 0;
-	}
-    }
-
-     /* set whater */
-  for( j=1 ; j < 3 ; j++ )
-    {
-      for( i=0 ; i < MAPlength ; i++ )
-	{
-	  MAP[i][MAPheight-j] = 1;
-	}
-    }
-}
+   /*-----function------*/
 
 
-
-
-
-
-
-
-
-
-
-//-----movement
+   /*-----movement-----*/
 int check_move_ground(int x, int y)
 {
   int res = 1;
@@ -224,6 +194,51 @@ void move_left()
 
 
 
+
+
+
+
+
+
+
+
+/*--------action in the game---------*/
+
+
+void you_loose()
+{
+  printf("**********\n YOU LOSE\n**********\n");
+  set_map();
+  set_position();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*---------screen printing ----------*/
 
 
 void screen_printing_Gmove() 
