@@ -28,6 +28,14 @@ void move_right();
 void move_left();
 
 
+//drawing
+void draw_grass(int i, int j); // NEW
+void draw_water(int i, int j);
+void draw_sand(int i, int j);
+void draw_tree(int i, int j);
+void draw_groundland(int i, int j );
+
+
 //action in the game
 void you_loose(); //NEW
 
@@ -100,7 +108,7 @@ void move_up()
       if(coordplayery >= SPRITE_SIZE)
 	{
 	  int i;
-	  if( coordplayery/SPRITE_SIZE > MAPheight - 8 || coordplayery/SPRITE_SIZE <= 8 )
+	  if( coordplayery/SPRITE_SIZE > MAPheight - 8 || coordplayery/SPRITE_SIZE <= 7 )
 	    {
 	      for( i=0 ; i<SPRITE_SIZE ; i++ )
 		{
@@ -228,6 +236,42 @@ void you_loose()
 
 
 
+/*--------- draw ----------*/
+
+void draw_grass(int i, int j)
+{
+   rcGrass.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+   rcGrass.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+   SDL_BlitSurface(grass, NULL, screen, &rcGrass);
+}
+
+void draw_water(int i, int j)
+{
+  rcWater.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+  rcWater.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+  SDL_BlitSurface(water, NULL, screen, &rcWater);
+}
+
+void draw_sand(int i, int j)
+{
+  rcSand.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE); 
+  rcSand.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+  SDL_BlitSurface(sand, NULL, screen, &rcSand);
+}
+
+void draw_tree(int i, int j)
+{
+  rcTree.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+  rcTree.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+  SDL_BlitSurface(tree, NULL, screen, &rcTree);
+}
+
+void draw_groundland(int i, int j)
+{
+  rcGround_land.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+  rcGround_land.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+  SDL_BlitSurface(ground_land, NULL, screen, &rcGround_land);
+}
 
 
 
@@ -238,7 +282,14 @@ void you_loose()
 
 
 
-/*---------screen printing ----------*/
+
+
+
+
+
+
+
+/*--------- screen printing ----------*/
 
 
 void screen_printing_Gmove() 
@@ -246,7 +297,7 @@ void screen_printing_Gmove()
   int i, j, x, y;
   if( (coordplayerx % SPRITE_SIZE) == 0 &&  (coordplayery % SPRITE_SIZE) == 0 )
     {
-      /* draw the grass or the water */
+      /* draw the grass, water, sand, and tree */
       for( i=0 ; i < SCREEN_WIDTH/SPRITE_SIZE ; i++ )
 	{
 	  for( j=0 ; j < SCREEN_HEIGHT/SPRITE_SIZE ; j++ )
@@ -255,31 +306,24 @@ void screen_printing_Gmove()
 	      y = (coordplayery - rcSprite.y)/SPRITE_SIZE + j;
 	      if( MAP[x][y] == 0 )
 		{ 
-		  rcGrass.x = i * SPRITE_SIZE;
-		  rcGrass.y = j * SPRITE_SIZE;
-		  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
+		  draw_grass(i , j);
 		}
 	      if( MAP[x][y] == 1)
 		{
-		  rcWater.x = i * SPRITE_SIZE;
-		  rcWater.y = j * SPRITE_SIZE;
-		  SDL_BlitSurface(water, NULL, screen, &rcWater);
+		  draw_water(i , j);
 		}
-	      if( MAP[x][y] == 2){
-		rcSand.x = i * SPRITE_SIZE;
-		rcSand.y = j * SPRITE_SIZE;
-		SDL_BlitSurface(sand, NULL, screen, &rcSand);
-	      }
-	      if( MAP[x][y] == 3){
-		rcTree.x = i * SPRITE_SIZE;
-		rcTree.y = j * SPRITE_SIZE;
-		SDL_BlitSurface(tree, NULL, screen, &rcTree);
-	      }
-	      if( MAP[x][y] == 4){
-		rcGround_land.x = i * SPRITE_SIZE;
-		rcGround_land.y = j * SPRITE_SIZE;
-		SDL_BlitSurface(ground_land, NULL, screen, &rcGround_land);
-	      }
+	      if( MAP[x][y] == 2)
+		{
+		  draw_sand(i ,  j);
+		}
+	      if( MAP[x][y] == 3)
+		{
+		  draw_tree(i , j);
+		}
+	      if( MAP[x][y] == 4)
+		{
+		  draw_groundland(i , j);
+		}
 	    }
 	}
       
@@ -300,34 +344,24 @@ void screen_printing_Gmove()
 	      y = (coordplayery - rcSprite.y) / SPRITE_SIZE +j;
 	      if( MAP[x][y] == 0 )
 		{ 
-		  rcGrass.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
-		  rcGrass.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
-		  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
-		}
-	      if( MAP[x][y] == 2 )
-		{ 
-		  rcSand.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
-		  rcSand.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
-		  SDL_BlitSurface(sand, NULL, screen, &rcSand);
-		}
-	      if( MAP[x][y] == 3)
-		{
-		  rcTree.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
-		  rcTree.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
-		  SDL_BlitSurface(tree, NULL, screen, &rcTree);
-		}
-	      if( MAP[x][y] == 4)
-		{
-		  rcGround_land.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
-		  rcGround_land.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
-		  SDL_BlitSurface(ground_land, NULL, screen, &rcGround_land);
+		  draw_grass(i , j);
 		}
 	      if( MAP[x][y] == 1)
 		{
-		  rcWater.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
-		  rcWater.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
-		  SDL_BlitSurface(water, NULL, screen, &rcWater);
+		  draw_water(i , j);
 		}
+	      if( MAP[x][y] == 2 )
+		{ 
+		  draw_sand(i , j);
+		}
+	      if( MAP[x][y] == 3)
+		{
+		  draw_tree(i , j);
+		}
+	      if( MAP[x][y] == 4)
+		{
+		  draw_groundland(i , j);
+		}	      
 	    }
 	}
       
@@ -355,34 +389,24 @@ void screen_printing_Pmove()
 	  y = (coordplayery - rcSprite.y)/SPRITE_SIZE + j;
 	  if( MAP[x][y] == 0 )
 	    { 
-	      rcGrass.x = i * SPRITE_SIZE;
-	      rcGrass.y = j * SPRITE_SIZE;
-	      SDL_BlitSurface(grass, NULL, screen, &rcGrass);
+	      draw_grass(i , j);
 	    }
 	  if( MAP[x][y] == 1)
 	    {
-	      rcWater.x = i * SPRITE_SIZE;
-	      rcWater.y = j * SPRITE_SIZE;
-	      SDL_BlitSurface(water, NULL, screen, &rcWater);
+	      draw_water(i , j);
 	    }
 	  if( MAP[x][y] == 2)
 	    {
-	      rcSand.x = i * SPRITE_SIZE;
-	      rcSand.y = j * SPRITE_SIZE;
-	      SDL_BlitSurface(sand, NULL, screen, &rcSand);
+	      draw_sand(i , j);
 	    }
 	  if( MAP[x][y] == 3)
 	    {
-	      rcTree.x = i * SPRITE_SIZE;
-	      rcTree.y = j * SPRITE_SIZE;
-	      SDL_BlitSurface(tree, NULL, screen, &rcTree);
+	      draw_tree(i , j);
 	    }
-	   if( MAP[x][y] == 4 )
-		{ 
-		  rcGround_land.x = i * SPRITE_SIZE ;
-		  rcGround_land.y = j * SPRITE_SIZE ;
-		  SDL_BlitSurface(ground_land, NULL, screen, &rcGround_land);
-		}
+	  if( MAP[x][y] == 4 )
+	    { 
+	      draw_groundland(i , j);
+	    }
 	}
     }
   
