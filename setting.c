@@ -36,6 +36,9 @@ void set_map()
 	  MAP[i][MAPheight-j] = 1;
 	}
     }
+  MAP[2][3] = 2 ;
+  MAP[2][4] = 3 ;
+  MAP[2][5] = 4 ;
 }
 
 

@@ -9,8 +9,8 @@
 
 
 extern int MAP[MAPlength][MAPheight];
-extern SDL_Surface *screen, *temp, *sprite, *grass, *water;
-extern SDL_Rect rcSprite, rcGrass, rcWater;
+extern SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *ground_land;
+extern SDL_Rect rcSprite, rcGrass, rcWater, rcSand, rcTree, rcGround_land ;
 extern SDL_Event event;
 extern Uint8 *keystate;
 extern int colorkey, gameover;
@@ -259,12 +259,27 @@ void screen_printing_Gmove()
 		  rcGrass.y = j * SPRITE_SIZE;
 		  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
 		}
-	      else
+	      if( MAP[x][y] == 1)
 		{
 		  rcWater.x = i * SPRITE_SIZE;
 		  rcWater.y = j * SPRITE_SIZE;
 		  SDL_BlitSurface(water, NULL, screen, &rcWater);
 		}
+	      if( MAP[x][y] == 2){
+		rcSand.x = i * SPRITE_SIZE;
+		rcSand.y = j * SPRITE_SIZE;
+		SDL_BlitSurface(sand, NULL, screen, &rcSand);
+	      }
+	      if( MAP[x][y] == 3){
+		rcTree.x = i * SPRITE_SIZE;
+		rcTree.y = j * SPRITE_SIZE;
+		SDL_BlitSurface(tree, NULL, screen, &rcTree);
+	      }
+	      if( MAP[x][y] == 4){
+		rcGround_land.x = i * SPRITE_SIZE;
+		rcGround_land.y = j * SPRITE_SIZE;
+		SDL_BlitSurface(ground_land, NULL, screen, &rcGround_land);
+	      }
 	    }
 	}
       
@@ -289,7 +304,25 @@ void screen_printing_Gmove()
 		  rcGrass.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
 		  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
 		}
-	      else
+	      if( MAP[x][y] == 2 )
+		{ 
+		  rcSand.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+		  rcSand.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+		  SDL_BlitSurface(sand, NULL, screen, &rcSand);
+		}
+	      if( MAP[x][y] == 3)
+		{
+		  rcTree.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+		  rcTree.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+		  SDL_BlitSurface(tree, NULL, screen, &rcTree);
+		}
+	      if( MAP[x][y] == 4)
+		{
+		  rcGround_land.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+		  rcGround_land.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+		  SDL_BlitSurface(ground_land, NULL, screen, &rcGround_land);
+		}
+	      if( MAP[x][y] == 1)
 		{
 		  rcWater.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
 		  rcWater.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
@@ -326,12 +359,30 @@ void screen_printing_Pmove()
 	      rcGrass.y = j * SPRITE_SIZE;
 	      SDL_BlitSurface(grass, NULL, screen, &rcGrass);
 	    }
-	  else
+	  if( MAP[x][y] == 1)
 	    {
 	      rcWater.x = i * SPRITE_SIZE;
 	      rcWater.y = j * SPRITE_SIZE;
 	      SDL_BlitSurface(water, NULL, screen, &rcWater);
 	    }
+	  if( MAP[x][y] == 2)
+	    {
+	      rcSand.x = i * SPRITE_SIZE;
+	      rcSand.y = j * SPRITE_SIZE;
+	      SDL_BlitSurface(sand, NULL, screen, &rcSand);
+	    }
+	  if( MAP[x][y] == 3)
+	    {
+	      rcTree.x = i * SPRITE_SIZE;
+	      rcTree.y = j * SPRITE_SIZE;
+	      SDL_BlitSurface(tree, NULL, screen, &rcTree);
+	    }
+	   if( MAP[x][y] == 4 )
+		{ 
+		  rcGround_land.x = i * SPRITE_SIZE ;
+		  rcGround_land.y = j * SPRITE_SIZE ;
+		  SDL_BlitSurface(ground_land, NULL, screen, &rcGround_land);
+		}
 	}
     }
   

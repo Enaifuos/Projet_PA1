@@ -11,8 +11,8 @@
 
 
 int MAP[MAPlength][MAPheight];
-SDL_Surface *screen, *temp, *sprite, *grass, *water;
-SDL_Rect rcSprite, rcGrass, rcWater;
+SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *ground_land;
+SDL_Rect rcSprite, rcGrass, rcWater, rcTree, rcGround_land, rcSand ;
 SDL_Event event;
 Uint8 *keystate;
 int colorkey, gameover;
@@ -56,6 +56,22 @@ int main(int argc, char* argv[])
 	/* load water */
   temp = SDL_LoadBMP("water2.bmp");
   water = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  
+       /* load sand  */
+  temp = SDL_LoadBMP("sand.bmp");
+  sand = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+       /* load tree */
+  temp = SDL_LoadBMP("tree.bmp");
+  tree = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+      /* load ground_land  */
+  temp = SDL_LoadBMP("ground_land.bmp");
+  ground_land = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
   
   /* set sprite position */
@@ -154,6 +170,9 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(sprite);
   SDL_FreeSurface(grass);
   SDL_FreeSurface(water);
+  SDL_FreeSurface(sand);
+  SDL_FreeSurface(sand);
+  SDL_FreeSurface(ground_land);
   SDL_Quit();
   
   return 0;
