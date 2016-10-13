@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(temp);
   
 	/* load water */
-  temp = SDL_LoadBMP("water2.bmp");
+  temp = SDL_LoadBMP("water.bmp");
   water = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
@@ -87,14 +87,6 @@ int main(int argc, char* argv[])
   
   set_map();
   
-  for( i=0 ; i < (SCREEN_HEIGHT/SPRITE_SIZE) ; i++)
-    {
-      for( j=0 ; j < (SCREEN_WIDTH/SPRITE_SIZE) ; j++)
-	{
-	  printf("%d ",MAP[j][i]);
-	}
-      printf("\n");
-    }
   /* message pump */
   while (!gameover)
     {

@@ -28,16 +28,28 @@ void move_right();
 void move_left();
 
 
+
 //drawing
-void draw_grass(int i, int j); // NEW
-void draw_water(int i, int j);
-void draw_sand(int i, int j);
-void draw_tree(int i, int j);
-void draw_groundland(int i, int j );
+void draw_grassGM(int i, int j);
+void draw_grassPM(int i, int j);
+
+void draw_waterGM(int i, int j);
+void draw_waterPM(int i, int j);
+
+void draw_sandGM(int i, int j);
+void draw_sandPM(int i, int j);
+
+void draw_treeGM(int i, int j);
+void draw_treePM(int i, int j);
+
+void draw_groundlandGM(int i, int j);
+void draw_groundlandPM(int i, int j);
+
 
 
 //action in the game
 void you_loose(); //NEW
+
 
 
 //screen printing
@@ -93,7 +105,7 @@ void move_down()
 		  SDL_Delay(2);
 		  screen_printing_Gmove();
 		}
-	      SDL_Delay(150);
+	      //  SDL_Delay(150);
 	    }
 	}
     }
@@ -126,7 +138,7 @@ void move_up()
 		  SDL_Delay(2);
 		  screen_printing_Gmove();
 		}
-	      SDL_Delay(150);
+	      //	      SDL_Delay(150);
 	    }
 	}
     }
@@ -158,7 +170,7 @@ void move_right()
 		  SDL_Delay(2);
 		  screen_printing_Gmove(); 
 		}
-	      SDL_Delay(150);
+	      //     SDL_Delay(150);
 	    }	  
 	}
     }
@@ -194,7 +206,7 @@ void move_left()
 		  SDL_Delay(2);
 		  screen_printing_Gmove(); 
 		}
-	      SDL_Delay(150);
+	      //	      SDL_Delay(150);
 	    }
 	}
     }
@@ -238,40 +250,94 @@ void you_loose()
 
 /*--------- draw ----------*/
 
-void draw_grass(int i, int j)
+void draw_grassPM(int i, int j)
 {
-   rcGrass.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
-   rcGrass.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+  rcGrass.x = i * SPRITE_SIZE;
+  rcGrass.y = j * SPRITE_SIZE;
    SDL_BlitSurface(grass, NULL, screen, &rcGrass);
 }
 
-void draw_water(int i, int j)
+void draw_grassGM(int i, int j)
+{
+  rcGrass.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+  rcGrass.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+   SDL_BlitSurface(grass, NULL, screen, &rcGrass);
+}
+
+
+//-----------------------------------
+
+
+void draw_waterPM(int i, int j)
+{
+  rcWater.x = i * SPRITE_SIZE;
+  rcWater.y = j * SPRITE_SIZE;
+  SDL_BlitSurface(water, NULL, screen, &rcWater);
+}
+
+void draw_waterGM(int i, int j)
 {
   rcWater.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
   rcWater.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
   SDL_BlitSurface(water, NULL, screen, &rcWater);
 }
 
-void draw_sand(int i, int j)
+
+//-----------------------------------
+
+
+
+void draw_sandPM(int i, int j)
+{
+  rcSand.x = i * SPRITE_SIZE;
+  rcSand.y = j * SPRITE_SIZE;
+  SDL_BlitSurface(sand, NULL, screen, &rcSand);
+}
+
+void draw_sandGM(int i, int j)
 {
   rcSand.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE); 
   rcSand.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
   SDL_BlitSurface(sand, NULL, screen, &rcSand);
 }
 
-void draw_tree(int i, int j)
+
+//-----------------------------------
+
+
+void draw_treePM(int i, int j)
+{
+  rcTree.x = i * SPRITE_SIZE;
+  rcTree.y = j * SPRITE_SIZE;
+  SDL_BlitSurface(tree, NULL, screen, &rcTree);
+}
+
+void draw_treeGM(int i, int j)
 {
   rcTree.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
   rcTree.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
   SDL_BlitSurface(tree, NULL, screen, &rcTree);
 }
 
-void draw_groundland(int i, int j)
+
+//-----------------------------------
+
+
+void draw_groundlandPM(int i, int j)
+{
+  rcGround_land.x = i * SPRITE_SIZE;
+  rcGround_land.y = j * SPRITE_SIZE;
+  SDL_BlitSurface(ground_land, NULL, screen, &rcGround_land);
+}
+
+void draw_groundlandGM(int i, int j)
 {
   rcGround_land.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
   rcGround_land.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
   SDL_BlitSurface(ground_land, NULL, screen, &rcGround_land);
 }
+
+
 
 
 
@@ -306,23 +372,23 @@ void screen_printing_Gmove()
 	      y = (coordplayery - rcSprite.y)/SPRITE_SIZE + j;
 	      if( MAP[x][y] == 0 )
 		{ 
-		  draw_grass(i , j);
+		  draw_grassGM(i , j);
 		}
 	      if( MAP[x][y] == 1)
 		{
-		  draw_water(i , j);
+		  draw_waterGM(i , j);
 		}
 	      if( MAP[x][y] == 2)
 		{
-		  draw_sand(i ,  j);
+		  draw_sandGM(i ,  j);
 		}
 	      if( MAP[x][y] == 3)
 		{
-		  draw_tree(i , j);
+		  draw_treeGM(i , j);
 		}
 	      if( MAP[x][y] == 4)
 		{
-		  draw_groundland(i , j);
+		  draw_groundlandGM(i , j);
 		}
 	    }
 	}
@@ -344,23 +410,23 @@ void screen_printing_Gmove()
 	      y = (coordplayery - rcSprite.y) / SPRITE_SIZE +j;
 	      if( MAP[x][y] == 0 )
 		{ 
-		  draw_grass(i , j);
+		  draw_grassGM(i , j);
 		}
 	      if( MAP[x][y] == 1)
 		{
-		  draw_water(i , j);
+		  draw_waterGM(i , j);
 		}
 	      if( MAP[x][y] == 2 )
 		{ 
-		  draw_sand(i , j);
+		  draw_sandGM(i , j);
 		}
 	      if( MAP[x][y] == 3)
 		{
-		  draw_tree(i , j);
+		  draw_treeGM(i , j);
 		}
 	      if( MAP[x][y] == 4)
 		{
-		  draw_groundland(i , j);
+		  draw_groundlandGM(i , j);
 		}	      
 	    }
 	}
@@ -389,23 +455,23 @@ void screen_printing_Pmove()
 	  y = (coordplayery - rcSprite.y)/SPRITE_SIZE + j;
 	  if( MAP[x][y] == 0 )
 	    { 
-	      draw_grass(i , j);
+	      draw_grassPM(i , j);
 	    }
 	  if( MAP[x][y] == 1)
 	    {
-	      draw_water(i , j);
+	      draw_waterPM(i , j);
 	    }
 	  if( MAP[x][y] == 2)
 	    {
-	      draw_sand(i , j);
+	      draw_sandPM(i , j);
 	    }
 	  if( MAP[x][y] == 3)
 	    {
-	      draw_tree(i , j);
+	      draw_treePM(i , j);
 	    }
 	  if( MAP[x][y] == 4 )
 	    { 
-	      draw_groundland(i , j);
+	      draw_groundlandPM(i , j);
 	    }
 	}
     }

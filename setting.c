@@ -36,9 +36,28 @@ void set_map()
 	  MAP[i][MAPheight-j] = 1;
 	}
     }
-  MAP[2][3] = 2 ;
-  MAP[2][4] = 3 ;
-  MAP[2][5] = 4 ;
+  for( i=0 ; i<MAPheight-2 ; i++)
+    {
+      MAP[0][i] = 1;
+    }
+  // Draw two columns of sand 
+  for ( i=0 ; i < MAPheight-2 ; i++)
+    {
+      MAP[1][i] = 2;
+      MAP[2][i] = 2;
+    }
+  // Draw three columns of trees
+  for( i=0 ; i < 7 ; i++)
+    {
+      MAP[3][i] = 3;
+      MAP[4][i] = 3;
+      MAP[5][i] = 3;
+    }
+  // Completting drawin trees columns with just two trees each line 
+  for ( i=7 ; i < MAPheight-2 ; i++){
+    MAP[3][i] = 3;
+    MAP[4][i] = 3;
+  }
 }
 
 
