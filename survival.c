@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
   ground_land = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
   
-
+  /* ********************************* Mes changements commence ici ******************************/
   /* load waterfall 1  */
   temp = SDL_LoadBMP("cascade1.bmp");
   cascade1 = SDL_DisplayFormat(temp);
@@ -123,7 +123,7 @@ int main(int argc, char* argv[])
   temp = SDL_LoadBMP("cascade12.bmp");
   cascade12 = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
-
+  /********************************* Et finissent ici ************************************************/
 
   /* set sprite position */
   rcSprite.x = 9*SPRITE_SIZE;

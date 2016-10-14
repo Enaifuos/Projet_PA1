@@ -389,7 +389,8 @@ void screen_printing_Gmove()
 	      if( MAP[x][y] == 4)
 		{
 		  draw_groundlandGM(i , j);
-		}
+		}          
+	      /************************* Mes changements commencent ici ***********************/
 	      if( MAP[x][y] == 11) 
 		{
 		  rcC1.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
@@ -460,6 +461,7 @@ void screen_printing_Gmove()
 		  }
 	    }
 	}
+      /*********************** ET finissent ici *************************************/
       
       /* draw the sprite */
       SDL_BlitSurface(sprite, NULL, screen, &rcSprite);

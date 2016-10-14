@@ -1,5 +1,4 @@
-#include "SDL.h" //ALL IS NEW
-
+#include "SDL.h" 
 #define MAPlength      64
 #define MAPheight      44
 #define SPRITE_SIZE    32
@@ -42,7 +41,7 @@ void set_map()
     }
 
 
-    // Mes ajouts commencent d'ici  : Mise en place de la MAP " manuellement "
+  /*  *************************** Mes ajouts commencent d'ici  : Mise en place de la MAP " manuellement " *************** */
 
   // Draw two columns of sand              
   for ( i=0 ; i < MAPheight-2 ; i++)
@@ -79,7 +78,7 @@ void set_map()
   }
 
 
-
+ 
  
   // Drawing the trees 
   MAP[5][39] = MAP[5][38] = MAP[6][38] = MAP[6][39] = MAP[7][38] = MAP[7][39] = MAP[6][37] = MAP[7][37] = MAP[7][36]  =  MAP[6][7] = MAP[5][7] = 3 ;
@@ -116,7 +115,7 @@ void set_map()
 }
 
 
-
+/***************************** ET finissent ici ****************************************************/
 
 
 
