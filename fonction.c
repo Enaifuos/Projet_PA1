@@ -392,66 +392,64 @@ void screen_printing_Gmove()
 		}
 	      if( MAP[x][y] == 11) 
 		{
-		  rcC1.x = i * SPRITE_SIZE;
-		  rcC1.y = j * SPRITE_SIZE;
+		  rcC1.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+		  rcC1.y = j * SPRITE_SIZE- (coordplayery % SPRITE_SIZE)  ;
 		  SDL_BlitSurface(cascade1, NULL, screen, &rcC1);
 		}
 	      if (MAP[x][y] == 12)
 		{
-		  rcC2.x = i * SPRITE_SIZE;
-		  rcC2.y = j * SPRITE_SIZE;
+		  rcC2.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+		  rcC2.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE) ;
 		  SDL_BlitSurface(cascade2, NULL, screen, &rcC2);  
 		}
 	        if (MAP[x][y] == 13)
 		{
-		  rcC3.x = i * SPRITE_SIZE;
-		  rcC3.y = j * SPRITE_SIZE;
+		  rcC3.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+		  rcC3.y = j * SPRITE_SIZE- (coordplayery % SPRITE_SIZE)  ;
 		  SDL_BlitSurface(cascade3, NULL, screen, &rcC3);  
 		}
 		if (MAP[x][y] == 14)
 		{
-		  rcC4.x = i * SPRITE_SIZE;
-		  rcC4.y = j * SPRITE_SIZE;
+		  rcC4.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+		  rcC4.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE) ;
 		  SDL_BlitSurface(cascade4, NULL, screen, &rcC4);  
 		}
 		if (MAP[x][y] == 15)
 		{
-		  rcC5.x = i * SPRITE_SIZE;
-		  rcC5.y = j * SPRITE_SIZE;
+		  rcC5.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+		  rcC5.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE) ;
 		  SDL_BlitSurface(cascade5, NULL, screen, &rcC5);  
 		}
 		if (MAP[x][y] == 16)
 		{
-		  rcC6.x = i * SPRITE_SIZE;
-		  rcC6.y = j * SPRITE_SIZE;
-		  SDL_BlitSurface(cascade6, NULL, screen, &rcC6);  
+		 
 		}
 		if (MAP[x][y] == 17)
 		  {
-		    rcC7.x = i * SPRITE_SIZE;
-		    rcC7.y = i * SPRITE_SIZE;
+		    rcC7.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+		    rcC7.y = i * SPRITE_SIZE - (coordplayery % SPRITE_SIZE) ;
 		    SDL_BlitSurface(cascade7, NULL , screen , &rcC7);
 		  }
 		if (MAP[x][y] == 18)
 		{
-		  rcC8.x = i * SPRITE_SIZE;
-		  rcC8.y = j * SPRITE_SIZE;
+		  rcC8.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+		  rcC8.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE) ;
 		  SDL_BlitSurface(cascade8, NULL, screen, &rcC8);  
 		}
 		if (MAP[x][y] == 19)
 		{
-		  rcC9.x = i * SPRITE_SIZE;
-		  rcC9.y = j * SPRITE_SIZE;
+		  rcC9.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+		  rcC9.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE) ;
 		  SDL_BlitSurface(cascade9, NULL, screen, &rcC9);  
 		} 
 		if( MAP[x][y] == 20){
-		  rcC10.x = i * SPRITE_SIZE;
-		  rcC10.y = j * SPRITE_SIZE;
+		  rcC10.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+		  rcC10.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE) ;
 		  SDL_BlitSurface(cascade10, NULL, screen, &rcC10); 
 		}
 		if( MAP[x][y] == 21){
-		  rcC11.x = i * SPRITE_SIZE;
-		  rcC11.y = j * SPRITE_SIZE;
+		  rcC11.x = i * SPRITE_SIZE- (coordplayerx % SPRITE_SIZE);
+		  rcC11.y = j * SPRITE_SIZE- (coordplayery % SPRITE_SIZE);
 		  SDL_BlitSurface(cascade11, NULL, screen, &rcC11); 
 		}
 		if( MAP[x][y] == 22)

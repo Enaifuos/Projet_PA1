@@ -109,7 +109,7 @@ void set_map()
   
 
   MAP[13][1] = 18 ;
- 
+
 
   
   MAP [9][8] = 0 ; // A supprimer , juste pour laisser passer le personnage afin de parcourir la map 
