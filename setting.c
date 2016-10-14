@@ -92,6 +92,48 @@ void set_map()
   MAP[8][6] =  MAP[9][6] =   MAP[8][7] =  MAP[9][7] = 0  ;
 
 
+  // Drawing the cascade cavern
+  MAP[10][0] = 11 ;
+  for(i = 11 ; i < 20 ; i++)
+    {
+      MAP[i][0] = 12 ;
+    }
+  MAP[20][0] = 13 ;
+  
+  for (i = 10 ; i < 21 ; i++)
+    {
+      for (j = 1 ; j < 3 ; j++)
+	{
+	  if(i == 10 || i == 20 ){
+	    if(i == 10)
+	      {
+		MAP[i][j] = 14 ;
+	      }
+	    else
+	      {
+		MAP[i][j] = 15 ;
+	      }
+	  }
+	  else
+	    {
+	      MAP[i][j] = 12 ;
+	    }
+	}
+    }
+  MAP[15][1] = 22 ;
+  MAP[14][1] = 22 ;
+  MAP[16][1] = 22 ;
+  
+  for (i = 2 ; i < 5 ; i++ )
+    {
+      for (j = 14 ; j <= 16 ; j++ )
+	{
+	  MAP[j][i] = 18 ;
+	}
+    }
+  MAP[10][3] = 16  ;
+  MAP[20][3] = 17 ;
+
   MAP [9][8] = 0 ; // A supprimer , juste pour laisser passer le personnage afin de parcourir la map 
 }
 

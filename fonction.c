@@ -9,8 +9,8 @@
 
 
 extern int MAP[MAPlength][MAPheight];
-extern SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *ground_land;
-extern SDL_Rect rcSprite, rcGrass, rcWater, rcSand, rcTree, rcGround_land ;
+extern SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *ground_land, *cascade1, *cascade2, *cascade3, *cascade4, *cascade5, *cascade6, *cascade7, *cascade8, *cascade9, *cascade10, *cascade11, *cascade12 ;
+extern SDL_Rect rcSprite, rcGrass, rcWater, rcSand, rcTree, rcGround_land, rcC1, rcC2, rcC3, rcC4, rcC5, rcC6, rcC7, rcC8, rcC9, rcC10, rcC11, rcC12;
 extern SDL_Event event;
 extern Uint8 *keystate;
 extern int colorkey, gameover;
@@ -363,7 +363,7 @@ void screen_printing_Gmove()
   int i, j, x, y;
   if( (coordplayerx % SPRITE_SIZE) == 0 &&  (coordplayery % SPRITE_SIZE) == 0 )
     {
-      /* draw the grass, water, sand, and tree */
+      /* draw the grass, water, sand, tree and ... */
       for( i=0 ; i < SCREEN_WIDTH/SPRITE_SIZE ; i++ )
 	{
 	  for( j=0 ; j < SCREEN_HEIGHT/SPRITE_SIZE ; j++ )
@@ -390,6 +390,76 @@ void screen_printing_Gmove()
 		{
 		  draw_groundlandGM(i , j);
 		}
+	      if( MAP[x][y] == 11) 
+		{
+		  rcC1.x = i * SPRITE_SIZE;
+		  rcC1.y = j * SPRITE_SIZE;
+		  SDL_BlitSurface(cascade1, NULL, screen, &rcC1);
+		}
+	      if (MAP[x][y] == 12)
+		{
+		  rcC2.x = i * SPRITE_SIZE;
+		  rcC2.y = j * SPRITE_SIZE;
+		  SDL_BlitSurface(cascade2, NULL, screen, &rcC2);  
+		}
+	        if (MAP[x][y] == 13)
+		{
+		  rcC3.x = i * SPRITE_SIZE;
+		  rcC3.y = j * SPRITE_SIZE;
+		  SDL_BlitSurface(cascade3, NULL, screen, &rcC3);  
+		}
+		if (MAP[x][y] == 14)
+		{
+		  rcC4.x = i * SPRITE_SIZE;
+		  rcC4.y = j * SPRITE_SIZE;
+		  SDL_BlitSurface(cascade4, NULL, screen, &rcC4);  
+		}
+		if (MAP[x][y] == 15)
+		{
+		  rcC5.x = i * SPRITE_SIZE;
+		  rcC5.y = j * SPRITE_SIZE;
+		  SDL_BlitSurface(cascade5, NULL, screen, &rcC5);  
+		}
+		if (MAP[x][y] == 16)
+		{
+		  rcC6.x = i * SPRITE_SIZE;
+		  rcC6.y = j * SPRITE_SIZE;
+		  SDL_BlitSurface(cascade6, NULL, screen, &rcC6);  
+		}
+		if (MAP[x][y] == 17)
+		  {
+		    rcC7.x = i * SPRITE_SIZE;
+		    rcC7.y = i * SPRITE_SIZE;
+		    SDL_BlitSurface(cascade7, NULL , screen , &rcC7);
+		  }
+		if (MAP[x][y] == 18)
+		{
+		  rcC8.x = i * SPRITE_SIZE;
+		  rcC8.y = j * SPRITE_SIZE;
+		  SDL_BlitSurface(cascade8, NULL, screen, &rcC8);  
+		}
+		if (MAP[x][y] == 19)
+		{
+		  rcC9.x = i * SPRITE_SIZE;
+		  rcC9.y = j * SPRITE_SIZE;
+		  SDL_BlitSurface(cascade9, NULL, screen, &rcC9);  
+		} 
+		if( MAP[x][y] == 20){
+		  rcC10.x = i * SPRITE_SIZE;
+		  rcC10.y = j * SPRITE_SIZE;
+		  SDL_BlitSurface(cascade10, NULL, screen, &rcC10); 
+		}
+		if( MAP[x][y] == 21){
+		  rcC11.x = i * SPRITE_SIZE;
+		  rcC11.y = j * SPRITE_SIZE;
+		  SDL_BlitSurface(cascade11, NULL, screen, &rcC11); 
+		}
+		if( MAP[x][y] == 22)
+		  {
+		     rcC12.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+		     rcC12.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+		     SDL_BlitSurface(cascade12, NULL, screen, &rcC12); 
+		  }
 	    }
 	}
       
@@ -427,7 +497,8 @@ void screen_printing_Gmove()
 	      if( MAP[x][y] == 4)
 		{
 		  draw_groundlandGM(i , j);
-		}	      
+		}	  
+	
 	    }
 	}
       
