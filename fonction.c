@@ -48,7 +48,8 @@ void draw_groundlandPM(int i, int j);
 
 
 //action in the game
-void you_loose(); //NEW
+void you_loose();
+void menu_pause(); //NEW
 
 
 
@@ -71,14 +72,13 @@ void screen_printing_Pmove(); //NEW
    /*-----movement-----*/
 int check_move_ground(int x, int y)
 {
-  int res = 1;
-  if(MAP[x][y])
+  int res = 0;
+  if( MAP[x][y] %2 == 0) // the player can walk on the ground
     {
-      res = 0;
+      res = 1;
     }
   return res;
 }
-
 
 void move_down()
 {
@@ -230,6 +230,38 @@ void you_loose()
   printf("**********\n YOU LOSE\n**********\n");
   set_map();
   set_position();
+}
+
+void menu_pause() //A finir
+{
+  int pause = 1;
+  while(pause)
+    {
+      if (SDL_PollEvent(&event))
+	{
+	  switch (event.type)
+	    {
+	      /* close the menu */
+	    case SDL_QUIT:
+	      pause = 0;
+	      break;
+	      
+	      /* move the selection case */
+	    case SDL_KEYDOWN:
+	      switch (event.key.keysym.sym) 
+		{
+		case SDLK_ESCAPE:
+		case SDLK_q:
+		  pause = 0;
+		  break;
+		case SDLK_DOWN:
+		  
+		}
+	      break;
+	    }
+	}
+      
+    } 
 }
 
 

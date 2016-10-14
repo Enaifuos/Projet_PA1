@@ -73,59 +73,68 @@ int main(int argc, char* argv[])
   temp = SDL_LoadBMP("ground_land.bmp");
   ground_land = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
-  
-  /* ********************************* Mes changements commence ici ******************************/
-  /* load waterfall 1  */
+    
+      /* load waterfall 1  */
   temp = SDL_LoadBMP("cascade1.bmp");
   cascade1 = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
-  /* load waterfall 2 */
+
+      /* load waterfall 2 */
   temp = SDL_LoadBMP("cascade2.bmp");
   cascade2 = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
-  /* load waterfall 3 */
+
+      /* load waterfall 3 */
   temp = SDL_LoadBMP("cascade3.bmp");
   cascade3 = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
-  /* load waterfall 4 */
+
+      /* load waterfall 4 */
   temp = SDL_LoadBMP("cascade4.bmp");
   cascade4 = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
-  /* load waterfall 5 */
+
+      /* load waterfall 5 */
   temp = SDL_LoadBMP("cascade5.bmp");
   cascade5 = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
-  /* load waterfall 6 */
+
+      /* load waterfall 6 */
   temp = SDL_LoadBMP("cascade6.bmp");
   cascade6 = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
-  /* load waterfall 7 */
+
+      /* load waterfall 7 */
   temp = SDL_LoadBMP("cascade7.bmp");
   cascade7 = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
-  /* load waterfall 8 */
+
+      /* load waterfall 8 */
   temp = SDL_LoadBMP("cascade8.bmp");
   cascade8 = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
-  /* load waterfall 9 */
+
+      /* load waterfall 9 */
   temp = SDL_LoadBMP("cascade9.bmp");
   cascade9 = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
- /* load waterfall 10 */
+
+      /* load waterfall 10 */
   temp = SDL_LoadBMP("cascade10.bmp");
   cascade10 = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
- /* load waterfall 11 */
+
+      /* load waterfall 11 */
   temp = SDL_LoadBMP("cascade11.bmp");
   cascade11 = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
-/* load waterfall 11 */
+
+      /* load waterfall 11 */
   temp = SDL_LoadBMP("cascade12.bmp");
   cascade12 = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
-  /********************************* Et finissent ici ************************************************/
 
-  /* set sprite position */
+      /* set sprite position */
   rcSprite.x = 9*SPRITE_SIZE;
   rcSprite.y = 7*SPRITE_SIZE;
   coordplayerx = 9*SPRITE_SIZE;   
