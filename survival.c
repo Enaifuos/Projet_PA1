@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
   SDL_Init(SDL_INIT_VIDEO);
   
   /* set the title bar */
-  SDL_WM_SetCaption("Survival", "water.bmp");
+  SDL_WM_SetCaption("Survival", "game survival");
   
   /* create window */
   screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0);
@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
   SDL_EnableKeyRepeat(1000, 1000);
   
   /* load sprite */
-  temp   = SDL_LoadBMP("sprite.bmp");
+  temp   = SDL_LoadBMP("ressources/playersheet/player_left.bmp");
   sprite = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
   
@@ -49,12 +49,12 @@ int main(int argc, char* argv[])
   SDL_SetColorKey(sprite, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
   
         /* load grass */
-  temp  = SDL_LoadBMP("grass.bmp");
+  temp  = SDL_LoadBMP("ressources/grass.bmp");
   grass = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
   
 	/* load water */
-  temp = SDL_LoadBMP("water.bmp");
+  temp = SDL_LoadBMP("ressources/water.bmp");
   water = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
@@ -65,7 +65,7 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(temp);
 
        /* load tree */
-  temp = SDL_LoadBMP("tree.bmp");
+  temp = SDL_LoadBMP("ressources/tree.bmp");
   tree = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
