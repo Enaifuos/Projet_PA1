@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
   SDL_Init(SDL_INIT_VIDEO);
   
   /* set the title bar */
-  SDL_WM_SetCaption("SDL Move", "SDL Move");
+  SDL_WM_SetCaption("Survival", "water.bmp");
   
   /* create window */
   screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0);
@@ -60,7 +60,7 @@ int main(int argc, char* argv[])
 
   
        /* load sand  */
-  temp = SDL_LoadBMP("sand.bmp");
+  temp = SDL_LoadBMP("ressources/sand/sand.bmp");
   sand = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
@@ -70,7 +70,7 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(temp);
 
       /* load dirt  */
-  temp = SDL_LoadBMP("dirt.bmp");
+  temp = SDL_LoadBMP("ressources/dirt/dirt.bmp");
   dirt = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
   
