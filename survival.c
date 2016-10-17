@@ -11,8 +11,8 @@
 
 
 int MAP[MAPlength][MAPheight];
-SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *dirt;
-SDL_Rect rcSprite, rcGrass, rcWater, rcTree, rcDirt, rcSand;
+SDL_Surface *screen, *temp, *sprite_d, *sprite_u, *sprite_l, *sprite_r, *grass, *water, *sand, *tree, *dirt;
+SDL_Rect rcSprite, rcSrcSprite, rcGrass, rcWater, rcTree, rcDirt, rcSand;
 SDL_Event event;
 Uint8 *keystate;
 int colorkey, gameover;
@@ -40,13 +40,13 @@ int main(int argc, char* argv[])
   SDL_EnableKeyRepeat(1000, 1000);
   
   /* load sprite */
-  temp   = SDL_LoadBMP("ressources/playersheet/player_left.bmp");
-  sprite = SDL_DisplayFormat(temp);
+  temp   = SDL_LoadBMP("ressources/playersheet/player.bmp");
+  sprite_d = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
   
   /* setup sprite colorkey and turn on RLE */
   colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
-  SDL_SetColorKey(sprite, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+  SDL_SetColorKey(sprite_d, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
   
         /* load grass */
   temp  = SDL_LoadBMP("ressources/grass.bmp");
@@ -79,6 +79,13 @@ int main(int argc, char* argv[])
   rcSprite.y = 7*SPRITE_SIZE;
   coordplayerx = 9*SPRITE_SIZE;   
   coordplayery = 7*SPRITE_SIZE;
+
+  /* set the sprite frame */
+  rcSrcSprite.x = 0;
+  rcSrcSprite.y = 0;
+  rcSrcSprite.h = SPRITE_SIZE;
+  rcSrcSprite.w = SPRITE_SIZE;
+
 
   
   gameover = 0;
@@ -118,19 +125,23 @@ int main(int argc, char* argv[])
       
       if (keystate[SDLK_LEFT] )
 	{
+	  rcSrcSprite.y = SPRITE_SIZE * 6;
 	  move_left();		    
 	}
       if (keystate[SDLK_RIGHT] )
 	{
+	  rcSrcSprite.y = SPRITE_SIZE * 12;
 	  move_right();
 	}
       if (keystate[SDLK_UP] )
 	{
+	  rcSrcSprite.y = SPRITE_SIZE * 18;
 	  move_up();
 	}
       
       if (keystate[SDLK_DOWN] )
 	{
+	  rcSrcSprite.y = 0; 
 	  move_down();
 	}
       
@@ -159,7 +170,7 @@ int main(int argc, char* argv[])
     }
   
   /* clean up */
-  SDL_FreeSurface(sprite);
+  SDL_FreeSurface(sprite_d);
   SDL_FreeSurface(grass);
   SDL_FreeSurface(water);
   SDL_FreeSurface(sand);

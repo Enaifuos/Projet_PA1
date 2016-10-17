@@ -9,8 +9,8 @@
 
 
 extern int MAP[MAPlength][MAPheight];
-extern SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *dirt ;
-extern SDL_Rect rcSprite, rcGrass, rcWater, rcSand, rcTree, rcDirt;
+extern SDL_Surface *screen, *temp, *sprite_d, *sprite_u, *sprite_l, *sprite_r, *grass, *water, *sand, *tree, *dirt ;
+extern SDL_Rect rcSprite, rcSrcSprite, rcGrass, rcWater, rcSand, rcTree, rcDirt;
 extern SDL_Event event;
 extern Uint8 *keystate;
 extern int colorkey, gameover;
@@ -80,6 +80,7 @@ int check_move_ground(int x, int y)
   return res;
 }
 
+
 void move_down()
 {
   if(check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)+1))
@@ -115,7 +116,7 @@ void move_down()
 
 void move_up()
 {
-  if( check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)-1))
+  if( check_move_ground( coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE) -1) )
     {
       if(coordplayery >= SPRITE_SIZE)
 	{
@@ -288,14 +289,14 @@ void draw_grassPM(int i, int j)
 {
   rcGrass.x = i * SPRITE_SIZE;
   rcGrass.y = j * SPRITE_SIZE;
-   SDL_BlitSurface(grass, NULL, screen, &rcGrass);
+  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
 }
 
 void draw_grassGM(int i, int j)
 {
   rcGrass.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
   rcGrass.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
-   SDL_BlitSurface(grass, NULL, screen, &rcGrass);
+  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
 }
 
 
@@ -429,7 +430,7 @@ void screen_printing_Gmove()
       
       
       /* draw the sprite */
-      SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
+      SDL_BlitSurface(sprite_d, &rcSrcSprite, screen, &rcSprite);
       
       /* update the screen */
       SDL_UpdateRect(screen,0,0,0,0);
@@ -468,7 +469,7 @@ void screen_printing_Gmove()
 	}
       
       /* draw the sprite */
-      SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
+      SDL_BlitSurface(sprite_d, &rcSrcSprite, screen, &rcSprite);
       
       /* update the screen */
       SDL_UpdateRect(screen,0,0,0,0);
@@ -513,7 +514,7 @@ void screen_printing_Pmove()
     }
   
   /* draw the sprite */
-  SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
+  SDL_BlitSurface(sprite_d, &rcSrcSprite, screen, &rcSprite);
   
   /* update the screen */
   SDL_UpdateRect(screen,0,0,0,0);
