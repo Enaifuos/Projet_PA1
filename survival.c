@@ -11,7 +11,7 @@
 
 
 int MAP[MAPlength][MAPheight];
-SDL_Surface *screen, *temp, *sprite_d, *sprite_u, *sprite_l, *sprite_r, *grass, *water, *sand, *tree, *dirt;
+SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *dirt;
 SDL_Rect rcSprite, rcSrcSprite, rcGrass, rcWater, rcTree, rcDirt, rcSand;
 SDL_Event event;
 Uint8 *keystate;
@@ -41,12 +41,12 @@ int main(int argc, char* argv[])
   
   /* load sprite */
   temp   = SDL_LoadBMP("ressources/playersheet/player.bmp");
-  sprite_d = SDL_DisplayFormat(temp);
+  sprite = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
   
   /* setup sprite colorkey and turn on RLE */
   colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
-  SDL_SetColorKey(sprite_d, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+  SDL_SetColorKey(sprite, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
   
         /* load grass */
   temp  = SDL_LoadBMP("ressources/grass.bmp");
@@ -170,7 +170,7 @@ int main(int argc, char* argv[])
     }
   
   /* clean up */
-  SDL_FreeSurface(sprite_d);
+  SDL_FreeSurface(sprite);
   SDL_FreeSurface(grass);
   SDL_FreeSurface(water);
   SDL_FreeSurface(sand);
