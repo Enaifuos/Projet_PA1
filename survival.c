@@ -125,23 +125,19 @@ int main(int argc, char* argv[])
       
       if (keystate[SDLK_LEFT] )
 	{
-	  rcSrcSprite.y = SPRITE_SIZE * 6;
 	  move_left();		    
 	}
       if (keystate[SDLK_RIGHT] )
 	{
-	  rcSrcSprite.y = SPRITE_SIZE * 12;
 	  move_right();
 	}
       if (keystate[SDLK_UP] )
 	{
-	  rcSrcSprite.y = SPRITE_SIZE * 18;
 	  move_up();
 	}
       
       if (keystate[SDLK_DOWN] )
 	{
-	  rcSrcSprite.y = 0; 
 	  move_down();
 	}
       

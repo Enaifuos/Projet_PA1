@@ -18,9 +18,13 @@ extern int coordplayerx, coordplayery;
 
 
 
-/*---Prototypes---*/
+/*-------------Prototypes------------*/
 
-//movement
+
+
+/* action in the game */
+
+    //movement
 int check_move_ground(int x, int y);
 void move_down();
 void move_up();
@@ -28,8 +32,16 @@ void move_right();
 void move_left();
 
 
+   //action in the game
+void you_loose();
+void menu_pause();
 
-//drawing
+
+
+
+/* screen printing */
+
+   //drawing
 void draw_grassGM(int i, int j);
 void draw_grassPM(int i, int j);
 
@@ -47,13 +59,7 @@ void draw_dirtPM(int i, int j);
 
 
 
-//action in the game
-void you_loose();
-void menu_pause(); //NEW
-
-
-
-//screen printing
+   //screen printing
 void screen_printing_Gmove(); //NEW
 void screen_printing_Pmove(); //NEW
 
@@ -66,14 +72,14 @@ void screen_printing_Pmove(); //NEW
 
 
 
-   /*-----function------*/
+/*---------------function-------------------*/
 
 
    /*-----movement-----*/
 int check_move_ground(int x, int y)
 {
   int res = 0;
-  if( MAP[x][y] %2 == 0) // the player can walk on the ground
+  if( MAP[x][y] %2 == 0) // test if the player can walk on the ground
     {
       res = 1;
     }
@@ -83,6 +89,7 @@ int check_move_ground(int x, int y)
 
 void move_down()
 {
+  rcSrcSprite.y = 0; 
   if(check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)+1))
     {
       if(coordplayery <= (MAPheight-1) *  SPRITE_SIZE)
@@ -116,6 +123,7 @@ void move_down()
 
 void move_up()
 {
+  rcSrcSprite.y = SPRITE_SIZE * 18;
   if( check_move_ground( coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE) -1) )
     {
       if(coordplayery >= SPRITE_SIZE)
@@ -147,6 +155,7 @@ void move_up()
 
 void move_right()
 {
+  rcSrcSprite.y = SPRITE_SIZE * 12;
   if(check_move_ground((coordplayerx/SPRITE_SIZE)+1 , coordplayery/SPRITE_SIZE))
     {
       if( coordplayerx < (MAPlength-1) * SPRITE_SIZE)
@@ -183,6 +192,7 @@ void move_right()
 
 void move_left()
 {
+  rcSrcSprite.y = SPRITE_SIZE * 6;
   if( check_move_ground((coordplayerx/SPRITE_SIZE)-1 , coordplayery/SPRITE_SIZE) )
     {
       if( coordplayerx >= SPRITE_SIZE )
