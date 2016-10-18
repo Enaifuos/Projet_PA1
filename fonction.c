@@ -60,8 +60,8 @@ void draw_dirtPM(int i, int j);
 
 
    //screen printing
-void screen_printing_Gmove(); //NEW
-void screen_printing_Pmove(); //NEW
+void screen_printing_Gmove();
+void screen_printing_Pmove();
 
 
 
@@ -101,7 +101,11 @@ void move_down()
 		{
 		  rcSprite.y += 1;
 		  coordplayery += 1;
-		  SDL_Delay(2);
+		  if( i%8 == 0 && i != 0)
+		    {
+		     rcSrcSprite.y += SPRITE_SIZE;
+		    }
+		  SDL_Delay(5);
 		  screen_printing_Pmove();
 		}
 	    }
@@ -110,7 +114,11 @@ void move_down()
 	      for( i=0 ; i < SPRITE_SIZE ; i++)
 		{
 		  coordplayery += 1;
-		  SDL_Delay(2);
+		  if( i%8 == 0 && i != 0)
+		    {
+		     rcSrcSprite.y += SPRITE_SIZE;
+		    }
+		  SDL_Delay(5);
 		  screen_printing_Gmove();
 		}
 	      //  SDL_Delay(150);
@@ -135,7 +143,11 @@ void move_up()
 		{
 		  rcSprite.y -= 1;
 		  coordplayery -= 1;
-		  SDL_Delay(2);
+		  if( i%8 == 0 && i != 0)
+		    {
+		     rcSrcSprite.y += SPRITE_SIZE;
+		    }
+		  SDL_Delay(5);
 		  screen_printing_Pmove();
 		}
 	    }
@@ -144,7 +156,11 @@ void move_up()
 	      for( i=0 ; i<SPRITE_SIZE ; i++)
 		{
 		  coordplayery -= 1;
-		  SDL_Delay(2);
+		  if( i%8 == 0 && i != 0)
+		    {
+		     rcSrcSprite.y += SPRITE_SIZE;
+		    }
+		  SDL_Delay(5);
 		  screen_printing_Gmove();
 		}
 	      //	      SDL_Delay(150);
@@ -168,7 +184,11 @@ void move_right()
 		{
 		  rcSprite.x += 1;
 		  coordplayerx += 1;
-		  SDL_Delay(2);
+		  if( i%8 == 0 && i != 0)
+		    {
+		     rcSrcSprite.y += SPRITE_SIZE;
+		    }
+		  SDL_Delay(5);
 		  screen_printing_Pmove();
 		}
 	    }
@@ -177,7 +197,11 @@ void move_right()
 	      for( i=0 ; i < SPRITE_SIZE ; i++ )
 		{
 		  coordplayerx += 1;
-		  SDL_Delay(2);
+		  if( i%8 == 0 && i != 0)
+		    {
+		     rcSrcSprite.y += SPRITE_SIZE;
+		    }
+		  SDL_Delay(5);
 		  screen_printing_Gmove(); 
 		}
 	      //     SDL_Delay(150);
@@ -205,7 +229,11 @@ void move_left()
 		{
 		  rcSprite.x -= 1;
 		  coordplayerx -= 1;
-		  SDL_Delay(2);
+		  if( i%8 == 0 && i != 0)
+		    {
+		     rcSrcSprite.y += SPRITE_SIZE;
+		    }
+		  SDL_Delay(5);
 		  screen_printing_Pmove();
 		}
 	    }
@@ -214,7 +242,11 @@ void move_left()
 	      for( i=0 ; i < SPRITE_SIZE ; i++ )
 		{
 		  coordplayerx -= 1;
-		  SDL_Delay(2);
+		  if( i%8 == 0 && i != 0)
+		    {
+		     rcSrcSprite.y += SPRITE_SIZE;
+		    }
+		  SDL_Delay(5);
 		  screen_printing_Gmove(); 
 		}
 	      //	      SDL_Delay(150);
