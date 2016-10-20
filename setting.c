@@ -83,7 +83,7 @@ void set_map()
   // Drawing the trees 
   MAP[5][39] = MAP[5][38] = MAP[6][38] = MAP[6][39] = MAP[7][38] = MAP[7][39] = MAP[6][37] = MAP[7][37] = MAP[7][36]  =  MAP[6][7] = MAP[5][7] = 3 ;
   MAP[8][6] =  MAP[9][6] =   MAP[8][7] =  MAP[9][7] = 0  ;
-  MAP[18][0] = 13 ;
+
 
   for(i=9;i<=19;i++){
     MAP[i][6] = 3;
@@ -92,14 +92,8 @@ void set_map()
     MAP[20][i] = MAP[19][i] = 3;
   }
   // Drawing the cave 
-  MAP[10][0] = 11 ;
-  for(i=11;i<18;i++){
-    MAP[i][0] = 12;
-  }
-  for(i=1;i<6;i++){
-    MAP[10][i] = 15;
-    MAP[18][i] = 14;
-  }
+
+ 
   for(i=11;i<18;i++){
     for(j=1;j<6;j++){
       MAP[i][j] = 4;
@@ -107,7 +101,7 @@ void set_map()
   }
   
 
-  MAP[13][1] = 18 ;
+
  
 
   
