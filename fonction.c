@@ -10,7 +10,7 @@
 
 extern int MAP[MAPlength][MAPheight];
 extern SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *dirt ;
-extern SDL_Rect rcSprite, rcGrass, rcWater, rcSand, rcTree, rcDirt;
+extern SDL_Rect rcSprite, rcSrcSprite, rcGrass, rcWater, rcSand, rcTree, rcDirt;
 extern SDL_Event event;
 extern Uint8 *keystate;
 extern int colorkey, gameover;
@@ -18,9 +18,13 @@ extern int coordplayerx, coordplayery;
 
 
 
-/*---Prototypes---*/
+/*-------------Prototypes------------*/
 
-//movement
+
+
+/* action in the game */
+
+    //movement
 int check_move_ground(int x, int y);
 void move_down();
 void move_up();
@@ -28,8 +32,16 @@ void move_right();
 void move_left();
 
 
+   //action in the game
+void you_loose();
+void menu_pause();
 
-//drawing
+
+
+
+/* screen printing */
+
+   //drawing
 void draw_grassGM(int i, int j);
 void draw_grassPM(int i, int j);
 
@@ -47,15 +59,9 @@ void draw_dirtPM(int i, int j);
 
 
 
-//action in the game
-void you_loose();
-void menu_pause(); //NEW
-
-
-
-//screen printing
-void screen_printing_Gmove(); //NEW
-void screen_printing_Pmove(); //NEW
+   //screen printing
+void screen_printing_Gmove();
+void screen_printing_Pmove();
 
 
 
@@ -66,22 +72,24 @@ void screen_printing_Pmove(); //NEW
 
 
 
-   /*-----function------*/
+/*---------------function-------------------*/
 
 
    /*-----movement-----*/
 int check_move_ground(int x, int y)
 {
   int res = 0;
-  if( MAP[x][y] %2 == 0) // the player can walk on the ground
+  if( MAP[x][y] %2 == 0) // test if the player can walk on the ground
     {
       res = 1;
     }
   return res;
 }
 
+
 void move_down()
 {
+  rcSrcSprite.y = 0; 
   if(check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)+1))
     {
       if(coordplayery <= (MAPheight-1) *  SPRITE_SIZE)
@@ -93,7 +101,11 @@ void move_down()
 		{
 		  rcSprite.y += 1;
 		  coordplayery += 1;
-		  SDL_Delay(2);
+		  if( i%8 == 0 && i != 0)
+		    {
+		     rcSrcSprite.y += SPRITE_SIZE;
+		    }
+		  SDL_Delay(5);
 		  screen_printing_Pmove();
 		}
 	    }
@@ -102,7 +114,11 @@ void move_down()
 	      for( i=0 ; i < SPRITE_SIZE ; i++)
 		{
 		  coordplayery += 1;
-		  SDL_Delay(2);
+		  if( i%8 == 0 && i != 0)
+		    {
+		     rcSrcSprite.y += SPRITE_SIZE;
+		    }
+		  SDL_Delay(5);
 		  screen_printing_Gmove();
 		}
 	      //  SDL_Delay(150);
@@ -115,7 +131,8 @@ void move_down()
 
 void move_up()
 {
-  if( check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)-1))
+  rcSrcSprite.y = SPRITE_SIZE * 18;
+  if( check_move_ground( coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE) -1) )
     {
       if(coordplayery >= SPRITE_SIZE)
 	{
@@ -126,7 +143,11 @@ void move_up()
 		{
 		  rcSprite.y -= 1;
 		  coordplayery -= 1;
-		  SDL_Delay(2);
+		  if( i%8 == 0 && i != 0)
+		    {
+		     rcSrcSprite.y += SPRITE_SIZE;
+		    }
+		  SDL_Delay(5);
 		  screen_printing_Pmove();
 		}
 	    }
@@ -135,7 +156,11 @@ void move_up()
 	      for( i=0 ; i<SPRITE_SIZE ; i++)
 		{
 		  coordplayery -= 1;
-		  SDL_Delay(2);
+		  if( i%8 == 0 && i != 0)
+		    {
+		     rcSrcSprite.y += SPRITE_SIZE;
+		    }
+		  SDL_Delay(5);
 		  screen_printing_Gmove();
 		}
 	      //	      SDL_Delay(150);
@@ -146,6 +171,7 @@ void move_up()
 
 void move_right()
 {
+  rcSrcSprite.y = SPRITE_SIZE * 12;
   if(check_move_ground((coordplayerx/SPRITE_SIZE)+1 , coordplayery/SPRITE_SIZE))
     {
       if( coordplayerx < (MAPlength-1) * SPRITE_SIZE)
@@ -158,7 +184,11 @@ void move_right()
 		{
 		  rcSprite.x += 1;
 		  coordplayerx += 1;
-		  SDL_Delay(2);
+		  if( i%8 == 0 && i != 0)
+		    {
+		     rcSrcSprite.y += SPRITE_SIZE;
+		    }
+		  SDL_Delay(5);
 		  screen_printing_Pmove();
 		}
 	    }
@@ -167,7 +197,11 @@ void move_right()
 	      for( i=0 ; i < SPRITE_SIZE ; i++ )
 		{
 		  coordplayerx += 1;
-		  SDL_Delay(2);
+		  if( i%8 == 0 && i != 0)
+		    {
+		     rcSrcSprite.y += SPRITE_SIZE;
+		    }
+		  SDL_Delay(5);
 		  screen_printing_Gmove(); 
 		}
 	      //     SDL_Delay(150);
@@ -182,6 +216,7 @@ void move_right()
 
 void move_left()
 {
+  rcSrcSprite.y = SPRITE_SIZE * 6;
   if( check_move_ground((coordplayerx/SPRITE_SIZE)-1 , coordplayery/SPRITE_SIZE) )
     {
       if( coordplayerx >= SPRITE_SIZE )
@@ -194,7 +229,11 @@ void move_left()
 		{
 		  rcSprite.x -= 1;
 		  coordplayerx -= 1;
-		  SDL_Delay(2);
+		  if( i%8 == 0 && i != 0)
+		    {
+		     rcSrcSprite.y += SPRITE_SIZE;
+		    }
+		  SDL_Delay(5);
 		  screen_printing_Pmove();
 		}
 	    }
@@ -203,7 +242,11 @@ void move_left()
 	      for( i=0 ; i < SPRITE_SIZE ; i++ )
 		{
 		  coordplayerx -= 1;
-		  SDL_Delay(2);
+		  if( i%8 == 0 && i != 0)
+		    {
+		     rcSrcSprite.y += SPRITE_SIZE;
+		    }
+		  SDL_Delay(5);
 		  screen_printing_Gmove(); 
 		}
 	      //	      SDL_Delay(150);
@@ -288,14 +331,14 @@ void draw_grassPM(int i, int j)
 {
   rcGrass.x = i * SPRITE_SIZE;
   rcGrass.y = j * SPRITE_SIZE;
-   SDL_BlitSurface(grass, NULL, screen, &rcGrass);
+  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
 }
 
 void draw_grassGM(int i, int j)
 {
   rcGrass.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
   rcGrass.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
-   SDL_BlitSurface(grass, NULL, screen, &rcGrass);
+  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
 }
 
 
@@ -429,7 +472,7 @@ void screen_printing_Gmove()
       
       
       /* draw the sprite */
-      SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
+      SDL_BlitSurface(sprite, &rcSrcSprite, screen, &rcSprite);
       
       /* update the screen */
       SDL_UpdateRect(screen,0,0,0,0);
@@ -468,7 +511,7 @@ void screen_printing_Gmove()
 	}
       
       /* draw the sprite */
-      SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
+      SDL_BlitSurface(sprite, &rcSrcSprite, screen, &rcSprite);
       
       /* update the screen */
       SDL_UpdateRect(screen,0,0,0,0);
@@ -513,7 +556,7 @@ void screen_printing_Pmove()
     }
   
   /* draw the sprite */
-  SDL_BlitSurface(sprite, NULL, screen, &rcSprite);
+  SDL_BlitSurface(sprite, &rcSrcSprite, screen, &rcSprite);
   
   /* update the screen */
   SDL_UpdateRect(screen,0,0,0,0);

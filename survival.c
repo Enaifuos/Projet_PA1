@@ -12,7 +12,7 @@
 
 int MAP[MAPlength][MAPheight];
 SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *dirt;
-SDL_Rect rcSprite, rcGrass, rcWater, rcTree, rcDirt, rcSand;
+SDL_Rect rcSprite, rcSrcSprite, rcGrass, rcWater, rcTree, rcDirt, rcSand;
 SDL_Event event;
 Uint8 *keystate;
 int colorkey, gameover;
@@ -40,7 +40,7 @@ int main(int argc, char* argv[])
   SDL_EnableKeyRepeat(1000, 1000);
   
   /* load sprite */
-  temp   = SDL_LoadBMP("ressources/playersheet/player_left.bmp");
+  temp   = SDL_LoadBMP("ressources/playersheet/player.bmp");
   sprite = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
   
@@ -79,6 +79,13 @@ int main(int argc, char* argv[])
   rcSprite.y = 7*SPRITE_SIZE;
   coordplayerx = 9*SPRITE_SIZE;   
   coordplayery = 7*SPRITE_SIZE;
+
+  /* set the sprite frame */
+  rcSrcSprite.x = 0;
+  rcSrcSprite.y = 0;
+  rcSrcSprite.h = SPRITE_SIZE;
+  rcSrcSprite.w = SPRITE_SIZE;
+
 
   
   gameover = 0;
