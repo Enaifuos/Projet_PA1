@@ -9,8 +9,9 @@
 
 
 extern int MAP[MAPlength][MAPheight];
-extern SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *dirt ;
-extern SDL_Rect rcSprite, rcSrcSprite, rcGrass, rcWater, rcSand, rcTree, rcDirt;
+extern SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *dirt;
+extern SDL_Surface *rockwall, *rockwall_dl, *rockwall_dr, *rockwall_l, *rockwall_r, *rockwall_top, *rockwall_ucl, *rockwall_ucr, *rockwall_ul, *rockwall_ur;
+extern SDL_Rect rcSprite, rcSrcSprite, rcGrass, rcWater, rcSand, rcTree, rcDirt, rcRock;
 extern SDL_Event event;
 extern Uint8 *keystate;
 extern int colorkey, gameover;
@@ -467,6 +468,68 @@ void screen_printing_Gmove()
 		{
 		  draw_dirtGM(i , j);
 		}          
+	      if( MAP[x][y] == 5 )
+		{
+		    rcRock.x = i * SPRITE_SIZE;
+		    rcRock.y = j * SPRITE_SIZE;
+		    SDL_BlitSurface(rockwall, NULL, screen, &rcRock);
+		}
+	       if( MAP[x][y] == 6 )
+		{
+		    rcRock.x = i * SPRITE_SIZE;
+		    rcRock.y = j * SPRITE_SIZE;
+		    SDL_BlitSurface(rockwall_dl, NULL, screen, &rcRock);
+		}
+	        if( MAP[x][y] == 7 )
+		{
+		    rcRock.x == i * SPRITE_SIZE;
+		    rcRock.y == j * SPRITE_SIZE;
+		    SDL_BlitSurface(rockwall_dr, NULL, screen, &rcRock);
+		}
+		if( MAP[x][y] == 8 )
+		  {
+		    rcRock.x = i * SPRITE_SIZE;
+		    rcRock.y = j * SPRITE_SIZE;
+		    SDL_BlitSurface(rockwall_l, NULL, screen, &rcRock);
+		  }
+		 if( MAP[x][y] == 9 )
+		{
+		    rcRock.x = i * SPRITE_SIZE;
+		    rcRock.y = j * SPRITE_SIZE;
+		    SDL_BlitSurface(rockwall_r, NULL, screen, &rcRock);
+		}
+		 if( MAP[x][y] == 10 )
+		   {
+		    rcRock.x = i * SPRITE_SIZE;
+		    rcRock.y = j * SPRITE_SIZE;
+		    SDL_BlitSurface(rockwall_top, NULL, screen, &rcRock);
+		   }
+		 if( MAP[x][y] == 11 )
+		   {
+		     rcRock.x = i * SPRITE_SIZE;
+		     rcRock.y = j * SPRITE_SIZE;
+		     SDL_BlitSurface(rockwall_ucl, NULL, screen, &rcRock);
+		   }
+		 if( MAP[x][y] == 12 )
+		   {
+		     rcRock.x = i * SPRITE_SIZE;
+		     rcRock.y = j * SPRITE_SIZE;
+		     SDL_BlitSurface(rockwall_ucr, NULL, screen, &rcRock);
+		   }
+		 if( MAP[x][y] == 13 )
+		   {
+		     rcRock.x = i * SPRITE_SIZE;
+		     rcRock.y = j * SPRITE_SIZE;
+		     SDL_BlitSurface(rockwall_ul, NULL, screen, &rcRock);
+		   }
+		 if( MAP[x][y] == 14 )
+		   {
+		     rcRock.x = i * SPRITE_SIZE;
+		     rcRock.y = j * SPRITE_SIZE;
+		     SDL_BlitSurface(rockwall_ur, NULL, screen, &rcRock);
+		   }
+		 
+		  
 	    }
 	}
       

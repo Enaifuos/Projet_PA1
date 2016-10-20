@@ -11,8 +11,8 @@
 
 
 int MAP[MAPlength][MAPheight];
-SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *dirt;
-SDL_Rect rcSprite, rcSrcSprite, rcGrass, rcWater, rcTree, rcDirt, rcSand;
+SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *dirt, *rockwall, *rockwall_dl, *rockwall_dr, *rockwall_l, *rockwall_r, *rockwall_top, *rockwall_ucl, *rockwall_ucr, *rockwall_ul, *rockwall_ur;
+SDL_Rect rcSprite, rcSrcSprite, rcGrass, rcWater, rcTree, rcDirt, rcSand, rcRock;
 SDL_Event event;
 Uint8 *keystate;
 int colorkey, gameover;
@@ -74,6 +74,50 @@ int main(int argc, char* argv[])
   dirt = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
   
+      /*  load rock */
+  temp = SDL_LoadBMP("ressources/rockwall/rockwall.bmp");
+  rockwall = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/rockwall/rockwall_dl.bmp");
+  rockwall_dl = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/rockwall/rockwall_dr.bmp");
+  rockwall_dr = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/rockwall/rockwall_l.bmp");
+  rockwall_l = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/rockwall/rockwall_r.bmp");
+  rockwall_r = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/rockwall/rockwall_top.bmp");
+  rockwall_top = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/rockwall/rockwall_ucl.bmp");
+  rockwall_ucl = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/rockwall/rockwall_ucr.bmp");
+  rockwall_ucr = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/rockwall/rockwall_ul.bmp");
+  rockwall_ul = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  
+  temp = SDL_LoadBMP("ressources/rockwall/rockwall_ur.bmp");
+  rockwall_ur = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+
+
    /* set sprite position */
   rcSprite.x = 9*SPRITE_SIZE;
   rcSprite.y = 7*SPRITE_SIZE;

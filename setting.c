@@ -50,15 +50,12 @@ void set_map()
     }
   for(i = 0 ; i < MAPlength ; i++)
     {
-      MAP[i][MAPheight-4] = MAP[i][MAPheight-3] = 2;
+      MAP[i][MAPheight-4] = 2;
+      MAP[i][MAPheight-3] = 2;
     }
 
 
   // Draw three columns of trees
-   for( i=0 ; i < 7 ; i++)
-    {
-      //    MAP[3][i] = MAP[4][i] = MAP[5][i] = 3 ;        
-      }
   for ( j=5 ; j<10 ; j++ )
     {
       for(i=0 ; i<5 ; i++)
@@ -84,33 +81,50 @@ void set_map()
  
   // Drawing the trees 
 
-  MAP[8][6] =  MAP[9][6] =   MAP[8][7] =  MAP[9][7] = 0  ;
+  MAP[8][6] = 0;
+  MAP[9][6] = 0; 
+  MAP[8][7] = 0;
+  MAP[9][7] = 0;
 
 
   for(i=9;i<=19;i++){
     MAP[i][6] = 3;
   }
   for(i=0;i<6;i++){
-    MAP[20][i] = MAP[19][i] = 3;
+    MAP[20][i] = 3;
+    MAP[19][i] = 3;
   }
   // Drawing the cave 
+  MAP[18][5] = 7;
+  MAP[10][5] = 6;
+  MAP[10][0] = 13;
+  MAP[18][0] = 14;
+  MAP[17][0] = 12;
+  MAP[11][0] = 11;
+
+
+   /* for (i = 12 ; i < 17 ; i++)
+     {
+       for (j = 1 ; j < 10 ; j++)
+	 {
+	   MAP[j][i] = 10;
+	 }
+	 }*/
+  for( i = 1 ; i < 5 ; i++)
+    {
+      MAP[10][i] = 8;
+      MAP[18][i] = 9;
+    }
+  
 
  
-
-
- 
-  // Drawing the cave fiels 
+  // Drawing the cave fields 
   for(i=11;i<18;i++){
     for(j=1;j<6;j++){
       MAP[i][j] = 4;
     }
   }
-  
 
- 
-
-  
-  MAP [9][8] = 0 ; // A supprimer , juste pour laisser passer le personnage afin de parcourir la map 
 }
 
 
