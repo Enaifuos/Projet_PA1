@@ -9,9 +9,9 @@
 
 
 extern int MAP[MAPlength][MAPheight];
-extern SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *dirt;
+extern SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *dirt, *pause;
 extern SDL_Surface *rockwall, *rockwall_dl, *rockwall_dr, *rockwall_l, *rockwall_r, *rockwall_top, *rockwall_ucl, *rockwall_ucr, *rockwall_ul, *rockwall_ur;
-extern SDL_Rect rcSprite, rcSrcSprite, rcGrass, rcWater, rcSand, rcTree, rcDirt, rcRock;
+extern SDL_Rect rcSprite, rcSrcSprite, rcGrass, rcWater, rcSand, rcTree, rcDirt, rcRock, rcPause;
 extern SDL_Event event;
 extern Uint8 *keystate;
 extern int colorkey, gameover;
@@ -36,6 +36,7 @@ void move_left();
    //action in the game
 void you_loose();
 void menu_pause();
+void stats();
 
 
 
@@ -278,8 +279,14 @@ void you_loose()
 
 void menu_pause() //A finir
 {
-  int pause = 1;
-  while(pause)
+ int menu = 1;
+  rcPause.x = 507;
+  rcPause.y = 0;
+
+  SDL_BlitSurface(pause, NULL, screen, &rcPause);
+  SDL_UpdateRect(screen,0,0,0,0);
+
+  while(menu)
     {
       if (SDL_PollEvent(&event))
 	{
@@ -296,9 +303,10 @@ void menu_pause() //A finir
 		{
 		case SDLK_ESCAPE:
 		case SDLK_q:
-		  pause = 0;
+		  menu = 0;
 		  break;
 		case SDLK_DOWN:
+		  stats();
 		  break;
 		case SDLK_UP:
 		  break;
@@ -308,9 +316,21 @@ void menu_pause() //A finir
 	}
       
     } 
+  screen_printing_Pmove();
 }
 
 
+void stats()
+{
+  long time;
+  int min, sec;
+  printf("You walked %d steps\n",stepcount);
+  time = SDL_GetTicks();
+  min = time /60000;
+  printf("You played for %d", min);
+  sec = (time /1000)%60;
+  printf("min and %d s\n", sec);
+}
 
 
 

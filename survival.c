@@ -11,11 +11,11 @@
 
 
 int MAP[MAPlength][MAPheight];
-SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *dirt, *rockwall, *rockwall_dl, *rockwall_dr, *rockwall_l, *rockwall_r, *rockwall_top, *rockwall_ucl, *rockwall_ucr, *rockwall_ul, *rockwall_ur;
-SDL_Rect rcSprite, rcSrcSprite, rcGrass, rcWater, rcTree, rcDirt, rcSand, rcRock;
+SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *dirt, *rockwall, *pause, *rockwall_dl, *rockwall_dr, *rockwall_l, *rockwall_r, *rockwall_top, *rockwall_ucl, *rockwall_ucr, *rockwall_ul, *rockwall_ur;
+SDL_Rect rcSprite, rcSrcSprite, rcGrass, rcWater, rcTree, rcDirt, rcSand, rcRock, rcPause;
 SDL_Event event;
 Uint8 *keystate;
-int colorkey, gameover;
+int colorkey, gameover, stepcount;
 int coordplayerx, coordplayery;
 
 
@@ -72,6 +72,11 @@ int main(int argc, char* argv[])
       /* load dirt  */
   temp = SDL_LoadBMP("ressources/dirt/dirt.bmp");
   dirt = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+    /* load pause menu */
+  temp = SDL_LoadBMP("ressources/pause_menu.bmp");
+  pause = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
   
       /*  load rock */
@@ -169,20 +174,29 @@ int main(int argc, char* argv[])
       
       if (keystate[SDLK_LEFT] )
 	{
-	  move_left();		    
+	  move_left();
+	  stepcount += 1;
 	}
       if (keystate[SDLK_RIGHT] )
 	{
 	  move_right();
+	  stepcount += 1;
 	}
       if (keystate[SDLK_UP] )
 	{
 	  move_up();
+	  stepcount += 1;
 	}
       
       if (keystate[SDLK_DOWN] )
 	{
 	  move_down();
+	  stepcount += 1;
+	}
+
+      if (keystate[SDLK_p])
+	{
+	  menu_pause();
 	}
       
       /* collide with edges of screen */
@@ -215,6 +229,17 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(water);
   SDL_FreeSurface(sand);
   SDL_FreeSurface(dirt);
+  SDL_FreeSurface(pause);
+  SDL_FreeSurface(rockwall);
+  SDL_FreeSurface(rockwall_dr);
+  SDL_FreeSurface(rockwall_dl);
+  SDL_FreeSurface(rockwall_top);
+  SDL_FreeSurface(rockwall_r);
+  SDL_FreeSurface(rockwall_l);
+  SDL_FreeSurface(rockwall_ur);
+  SDL_FreeSurface(rockwall_ul);
+  SDL_FreeSurface(rockwall_ucr);
+  SDL_FreeSurface(rockwall_ucl);
 
   SDL_Quit();
   
