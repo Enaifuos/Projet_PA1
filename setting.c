@@ -66,11 +66,7 @@ void set_map()
   for ( j = 0 ; j < 11 ; j++){
     MAP[3][j] = MAP[4][j] = 3;
   }
-  for( i = 5 ; i < 24 ; i++)
-    {
-      MAP[i][10] = 3;
-    }
-  
+
 
 
 
@@ -95,7 +91,7 @@ void set_map()
     MAP[19][i] = 3;
   }
   // Drawing the cave 
-  MAP[18][5] = 7;
+
   MAP[10][5] = 6;
   MAP[10][0] = 13;
   MAP[18][0] = 14;
@@ -103,13 +99,7 @@ void set_map()
   MAP[11][0] = 11;
 
 
-   /* for (i = 12 ; i < 17 ; i++)
-     {
-       for (j = 1 ; j < 10 ; j++)
-	 {
-	   MAP[j][i] = 10;
-	 }
-	 }*/
+
   for( i = 1 ; i < 5 ; i++)
     {
       MAP[10][i] = 8;
@@ -117,14 +107,21 @@ void set_map()
     }
   
 
- 
+
   // Drawing the cave fields 
   for(i=11;i<18;i++){
-    for(j=1;j<6;j++){
-      MAP[i][j] = 4;
+    for(j=1;j<5;j++){
+       MAP[i][j] = 10;
     }
+    MAP[i][5] = 5 ;
   }
 
+  for(i = 11 ; i < 18 ; i++)
+    {
+      MAP[i][0] = 10;
+    }
+
+ 
 }
 
 
