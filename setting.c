@@ -55,10 +55,10 @@ void set_map()
 
 
   // Draw three columns of trees
-  for( i=0 ; i < 7 ; i++)
+   for( i=0 ; i < 7 ; i++)
     {
-      MAP[3][i] = MAP[4][i] = MAP[5][i] = 3 ;        
-    }
+      //    MAP[3][i] = MAP[4][i] = MAP[5][i] = 3 ;        
+      }
   for ( j=5 ; j<10 ; j++ )
     {
       for(i=0 ; i<5 ; i++)
@@ -66,22 +66,24 @@ void set_map()
 	  MAP[j][i] = 3;
 	}
     }
-  for ( j = 5 ; j < MAPheight-4 ; j++){
-    MAP[8][j] = MAP[9][j] = 3;
+  for ( j = 0 ; j < 11 ; j++){
+    MAP[3][j] = MAP[4][j] = 3;
   }
+  for( i = 5 ; i < 24 ; i++)
+    {
+      MAP[i][10] = 3;
+    }
+  
 
 
 
-  // Completting drawing trees columns with just two trees each line 
-  for ( i=7 ; i < MAPheight-4 ; i++){
-    MAP[3][i] = MAP[4][i] = 3;
-  }
+
 
 
  
  
   // Drawing the trees 
-  MAP[5][39] = MAP[5][38] = MAP[6][38] = MAP[6][39] = MAP[7][38] = MAP[7][39] = MAP[6][37] = MAP[7][37] = MAP[7][36]  =  MAP[6][7] = MAP[5][7] = 3 ;
+
   MAP[8][6] =  MAP[9][6] =   MAP[8][7] =  MAP[9][7] = 0  ;
 
 
@@ -94,13 +96,16 @@ void set_map()
   // Drawing the cave 
 
  
+
+
+ 
+  // Drawing the cave fiels 
   for(i=11;i<18;i++){
     for(j=1;j<6;j++){
       MAP[i][j] = 4;
     }
   }
-  MAP[10][0] = 4;
-
+  
 
  
 
@@ -109,7 +114,7 @@ void set_map()
 }
 
 
-/***************************** ET finissent ici ***********************************************/
+/***************************** ET finissent ici ****************************************************/
 
 
 
