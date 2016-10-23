@@ -12,6 +12,10 @@ void set_map();
 void set_position();
 
 
+
+
+
+
 /*-----function------*/
 
 void set_map()
@@ -27,6 +31,19 @@ void set_map()
 	}
     }
 
+
+  /* Draw two columns of sand */             
+  for ( i=0 ; i < MAPheight-2 ; i++)
+    {
+      MAP[1][i] = MAP[2][i] = 2;
+    }
+  for(i = 0 ; i < MAPlength ; i++)
+    {
+      MAP[i][MAPheight-4] = 2;
+      MAP[i][MAPheight-3] = 2;
+    }
+  
+
      /* set whater */
   for( j=1 ; j < 3 ; j++ )
     {
@@ -41,21 +58,7 @@ void set_map()
     }
 
 
-  /*  *************************** Mes ajouts commencent d'ici  : Mise en place de la MAP " manuellement " *************** */
-
-  // Draw two columns of sand              
-  for ( i=0 ; i < MAPheight-2 ; i++)
-    {
-      MAP[1][i] = MAP[2][i] = 2;
-    }
-  for(i = 0 ; i < MAPlength ; i++)
-    {
-      MAP[i][MAPheight-4] = 2;
-      MAP[i][MAPheight-3] = 2;
-    }
-
-
-  // Draw three columns of trees
+  /* Draw three columns of trees */
   for ( j=5 ; j<10 ; j++ )
     {
       for(i=0 ; i<5 ; i++)
@@ -63,16 +66,10 @@ void set_map()
 	  MAP[j][i] = 3;
 	}
     }
-  for ( j = 0 ; j < 11 ; j++){
-    MAP[3][j] = MAP[4][j] = 3;
-  }
-
-
-
-
-
-
-
+  for ( j = 0 ; j < 11 ; j++)
+    {
+      MAP[3][j] = MAP[4][j] = 3;
+    }
  
  
   // Drawing the trees 
@@ -83,20 +80,16 @@ void set_map()
   MAP[9][7] = 0;
 
 
-  for(i=9;i<=19;i++){
-    MAP[i][6] = 3;
-  }
-  for(i=0;i<6;i++){
-    MAP[20][i] = 3;
-    MAP[19][i] = 3;
-  }
-  // Drawing the cave 
-
-  MAP[10][5] = 6;
-  MAP[10][0] = 13;
-  MAP[18][0] = 14;
-  MAP[17][0] = 12;
-  MAP[11][0] = 11;
+  for(i=9;i<=19;i++)
+    {
+      MAP[i][6] = 3;
+    }
+  for(i=0;i<6;i++)
+    {
+      MAP[20][i] = 3;
+      MAP[19][i] = 3;
+    }
+ 
 
 
 
@@ -109,19 +102,28 @@ void set_map()
 
 
   // Drawing the cave fields 
-  for(i=11;i<18;i++){
-    for(j=1;j<5;j++){
-       MAP[i][j] = 10;
+  for(i=11;i<18;i++)
+    {
+      for(j=1;j<5;j++)
+	{
+	  MAP[i][j] = 10;
+	}
+      MAP[i][5] = 5 ;
     }
-    MAP[i][5] = 5 ;
-  }
-
+  
   for(i = 11 ; i < 18 ; i++)
     {
       MAP[i][0] = 10;
     }
+  
+  
+ // Drawing the cave 
 
- 
+  MAP[10][5] = 6;
+  MAP[10][0] = 13;
+  MAP[18][0] = 14;
+  MAP[18][5] = 7;
+
 }
 
 
