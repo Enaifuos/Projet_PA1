@@ -75,6 +75,7 @@ void move_down()
   rcSrcSprite.y = 0; 
   if(check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)+1))
     {
+      stepcount += 1;
       if(coordplayery <= (MAPheight-1) *  SPRITE_SIZE)
 	{
 	  int i;
@@ -117,6 +118,7 @@ void move_up()
   rcSrcSprite.y = SPRITE_SIZE * 18;
   if( check_move_ground( coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE) -1) )
     {
+      stepcount += 1;
       if(coordplayery >= SPRITE_SIZE)
 	{
 	  int i;
@@ -152,11 +154,13 @@ void move_up()
     }
 }
 
+
 void move_right()
 {
   rcSrcSprite.y = SPRITE_SIZE * 12;
   if(check_move_ground((coordplayerx/SPRITE_SIZE)+1 , coordplayery/SPRITE_SIZE))
     {
+      stepcount += 1;
       if( coordplayerx < (MAPlength-1) * SPRITE_SIZE)
 	{
 	  int i;
@@ -202,6 +206,7 @@ void move_left()
   rcSrcSprite.y = SPRITE_SIZE * 6;
   if( check_move_ground((coordplayerx/SPRITE_SIZE)-1 , coordplayery/SPRITE_SIZE) )
     {
+      stepcount += 1;
       if( coordplayerx >= SPRITE_SIZE )
 	{
 	  int i;
