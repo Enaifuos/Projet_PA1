@@ -165,23 +165,19 @@ int main(int argc, char* argv[])
       if (keystate[SDLK_LEFT] )
 	{
 	  move_left();
-	  stepcount += 1;
 	}
       if (keystate[SDLK_RIGHT] )
 	{
 	  move_right();
-	  stepcount += 1;
 	}
       if (keystate[SDLK_UP] )
 	{
 	  move_up();
-	  stepcount += 1;
 	}
       
       if (keystate[SDLK_DOWN] )
 	{
 	  move_down();
-	  stepcount += 1;
 	}
 
       if (keystate[SDLK_p])
