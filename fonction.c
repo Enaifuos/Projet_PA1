@@ -1,5 +1,6 @@
 #include "SDL.h"
-#include "setting.c" // NEW
+#include "setting.c"
+#include "drawing.c"
 
 #define SCREEN_WIDTH  608
 #define SCREEN_HEIGHT 480
@@ -14,7 +15,7 @@ extern SDL_Surface *rockwall, *rockwall_dl, *rockwall_dr, *rockwall_l, *rockwall
 extern SDL_Rect rcSprite, rcSrcSprite, rcGrass, rcWater, rcSand, rcTree, rcDirt, rcRock, rcPause;
 extern SDL_Event event;
 extern Uint8 *keystate;
-extern int colorkey, gameover;
+extern int colorkey, gameover, stepcount;
 extern int coordplayerx, coordplayery;
 
 
@@ -42,26 +43,6 @@ void stats();
 
 
 /* screen printing */
-
-   //drawing
-void draw_grassGM(int i, int j);
-void draw_grassPM(int i, int j);
-
-void draw_waterGM(int i, int j);
-void draw_waterPM(int i, int j);
-
-void draw_sandGM(int i, int j);
-void draw_sandPM(int i, int j);
-
-void draw_treeGM(int i, int j);
-void draw_treePM(int i, int j);
-
-void draw_dirtGM(int i, int j);
-void draw_dirtPM(int i, int j);
-
-
-
-   //screen printing
 void screen_printing_Gmove();
 void screen_printing_Pmove();
 
@@ -346,113 +327,6 @@ void stats()
 
 
 
-/*--------- draw ----------*/
-
-void draw_grassPM(int i, int j)
-{
-  rcGrass.x = i * SPRITE_SIZE;
-  rcGrass.y = j * SPRITE_SIZE;
-  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
-}
-
-void draw_grassGM(int i, int j)
-{
-  rcGrass.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
-  rcGrass.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
-  SDL_BlitSurface(grass, NULL, screen, &rcGrass);
-}
-
-
-//-----------------------------------
-
-
-void draw_waterPM(int i, int j)
-{
-  rcWater.x = i * SPRITE_SIZE;
-  rcWater.y = j * SPRITE_SIZE;
-  SDL_BlitSurface(water, NULL, screen, &rcWater);
-}
-
-void draw_waterGM(int i, int j)
-{
-  rcWater.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
-  rcWater.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
-  SDL_BlitSurface(water, NULL, screen, &rcWater);
-}
-
-
-//-----------------------------------
-
-
-
-void draw_sandPM(int i, int j)
-{
-  rcSand.x = i * SPRITE_SIZE;
-  rcSand.y = j * SPRITE_SIZE;
-  SDL_BlitSurface(sand, NULL, screen, &rcSand);
-}
-
-void draw_sandGM(int i, int j)
-{
-  rcSand.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE); 
-  rcSand.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
-  SDL_BlitSurface(sand, NULL, screen, &rcSand);
-}
-
-
-//-----------------------------------
-
-
-void draw_treePM(int i, int j)
-{
-  rcTree.x = i * SPRITE_SIZE;
-  rcTree.y = j * SPRITE_SIZE;
-  SDL_BlitSurface(tree, NULL, screen, &rcTree);
-}
-
-void draw_treeGM(int i, int j)
-{
-  rcTree.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
-  rcTree.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
-  SDL_BlitSurface(tree, NULL, screen, &rcTree);
-}
-
-
-//-----------------------------------
-
-
-void draw_dirtPM(int i, int j)
-{
-  rcDirt.x = i * SPRITE_SIZE;
-  rcDirt.y = j * SPRITE_SIZE;
-  SDL_BlitSurface(dirt, NULL, screen, &rcDirt);
-}
-
-void draw_dirtGM(int i, int j)
-{
-  rcDirt.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
-  rcDirt.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
-  SDL_BlitSurface(dirt, NULL, screen, &rcDirt);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*--------- screen printing ----------*/
 
 
@@ -490,66 +364,44 @@ void screen_printing_Gmove()
 		}          
 	      if( MAP[x][y] == 5 )
 		{
-		    rcRock.x = i * SPRITE_SIZE;
-		    rcRock.y = j * SPRITE_SIZE;
-		    SDL_BlitSurface(rockwall, NULL, screen, &rcRock);
+		  draw_rockwallGM(i , j);
 		}
-	       if( MAP[x][y] == 6 )
+	      if( MAP[x][y] == 6 )
 		{
-		    rcRock.x = i * SPRITE_SIZE;
-		    rcRock.y = j * SPRITE_SIZE;
-		    SDL_BlitSurface(rockwall_dl, NULL, screen, &rcRock);
+		  draw_rockwall_dlGM(i , j);
 		}
-	        if( MAP[x][y] == 7 )
+	      if( MAP[x][y] == 7 )
 		{
-		    rcRock.x == i * SPRITE_SIZE;
-		    rcRock.y == j * SPRITE_SIZE;
-		    SDL_BlitSurface(rockwall_dr, NULL, screen, &rcRock);
+		  draw_rockwall_drGM(i , j);		 
 		}
-		if( MAP[x][y] == 8 )
-		  {
-		    rcRock.x = i * SPRITE_SIZE;
-		    rcRock.y = j * SPRITE_SIZE;
-		    SDL_BlitSurface(rockwall_l, NULL, screen, &rcRock);
-		  }
-		 if( MAP[x][y] == 9 )
+	      if( MAP[x][y] == 8 )
 		{
-		    rcRock.x = i * SPRITE_SIZE;
-		    rcRock.y = j * SPRITE_SIZE;
-		    SDL_BlitSurface(rockwall_r, NULL, screen, &rcRock);
+		  draw_rockwall_lGM(i , j);
 		}
-		 if( MAP[x][y] == 10 )
-		   {
-		    rcRock.x = i * SPRITE_SIZE;
-		    rcRock.y = j * SPRITE_SIZE;
-		    SDL_BlitSurface(rockwall_top, NULL, screen, &rcRock);
-		   }
-		 if( MAP[x][y] == 11 )
-		   {
-		     rcRock.x = i * SPRITE_SIZE;
-		     rcRock.y = j * SPRITE_SIZE;
-		     SDL_BlitSurface(rockwall_ucl, NULL, screen, &rcRock);
-		   }
-		 if( MAP[x][y] == 12 )
-		   {
-		     rcRock.x = i * SPRITE_SIZE;
-		     rcRock.y = j * SPRITE_SIZE;
-		     SDL_BlitSurface(rockwall_ucr, NULL, screen, &rcRock);
-		   }
-		 if( MAP[x][y] == 13 )
-		   {
-		     rcRock.x = i * SPRITE_SIZE;
-		     rcRock.y = j * SPRITE_SIZE;
-		     SDL_BlitSurface(rockwall_ul, NULL, screen, &rcRock);
-		   }
-		 if( MAP[x][y] == 14 )
-		   {
-		     rcRock.x = i * SPRITE_SIZE;
-		     rcRock.y = j * SPRITE_SIZE;
-		     SDL_BlitSurface(rockwall_ur, NULL, screen, &rcRock);
-		   }
-		 
-		  
+	      if( MAP[x][y] == 9 )
+		{
+		  draw_rockwall_rGM(i , j);
+		}
+	      if( MAP[x][y] == 10 )
+		{
+		  draw_rockwall_topGM(i , j);
+		}
+	      if( MAP[x][y] == 11 )
+		{
+		  draw_rockwall_uclGM(i , j);
+		}
+	      if( MAP[x][y] == 12 )
+		{
+		  draw_rockwall_ucrGM(i , j);
+		}
+	      if( MAP[x][y] == 13 )
+		{
+		  draw_rockwall_ulGM(i , j);
+		}
+	      if( MAP[x][y] == 14 )
+		{
+		  draw_rockwall_urGM(i , j);
+		}
 	    }
 	}
       
@@ -589,7 +441,46 @@ void screen_printing_Gmove()
 		{
 		  draw_dirtGM(i , j);
 		}	  
-	
+	      if( MAP[x][y] == 5 )
+		{
+		  draw_rockwallGM(i , j);
+		}
+	      if( MAP[x][y] == 6 )
+		{
+		  draw_rockwall_dlGM(i , j);
+		}
+	      if( MAP[x][y] == 7 )
+		{
+		  draw_rockwall_drGM(i , j);		 
+		}
+	      if( MAP[x][y] == 8 )
+		{
+		  draw_rockwall_lGM(i , j);
+		}
+	      if( MAP[x][y] == 9 )
+		{
+		  draw_rockwall_rGM(i , j);
+		}
+	      if( MAP[x][y] == 10 )
+		{
+		  draw_rockwall_topGM(i , j);
+		}
+	      if( MAP[x][y] == 11 )
+		{
+		  draw_rockwall_uclGM(i , j);
+		}
+	      if( MAP[x][y] == 12 )
+		{
+		  draw_rockwall_ucrGM(i , j);
+		}
+	      if( MAP[x][y] == 13 )
+		{
+		  draw_rockwall_ulGM(i , j);
+		}
+	      if( MAP[x][y] == 14 )
+		{
+		  draw_rockwall_urGM(i , j);
+		}   
 	    }
 	}
       
@@ -634,6 +525,46 @@ void screen_printing_Pmove()
 	  if( MAP[x][y] == 4 )
 	    { 
 	      draw_dirtPM(i , j);
+	    }
+	  if( MAP[x][y] == 5 )
+	    {
+	      draw_rockwallPM(i , j);
+	    }
+	  if( MAP[x][y] == 6 )
+	    {
+	      draw_rockwall_dlPM(i , j);
+	    }
+	  if( MAP[x][y] == 7 )
+	    {
+	      draw_rockwall_drPM(i , j);		 
+	    }
+	  if( MAP[x][y] == 8 )
+	    {
+	      draw_rockwall_lPM(i , j);
+	    }
+	  if( MAP[x][y] == 9 )
+	    {
+	      draw_rockwall_rPM(i , j);
+	    }
+	  if( MAP[x][y] == 10 )
+	    {
+	      draw_rockwall_topPM(i , j);
+	    }
+	  if( MAP[x][y] == 11 )
+	    {
+	      draw_rockwall_uclPM(i , j);
+	    }
+	  if( MAP[x][y] == 12 )
+	    {
+	      draw_rockwall_ucrPM(i , j);
+	    }
+	  if( MAP[x][y] == 13 )
+	    {
+	      draw_rockwall_ulPM(i , j);
+	    }
+	  if( MAP[x][y] == 14 )
+	    {
+	      draw_rockwall_urPM(i , j);
 	    }
 	}
     }
