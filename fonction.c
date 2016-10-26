@@ -1,6 +1,7 @@
 #include "SDL.h"
 #include "setting.c"
 #include "drawing.c"
+#include "global_variable.c"
 
 #define SCREEN_WIDTH  608
 #define SCREEN_HEIGHT 480
@@ -9,14 +10,7 @@
 #define MAPheight      44
 
 
-extern int MAP[MAPlength][MAPheight];
-extern SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *dirt, *pause;
-extern SDL_Surface *rockwall, *rockwall_dl, *rockwall_dr, *rockwall_l, *rockwall_r, *rockwall_top, *rockwall_ucl, *rockwall_ucr, *rockwall_ul, *rockwall_ur;
-extern SDL_Rect rcSprite, rcSrcSprite, rcGrass, rcWater, rcSand, rcTree, rcDirt, rcRock, rcPause;
-extern SDL_Event event;
-extern Uint8 *keystate;
-extern int colorkey, gameover, stepcount;
-extern int coordplayerx, coordplayery;
+
 
 
 

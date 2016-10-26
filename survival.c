@@ -1,6 +1,5 @@
 #include "SDL.h"
 #include "fonction.c"
-#include "global_variable.c"
 
 
 
@@ -16,7 +15,6 @@
 int main(int argc, char* argv[])
 {
   int i, j;
-  
   /* initialize video system */
   SDL_Init(SDL_INIT_VIDEO);
   
@@ -48,28 +46,65 @@ int main(int argc, char* argv[])
   water = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
-  
        /* load sand  */
   temp = SDL_LoadBMP("ressources/sand/sand.bmp");
   sand = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/sand/sandg_r.bmp");
+  sandg_r = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
+  
        /* load tree */
   temp = SDL_LoadBMP("ressources/tree.bmp");
   tree = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  /* load pause menu */
+  temp = SDL_LoadBMP("ressources/pause_menu.bmp");
+  pause = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
       /* load dirt  */
   temp = SDL_LoadBMP("ressources/dirt/dirt.bmp");
   dirt = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
-    /* load pause menu */
-  temp = SDL_LoadBMP("ressources/pause_menu.bmp");
-  pause = SDL_DisplayFormat(temp);
+  /* load the special dirt */
+  temp = SDL_LoadBMP("ressources/dirt/dirtg_d.bmp");
+  dirtg_d = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
-  
-      /*  load rock */
+
+  temp = SDL_LoadBMP("ressources/dirt/dirtg_dl.bmp");
+  dirtg_dl = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/dirt/dirtg_dr.bmp");
+  dirtg_dr = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/dirt/dirtg_l.bmp");
+  dirtg_l = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/dirt/dirtg_r.bmp");
+  dirtg_r = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/dirt/dirtg_u.bmp");
+  dirtg_u = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/dirt/dirtg_ul.bmp");
+  dirtg_ul = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/dirt/dirtg_ur.bmp");
+  dirtg_ur = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+      /* load the special rockwall */
   temp = SDL_LoadBMP("ressources/rockwall/rockwall.bmp");
   rockwall = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
@@ -126,7 +161,7 @@ int main(int argc, char* argv[])
   rcSrcSprite.w = SPRITE_SIZE;
 
 
-  
+
   gameover = 0;
   
   /* set the MAP */
@@ -209,7 +244,7 @@ int main(int argc, char* argv[])
       screen_printing_Gmove();
     }
   
-  /* clean up */
+       /* clean up */
   SDL_FreeSurface(sprite);
   SDL_FreeSurface(grass);
   SDL_FreeSurface(water);
@@ -217,6 +252,12 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(dirt);
   SDL_FreeSurface(pause);
   SDL_FreeSurface(rockwall);
+
+  /* cleaning the special sand */
+  SDL_FreeSurface(sandg_r);
+
+  
+  /* cleaning the special rockwall */
   SDL_FreeSurface(rockwall_dr);
   SDL_FreeSurface(rockwall_dl);
   SDL_FreeSurface(rockwall_top);
