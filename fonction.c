@@ -359,7 +359,7 @@ void screen_printing_Gmove()
 		}
 	      if( MAP[x][y] == 4)
 		{
-		  draw_dirtGM(i , j);
+		  draw_dirtGM(i , j , x , y);
 		}          
 	      if( MAP[x][y] == 5 )
 		{
@@ -438,7 +438,7 @@ void screen_printing_Gmove()
 		}
 	      if( MAP[x][y] == 4)
 		{
-		  draw_dirtGM(i , j);
+		  draw_dirtGM(i , j , x , y);
 		}	  
 	      if( MAP[x][y] == 5 )
 		{
@@ -523,7 +523,7 @@ void screen_printing_Pmove()
 	    }
 	  if( MAP[x][y] == 4 )
 	    { 
-	      draw_dirtPM(i , j);
+	      draw_dirtPM(i , j , x , y);
 	    }
 	  if( MAP[x][y] == 5 )
 	    {

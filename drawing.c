@@ -28,8 +28,8 @@ void draw_sandPM(int i, int j);
 void draw_treeGM(int i, int j);
 void draw_treePM(int i, int j);
 
-void draw_dirtGM(int i, int j);
-void draw_dirtPM(int i, int j);
+void draw_dirtGM(int i, int j, int x, int y);
+void draw_dirtPM(int i, int j, int x, int y);
 
 void draw_rockwallGM(int i, int j);
 void draw_rockwallPM(int i, int j);
@@ -38,7 +38,7 @@ void draw_rockwallPM(int i, int j);
 
 
 
-SDL_Surface kind_of_dirt(int i, int j);
+SDL_Surface kind_of_dirt(int x, int y);
 
 //SDL_Surface kinf_of_rockwall(int i, int j);
 
@@ -169,19 +169,19 @@ void draw_treeGM(int i, int j)
 //-----------------------------------
 
 
-void draw_dirtPM(int i, int j)
+void draw_dirtPM(int i, int j, int x, int y)
 {
   rcDirt.x = i * SPRITE_SIZE;
   rcDirt.y = j * SPRITE_SIZE;
-  *temp = kind_of_dirt(i,j);
+  *temp = kind_of_dirt(x,y);
   SDL_BlitSurface(temp, NULL, screen, &rcDirt);
 }
 
-void draw_dirtGM(int i, int j)
+void draw_dirtGM(int i, int j, int x, int y)
 {
   rcDirt.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
   rcDirt.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
-  *temp = kind_of_dirt(i,j);
+  *temp = kind_of_dirt(x,y);
   SDL_BlitSurface(temp, NULL, screen, &rcDirt);
 }
 
@@ -376,19 +376,19 @@ void draw_rockwall_urGM(int i, int j)
 
 
 
-SDL_Surface kind_of_dirt(int i, int j)
+SDL_Surface kind_of_dirt(int x, int y)
 {
   int type;
-  type = MAP[i][j];
-  if( MAP[i+1][j] == type && MAP[i-1][j] == type && MAP[i][j-1] == type && MAP[i][j+1] == type )
+  type = MAP[x][y];
+  if( MAP[x+1][y] == type && MAP[x-1][y] == type && MAP[x][y-1] == type && MAP[x][y+1] == type )
     {
       return *dirt;
     }
-  if( MAP[i+1][j] == type)
+  if( MAP[x+1][y] == type)
     {
-      if( MAP[i-1][j] == type )
+      if( MAP[x-1][y] == type )
 	{
-	  if( !MAP[i][j+1] )
+	  if( !MAP[x][y+1] )
 	    {
 	      return *dirtg_u;
 	    }
@@ -397,29 +397,29 @@ SDL_Surface kind_of_dirt(int i, int j)
 	      return *dirtg_d;
 	    }
 	}
-      if( MAP[i][j+1] == type )
+      if( MAP[x][y+1] == type )
 	{
 	  return *dirtg_ul;
 	}
-      if( MAP[i][j-1] == type )
+      if( MAP[x][y-1] == type )
 	{
 	  return *dirtg_dl;
 	}
     }
-  if( MAP[i-1][j] == type )
+  if( MAP[x-1][y] == type )
     {
-      if( MAP[i][j+1] == type )
+      if( MAP[x][y+1] == type )
 	{
 	  return *dirtg_ur;
 	}
-      if( MAP[i][j-1] )
+      if( MAP[x][y-1] )
 	{
-	  return *dirtg_ul;
+	  return *dirtg_dr;
 	}
     }
   else
     {
-      if( !MAP[i+1][j] )
+      if( !MAP[x+1][y] )
 	{
 	  return *dirtg_r;
 	}

@@ -254,7 +254,14 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(rockwall);
 
   /* cleaning the special sand */
-  SDL_FreeSurface(sandg_r);
+  SDL_FreeSurface(dirtg_d);
+  SDL_FreeSurface(dirtg_u);
+  SDL_FreeSurface(dirtg_dr);
+  SDL_FreeSurface(dirtg_dl);
+  SDL_FreeSurface(dirtg_ur);
+  SDL_FreeSurface(dirtg_ul);
+  SDL_FreeSurface(dirtg_r);
+  SDL_FreeSurface(dirtg_l);
 
   
   /* cleaning the special rockwall */
