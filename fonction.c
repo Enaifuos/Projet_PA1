@@ -66,10 +66,14 @@ int check_move_ground(int x, int y)
 
 void move_down()
 {
+  // set the animation fram for the movement
   rcSrcSprite.y = 0; 
+
+  // check if the player can walk on the surface
   if(check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)+1))
     {
       stepcount += 1;
+
       if(coordplayery <= (MAPheight-1) *  SPRITE_SIZE)
 	{
 	  int i;
@@ -129,6 +133,7 @@ void move_up()
 		  SDL_Delay(5);
 		  screen_printing_Pmove();
 		}
+	      printf("%d,%d\n",coordplayerx,coordplayery);
 	    }
 	  else
 	    {

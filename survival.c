@@ -168,6 +168,17 @@ int main(int argc, char* argv[])
   
   set_map();
   
+  //printing the map
+  for(i=0;i<SCREEN_HEIGHT /SPRITE_SIZE;i++)
+    {
+      for(j=0;j<SCREEN_WIDTH /SPRITE_SIZE;j++)
+	{
+	  printf("%d ",MAP[j][i]);
+	}
+      printf("\n");
+    }
+
+
   /* message pump */
   while (!gameover)
     {

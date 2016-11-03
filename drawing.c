@@ -231,8 +231,8 @@ void draw_rockwall_dlGM(int i, int j)
 
 void draw_rockwall_drPM(int i, int j)
 {
-  rcRock.x == i * SPRITE_SIZE;
-  rcRock.y == j * SPRITE_SIZE;
+  rcRock.x = i * SPRITE_SIZE;
+  rcRock.y = j * SPRITE_SIZE;
   SDL_BlitSurface(rockwall_dr, NULL, screen, &rcRock);
 }
 
