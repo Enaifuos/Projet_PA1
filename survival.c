@@ -15,6 +15,7 @@
 int main(int argc, char* argv[])
 {
   int i, j;
+   MAP = creerTable(MAPlength , MAPheight );
   /* initialize video system */
   SDL_Init(SDL_INIT_VIDEO);
   
@@ -255,6 +256,9 @@ int main(int argc, char* argv[])
       screen_printing_Gmove();
     }
   
+  /* clean the array */ 
+  freeTable(MAP);
+
        /* clean up */
   SDL_FreeSurface(sprite);
   SDL_FreeSurface(grass);
@@ -285,6 +289,8 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(rockwall_ul);
   SDL_FreeSurface(rockwall_ucr);
   SDL_FreeSurface(rockwall_ucl);
+
+  
 
   SDL_Quit();
   

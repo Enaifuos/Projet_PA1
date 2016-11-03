@@ -39,7 +39,7 @@ void stats();
 /* screen printing */
 void screen_printing_Gmove();
 void screen_printing_Pmove();
-
+void freeTable(int **tableau);
 
 
 
@@ -50,6 +50,13 @@ void screen_printing_Pmove();
 
 
 /*---------------function-------------------*/
+
+// Free the array 
+void freeTable(int **tableau)
+{
+	free(tableau[0]);
+	free(tableau);
+}
 
 
    /*-----movement-----*/
@@ -579,3 +586,5 @@ void screen_printing_Pmove()
   /* update the screen */
   SDL_UpdateRect(screen,0,0,0,0);
 }
+
+

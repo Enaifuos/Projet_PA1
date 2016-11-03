@@ -7,7 +7,7 @@
 #define MAPheight      44
 
 
-int MAP[MAPlength][MAPheight];
+int ** MAP;//[MAPlength][MAPheight];
 SDL_Surface *screen, *temp, *sprite, *grass, *water, *sand, *tree, *dirt, *pause;
 SDL_Surface *dirtg_d, *dirtg_dl, *dirtg_dr, *dirtg_l, *dirtg_r, *dirtg_u, *dirtg_ul, *dirtg_ur;
 SDL_Surface *sandg_dl, *sandg_dr, *sandg_l, *sandg_r, *sandg_top, *sandg_ucl, *sandg_ucr, *sandg_ul, *sandg_ur;

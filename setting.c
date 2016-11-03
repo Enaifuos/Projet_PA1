@@ -3,14 +3,14 @@
 #define MAPheight      44
 #define SPRITE_SIZE    32
 
-extern int MAP[MAPlength][MAPheight];
+extern int** MAP;
 
 
 /*---Prototypes---*/
 
 void set_map();
 void set_position();
-
+int ** creerTable(int l , int c);
 
 
 
@@ -147,3 +147,18 @@ void set_position()
   //a faire
   printf("\na faire\n");
 }
+
+
+int ** creerTable(int l , int c)
+{
+  int ** t1 = (int **)malloc(sizeof(int*)*l);
+  int *t2 = (int *)malloc(sizeof(int*)*c*l);
+  int i ;
+  for (i = 0 ; i < l ; i++)
+    {
+      t1[i] = &t2[i*c];
+    }
+  return t1 ;
+}
+
+
