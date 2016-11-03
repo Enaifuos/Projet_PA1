@@ -140,7 +140,6 @@ void move_up()
 		  SDL_Delay(5);
 		  screen_printing_Pmove();
 		}
-	      printf("%d,%d\n",coordplayerx,coordplayery);
 	    }
 	  else
 	    {
