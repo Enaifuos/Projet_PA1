@@ -378,52 +378,205 @@ void draw_rockwall_urGM(int i, int j)
 
 SDL_Surface kind_of_dirt(int x, int y)
 {
-  int type;
-  type = MAP[x][y];
-  if( MAP[x+1][y] == type && MAP[x-1][y] == type && MAP[x][y-1] == type && MAP[x][y+1] == type )
+ 
+  //checking if it's the top and then left or right
+  if( !y )
     {
-      return *dirt;
-    }
-  if( MAP[x+1][y] == type)
-    {
-      if( MAP[x-1][y] == type )
+      if( !x ) //left top corner
 	{
-	  if( !MAP[x][y+1] )
+	  if(!MAP[x+1][y] && ! MAP[x][y+1])
 	    {
-	      return *dirtg_u;
+	      return *dirtg_dr;
 	    }
-	  else
+	  if( !MAP[x][y+1] )
 	    {
 	      return *dirtg_d;
 	    }
+	  if( !MAP[x+1][y] )
+	    {
+	      return *dirtg_r;
+	    }
 	}
-      if( MAP[x][y+1] == type )
+      if( x == MAPlength-1 ) //right top corner
 	{
-	  return *dirtg_ul;
+	  if( !MAP[x-1][y] && !MAP[x][y+1] )
+	    {
+	      return *dirtg_dl;
+	    } 
+	  if( !MAP[x][y+1] )
+	    {
+	      return *dirtg_d;
+	    }
+	  if( !MAP[x-1][y] )
+	    {
+	      return *dirtg_l;
+	    }
 	}
-      if( MAP[x][y-1] == type )
+      else //top
 	{
-	  return *dirtg_dl;
+	  if( !MAP[x][y+1] )
+	    {
+	      if( !MAP[x+1][y] )
+		{
+		  return *dirtg_dr;
+		}
+	      if( !MAP[x-1][y] )
+		{
+		  return *dirtg_dl;
+		}
+	      return *dirtg_d;
+	    }
+	  if( !MAP[x+1][y] )
+	    {
+	      return *dirtg_r;
+	    }
+	  if( !MAP[x-1][y] )
+	    {
+	      return *dirtg_l;
+	    }
 	}
     }
-  if( MAP[x-1][y] == type )
+  
+  //checking if it's the bottom and then left or right
+  else if( y == MAPheight-1 )
     {
-      if( MAP[x][y+1] == type )
+      if( !x ) //left down corner 
 	{
-	  return *dirtg_ur;
+	  if(!MAP[x+1][y] && !MAP[x][y-1])
+	    {
+	      return *dirtg_ur;
+	    }
+	  if(!MAP[x][y-1])
+	    {
+	      return *dirtg_u;
+	    }
+	  if(!MAP[x+1][y])
+	    {
+	      return *dirtg_r;
+	    }
 	}
-      if( MAP[x][y-1] )
+      if( x == MAPlength-1 ) //right down corner
 	{
-	  return *dirtg_dr;
+	  if( !MAP[x-1][y] && !MAP[x][y-1] )
+	    {
+	      return *dirtg_ul;
+	    }
+	  if( !MAP[x][y-1] )
+	    {
+	      return *dirtg_u;
+	    }
+	  if( !MAP[x-1][y] )
+	    {
+	      return *dirtg_l;
+	    }
+	}
+      else //bottom
+	{
+	  if( !MAP[x][y-1] )
+	    {
+	      if( !MAP[x+1][y] )
+		{
+		  return *dirtg_ur;
+		}
+	      if( !MAP[x-1][y] )
+		{
+		  return *dirtg_ul;
+		}
+	      return *dirtg_u;
+	    }
+	  if( !MAP[x+1][y] )
+	    {
+	      return *dirtg_r;
+	    }
+	  if( !MAP[x-1][y] )
+	    {
+	      return *dirtg_l;
+	    }
 	}
     }
+  
+  //check left
+  else if( !x )
+    {
+      if( !MAP[x+1][y] )
+	{
+	  if( !MAP[x][y+1] ) 
+	    {
+	      return *dirtg_ur;
+	    }
+	  if( !MAP[x][y-1] )
+	    {
+	      return *dirtg_dr;
+	    }
+	  return *dirtg_r;
+	}
+      if( !MAP[x][y+1] )
+	{
+	  return *dirtg_u;
+	}
+      if( !MAP[x][y-1] )
+	{
+	  return *dirtg_d;
+	}
+    }
+  
+  //check right
+  else if( x == MAPlength-1 ) 
+    {
+      if( !MAP[x-1][y] )
+	{
+	  if( !MAP[x][y+1] ) 
+	    {
+	      return *dirtg_ul;
+	    }
+	  if( !MAP[x][y-1] )
+	    {
+	      return *dirtg_dl;
+	    }
+	  return *dirtg_r;
+	}
+      if( !MAP[x][y+1] )
+	{
+	  return *dirtg_u;
+	}
+      if( !MAP[x][y-1] )
+	{
+	  return *dirtg_d;
+	}
+    }
+  
+  //center
   else
     {
+      if( !MAP[x][y+1] )
+	{
+	  if( !MAP[x+1][y] )
+	    {
+	      return *dirtg_dr;
+	    }
+	  if( !MAP[x-1][y] )
+	    {
+	      return *dirtg_dl;
+	    }
+	  return *dirtg_d;
+	}
+      if( !MAP[x][y-1] )
+	{
+	  if( !MAP[x+1][y] )
+	    {
+	      return *dirtg_ur;
+	    }
+	  if( !MAP[x-1][y] )
+	    {
+	      return *dirtg_ul;
+	    }
+	  return *dirtg_u;
+	}
       if( !MAP[x+1][y] )
 	{
 	  return *dirtg_r;
 	}
-      else
+      if( !MAP[x-1][y] )
 	{
 	  return *dirtg_l;
 	}
