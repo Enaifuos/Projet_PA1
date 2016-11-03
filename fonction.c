@@ -39,7 +39,6 @@ void stats();
 /* screen printing */
 void screen_printing_Gmove();
 void screen_printing_Pmove();
-void freeTable(int **tableau);
 
 
 
@@ -51,12 +50,7 @@ void freeTable(int **tableau);
 
 /*---------------function-------------------*/
 
-// Free the array 
-void freeTable(int **tableau)
-{
-	free(tableau[0]);
-	free(tableau);
-}
+
 
 
    /*-----movement-----*/
@@ -362,7 +356,7 @@ void screen_printing_Gmove()
 		}
 	      if( MAP[x][y] == 2)
 		{
-		  draw_sandGM(i ,  j);
+		  draw_sandGM(i ,  j , x , y);
 		}
 	      if( MAP[x][y] == 3)
 		{
@@ -441,7 +435,7 @@ void screen_printing_Gmove()
 		}
 	      if( MAP[x][y] == 2 )
 		{ 
-		  draw_sandGM(i , j);
+		  draw_sandGM(i , j , x , y);
 		}
 	      if( MAP[x][y] == 3)
 		{
@@ -526,7 +520,7 @@ void screen_printing_Pmove()
 	    }
 	  if( MAP[x][y] == 2)
 	    {
-	      draw_sandPM(i , j);
+	      draw_sandPM(i , j , x , y);
 	    }
 	  if( MAP[x][y] == 3)
 	    {

@@ -72,6 +72,41 @@ int main(int argc, char* argv[])
   dirt = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+
+  /* load the special sand with water */
+    temp = SDL_LoadBMP("ressources/sand/sandw_d.bmp");
+  sandw_d = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandw_dl.bmp");
+  sandw_dl = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandw_dr.bmp");
+  sandw_dr = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandw_l.bmp");
+  sandw_l = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandw_r.bmp");
+  sandw_r = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandw_u.bmp");
+  sandw_u = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandw_ul.bmp");
+  sandw_ul = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandw_ur.bmp");
+  sandw_ur = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+
   /* load the special dirt */
   temp = SDL_LoadBMP("ressources/dirt/dirtg_d.bmp");
   dirtg_d = SDL_DisplayFormat(temp);
@@ -104,6 +139,7 @@ int main(int argc, char* argv[])
   temp = SDL_LoadBMP("ressources/dirt/dirtg_ur.bmp");
   dirtg_ur = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
+
 
       /* load the special rockwall */
   temp = SDL_LoadBMP("ressources/rockwall/rockwall.bmp");
@@ -149,18 +185,16 @@ int main(int argc, char* argv[])
 
 
 
-   /* set sprite position */
-  rcSprite.x = 9*SPRITE_SIZE;
-  rcSprite.y = 7*SPRITE_SIZE;
-  coordplayerx = 9*SPRITE_SIZE;   
-  coordplayery = 7*SPRITE_SIZE;
-
   /* set the sprite frame */
   rcSrcSprite.x = 0;
   rcSrcSprite.y = 0;
   rcSrcSprite.h = SPRITE_SIZE;
   rcSrcSprite.w = SPRITE_SIZE;
 
+ /* set sprite position */
+  rcSprite.x = 9*SPRITE_SIZE;
+  rcSprite.y = 7*SPRITE_SIZE;
+  set_position();
 
 
   gameover = 0;

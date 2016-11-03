@@ -13,8 +13,8 @@ void draw_grassPM(int i, int j);
 void draw_waterGM(int i, int j);
 void draw_waterPM(int i, int j);
 
-void draw_sandGM(int i, int j);
-void draw_sandPM(int i, int j);
+void draw_sandGM(int i, int j, int x, int y);
+void draw_sandPM(int i, int j, int x, int y);
 
 void draw_treeGM(int i, int j);
 void draw_treePM(int i, int j);
@@ -33,7 +33,7 @@ SDL_Surface* kind_of_dirt(int x, int y);
 
 //SDL_Surface kinf_of_rockwall(int i, int j);
 
-//SDL_Surface kind_of_sand(int i, int j);
+SDL_Surface* kind_of_sand(int x, int y);
 
 
 
@@ -124,18 +124,20 @@ void draw_waterGM(int i, int j)
 
 
 
-void draw_sandPM(int i, int j)
+void draw_sandPM(int i, int j, int x, int y)
 {  
   rcSand.x = i * SPRITE_SIZE;
   rcSand.y = j * SPRITE_SIZE;
-  SDL_BlitSurface(sand, NULL, screen, &rcSand);
+  temp =  kind_of_sand(x,y);
+  SDL_BlitSurface(temp, NULL, screen, &rcSand);
 }
 
-void draw_sandGM(int i, int j)
+void draw_sandGM(int i, int j, int x, int y)
 {
   rcSand.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE); 
   rcSand.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
-  SDL_BlitSurface(sand, NULL, screen, &rcSand);
+  temp =  kind_of_sand(x,y);
+  SDL_BlitSurface(temp, NULL, screen, &rcSand);
 }
 
 
@@ -375,7 +377,7 @@ SDL_Surface* kind_of_dirt(int x, int y)
     {
       if( !x ) //left top corner
 	{
-	  if(!MAP[x+1][y] && ! MAP[x][y+1])
+	  if( !MAP[x+1][y] && !MAP[x][y+1])
 	    {
 	      return dirtg_dr;
 	    }
@@ -579,3 +581,208 @@ SDL_Surface* kind_of_dirt(int x, int y)
 
 
 
+SDL_Surface* kind_of_sand(int x, int y)
+{
+  //checking if it's the top and then left or right
+  if( !y )
+    {
+      if( !x ) //left top corner
+	{
+	  if( 1 == MAP[x+1][y] && 1 == MAP[x][y+1])
+	    {
+	      return sandw_dr;
+	    }
+	  if( 1 == MAP[x][y+1] )
+	    {
+	      return sandw_d;
+	    }
+	  if( 1 == MAP[x+1][y] )
+	    {
+	      return sandw_r;
+	    }
+	}
+      if( x == MAPlength-1 ) //right top corner
+	{
+	  if( 1 == MAP[x-1][y] && 1 == MAP[x][y+1] )
+	    {
+	      return sandw_dl;
+	    } 
+	  if( 1 == MAP[x][y+1] )
+	    {
+	      return sandw_d;
+	    }
+	  if( 1 == MAP[x-1][y] )
+	    {
+	      return sandw_l;
+	    }
+	}
+      else //top
+	{
+	  if( 1 == MAP[x][y+1] )
+	    {
+	      if( 1 == MAP[x+1][y] )
+		{
+		  return sandw_dr;
+		}
+	      if( 1 == MAP[x-1][y] )
+		{
+		  return sandw_dl;
+		}
+	      return sandw_d;
+	    }
+	  if( 1 == MAP[x+1][y] )
+	    {
+	      return sandw_r;
+	    }
+	  if( 1 == MAP[x-1][y] )
+	    {
+	      return sandw_l;
+	    }
+	}
+    }
+  
+  //checking if it's the bottom and then left or right
+  else if( y == MAPheight-1 )
+    {
+      if( !x ) //left down corner 
+	{
+	  if(1 == MAP[x+1][y] && 1 == MAP[x][y-1])
+	    {
+	      return sandw_ur;
+	    }
+	  if(1 == MAP[x][y-1])
+	    {
+	      return sandw_u;
+	    }
+	  if(1 == MAP[x+1][y])
+	    {
+	      return sandw_r;
+	    }
+	}
+      if( x == MAPlength-1 ) //right down corner
+	{
+	  if( 1 == MAP[x-1][y] && 1 == MAP[x][y-1] )
+	    {
+	      return sandw_ul;
+	    }
+	  if( 1 == MAP[x][y-1] )
+	    {
+	      return sandw_u;
+	    }
+	  if( 1 == MAP[x-1][y] )
+	    {
+	      return sandw_l;
+	    }
+	}
+      else //bottom
+	{
+	  if( 1 == MAP[x][y-1] )
+	    {
+	      if( 1 == MAP[x+1][y] )
+		{
+		  return sandw_ur;
+		}
+	      if( 1 == MAP[x-1][y] )
+		{
+		  return sandw_ul;
+		}
+	      return sandw_u;
+	    }
+	  if( 1 == MAP[x+1][y] )
+	    {
+	      return sandw_r;
+	    }
+	  if( 1 == MAP[x-1][y] )
+	    {
+	      return sandw_l;
+	    }
+	}
+    }
+  
+  //check left
+  else if( !x )
+    {
+      if( 1 == MAP[x+1][y] )
+	{
+	  if( 1 == MAP[x][y+1] ) 
+	    {
+	      return sandw_ur;
+	    }
+	  if( 1 == MAP[x][y-1] )
+	    {
+	      return sandw_dr;
+	    }
+	  return sandw_r;
+	}
+      if( 1 == MAP[x][y+1] )
+	{
+	  return sandw_u;
+	}
+      if( 1 == MAP[x][y-1] )
+	{
+	  return sandw_d;
+	}
+    }
+  
+  //check right
+  else if( x == MAPlength-1 ) 
+    {
+      if( 1 == MAP[x-1][y] )
+	{
+	  if( 1 == MAP[x][y+1] ) 
+	    {
+	      return sandw_ul;
+	    }
+	  if( 1 == MAP[x][y-1] )
+	    {
+	      return sandw_dl;
+	    }
+	  return sandw_r;
+	}
+      if( 1 == MAP[x][y+1] )
+	{
+	  return sandw_u;
+	}
+      if( 1 == MAP[x][y-1] )
+	{
+	  return sandw_d;
+	}
+    }
+  
+  //center
+  else
+    {
+      if( 1 == MAP[x][y+1] )
+	{
+	  if( 1 == MAP[x+1][y] )
+	    {
+	      return sandw_dr;
+	    }
+	  if( 1 == MAP[x-1][y] )
+	    {
+	      return sandw_dl;
+	    }
+	  return sandw_d;
+	}
+      if( 1 == MAP[x][y-1] )
+	{
+	  if( 1 == MAP[x+1][y] )
+	    {
+	      return sandw_ur;
+	    }
+	  if( 1 == MAP[x-1][y] )
+	    {
+	      return sandw_ul;
+	    }
+	  return sandw_u;
+	}
+      if( 1 == MAP[x+1][y] )
+	{
+	  return sandw_r;
+	}
+      if( 1 == MAP[x-1][y] )
+	{
+	  return sandw_l;
+	}
+    }
+}
