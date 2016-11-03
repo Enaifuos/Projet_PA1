@@ -1,6 +1,4 @@
 #include "SDL.h" 
-#include "global_variable.c"
-
 #define MAPlength      64
 #define MAPheight      44
 #define SPRITE_SIZE    32
@@ -12,10 +10,7 @@ extern int** MAP;
 
 void set_map();
 void set_position();
-
-//array functions
 int ** creerTable(int l , int c);
-void freeTable(int **tableau);
 
 
 
@@ -49,7 +44,7 @@ void set_map()
     }
   
 
-     /* set whater */
+     /* set water */
   for( j=1 ; j < 3 ; j++ )
     {
       for( i=0 ; i < MAPlength ; i++ )
@@ -62,9 +57,10 @@ void set_map()
       MAP[0][i] = 1;
     }
 
+ 
 
   /* Draw three columns of trees */
-  for ( j=5 ; j<10 ; j++ )
+  for ( j=5 ; j<9 ; j++ )
     {
       for(i=0 ; i<5 ; i++)
 	{
@@ -75,20 +71,7 @@ void set_map()
     {
       MAP[3][j] = MAP[4][j] = 3;
     }
- 
- 
-  // Drawing the trees 
 
-  MAP[8][6] = 0;
-  MAP[9][6] = 0; 
-  MAP[8][7] = 0;
-  MAP[9][7] = 0;
-
-
-  for(i=9;i<=19;i++)
-    {
-      MAP[i][6] = 3;
-    }
   for(i=0;i<6;i++)
     {
       MAP[20][i] = 3;
@@ -129,6 +112,29 @@ void set_map()
   MAP[18][0] = 14;
   MAP[18][5] = 7;
 
+   /* set water beside the cave */
+  for( i = 0 ; i < 8 ; i ++ )
+    {
+      MAP[9][i] = 1 ;
+    }
+
+  for ( i = 10 ; i < 19 ; i ++ )
+    {
+      MAP[i][6] = 1 ;
+      MAP[i][7] = 1 ;
+    }
+  
+  for ( i = 7 ; i < 15 ; i ++)
+    {
+      MAP[17][i] = 1 ;
+      MAP[18][i] = 1 ;
+    }
+
+  for ( i = 0 ; i < 18 ; i ++)
+    {
+      MAP[i][13] = 1 ;
+      MAP[i][14] = 1 ;
+    }
 
   //test
 
@@ -139,6 +145,8 @@ void set_map()
     
 }
 
+
+/***************************** ET finissent ici ****************************************************/
 
 
 
@@ -154,9 +162,6 @@ void set_position()
 
 
 
-
-/*---array functions---*/
-
 int ** creerTable(int l , int c)
 {
   int ** t1 = (int **)malloc(sizeof(int*)*l);
@@ -169,11 +174,4 @@ int ** creerTable(int l , int c)
   return t1 ;
 }
 
-
-// Free the array 
-void freeTable(int **tableau)
-{
-	free(tableau[0]);
-	free(tableau);
-}
 
