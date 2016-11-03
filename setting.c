@@ -1,4 +1,5 @@
 #include "SDL.h" 
+#include "global_variable.c"
 #define MAPlength      64
 #define MAPheight      44
 #define SPRITE_SIZE    32
@@ -10,8 +11,10 @@ extern int** MAP;
 
 void set_map();
 void set_position();
-int ** creerTable(int l , int c);
 
+//array function
+int ** creerTable(int l , int c);
+void freeTable(int **tableau);
 
 
 
@@ -146,7 +149,6 @@ void set_map()
 }
 
 
-/***************************** ET finissent ici ****************************************************/
 
 
 
@@ -175,3 +177,8 @@ int ** creerTable(int l , int c)
 }
 
 
+void freeTable(int **tableau)
+{
+  free(tableau[0]);
+  free(tableau);
+}

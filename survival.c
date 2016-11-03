@@ -74,7 +74,7 @@ int main(int argc, char* argv[])
 
 
   /* load the special sand with water */
-    temp = SDL_LoadBMP("ressources/sand/sandw_d.bmp");
+  temp = SDL_LoadBMP("ressources/sand/sandw_d.bmp");
   sandw_d = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
@@ -302,7 +302,7 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(pause);
   SDL_FreeSurface(rockwall);
 
-  /* cleaning the special sand */
+  /* cleaning the special dirt */
   SDL_FreeSurface(dirtg_d);
   SDL_FreeSurface(dirtg_u);
   SDL_FreeSurface(dirtg_dr);
@@ -311,6 +311,16 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(dirtg_ul);
   SDL_FreeSurface(dirtg_r);
   SDL_FreeSurface(dirtg_l);
+
+  /* cleaning special sand */
+  SDL_FreeSurface(sandw_d);
+  SDL_FreeSurface(sandw_u);
+  SDL_FreeSurface(sandw_dr);
+  SDL_FreeSurface(sandw_dl);
+  SDL_FreeSurface(sandw_ur);
+  SDL_FreeSurface(sandw_ul);
+  SDL_FreeSurface(sandw_r);
+  SDL_FreeSurface(sandw_l);
 
   
   /* cleaning the special rockwall */
