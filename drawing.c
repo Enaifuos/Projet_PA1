@@ -712,26 +712,26 @@ SDL_Surface* kind_of_sandg(int x, int y)
 	    {
 	      return sandg_dr;
 	    }
-	  else if( !MAP[x][y+1] || MAP[x][y+1] == 3)
+	  if( !MAP[x][y+1] || MAP[x][y+1] == 3)
 	    {
 	      return sandg_d;
 	    }
-	  else if( !MAP[x+1][y] || MAP[x+1][y] == 3 )
+	  if( !MAP[x+1][y] || MAP[x+1][y] == 3 )
 	    {
 	      return sandg_r;
 	    }
 	}
-      else if( x == MAPlength-1 ) //right top corner
+      if( x == MAPlength-1 ) //right top corner
 	{
 	  if( (!MAP[x-1][y] && !MAP[x][y+1]) || (MAP[x-1][y] == 3 && MAP[x][y+1] == 3))
 	    {
 	      return sandg_dl;
 	    } 
-	  else if( !MAP[x][y+1] || MAP[x][y+1] == 3 )
+	  if( !MAP[x][y+1] || MAP[x][y+1] == 3 )
 	    {
 	      return sandg_d;
 	    }
-	  else if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
+	  if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
 	    {
 	      return sandg_l;
 	    }
@@ -744,17 +744,17 @@ SDL_Surface* kind_of_sandg(int x, int y)
 		{
 		  return sandg_dr;
 		}
-	      else if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
+	      if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
 		{
 		  return sandg_dl;
 		}
 	      return sandg_d;
 	    }
-	  else if( !MAP[x+1][y] || MAP[x+1][y] == 3 )
+	  if( !MAP[x+1][y] || MAP[x+1][y] == 3 )
 	    {
 	      return sandg_r;
 	    }
-	  else if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
+	  if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
 	    {
 	      return sandg_l;
 	    }
@@ -762,7 +762,7 @@ SDL_Surface* kind_of_sandg(int x, int y)
     }
   
   //checking if it's the bottom and then left or right
-  else if( y == MAPheight-1 )
+  if( y == MAPheight-1 )
     {
       if( !x ) //left down corner 
 	{
@@ -770,26 +770,26 @@ SDL_Surface* kind_of_sandg(int x, int y)
 	    {
 	      return sandg_ur;
 	    }
-	  else if( !MAP[x][y-1] || MAP[x][y-1] == 3 )
+	  if( !MAP[x][y-1] || MAP[x][y-1] == 3 )
 	    {
 	      return sandg_u;
 	    }
-	  else if( !MAP[x+1][y] || MAP[x+1][y] == 3 )
+	  if( !MAP[x+1][y] || MAP[x+1][y] == 3 )
 	    {
 	      return sandg_r;
 	    }
 	}
-      else if( x == MAPlength-1 ) //right down corner
+      if( x == MAPlength-1 ) //right down corner
 	{
 	  if((!MAP[x-1][y] && !MAP[x][y-1]) || (MAP[x-1][y] == 3 && MAP[x][y-1] == 3))
 	    {
 	      return sandg_ul;
 	    }
-	  else if( !MAP[x][y-1] || MAP[x][y-1] == 3 )
+	  if( !MAP[x][y-1] || MAP[x][y-1] == 3 )
 	    {
 	      return sandg_u;
 	    }
-	  else if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
+	  if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
 	    {
 	      return sandg_l;
 	    }
@@ -802,17 +802,17 @@ SDL_Surface* kind_of_sandg(int x, int y)
 		{
 		  return sandg_ur;
 		}
-	      else if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
+	      if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
 		{
 		  return sandg_ul;
 		}
 	      return sandg_u;
 	    }
-	  else if( !MAP[x+1][y] || MAP[x+1][y] == 3 )
+	  if( !MAP[x+1][y] || MAP[x+1][y] == 3 )
 	    {
 	      return sandg_r;
 	    }
-	  else if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
+	  if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
 	    {
 	      return sandg_l;
 	    }
@@ -820,7 +820,7 @@ SDL_Surface* kind_of_sandg(int x, int y)
     }
   
   //check left
-  else if( !x )
+  if( !x )
     {
       if( !MAP[x+1][y] || MAP[x+1][y] == 3 )
 	{
@@ -828,24 +828,24 @@ SDL_Surface* kind_of_sandg(int x, int y)
 	    {
 	      return sandg_ur;
 	    }
-	  else if( !MAP[x][y-1] || MAP[x][y-1] == 3 )
+	  if( !MAP[x][y-1] || MAP[x][y-1] == 3 )
 	    {
 	      return sandg_dr;
 	    }
 	  return sandg_r;
 	}
-      else if( !MAP[x][y+1] || MAP[x][y+1] == 3 )
+      if( !MAP[x][y+1] || MAP[x][y+1] == 3 )
 	{
 	  return sandg_u;
 	}
-      else if( !MAP[x][y-1] || MAP[x][y-1] == 3 )
+      if( !MAP[x][y-1] || MAP[x][y-1] == 3 )
 	{
 	  return sandg_d;
 	}
     }
   
   //check right
-  else if( x == MAPlength-1 ) 
+  if( x == MAPlength-1 ) 
     {
       if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
 	{
