@@ -878,25 +878,25 @@ SDL_Surface* kind_of_sandg(int x, int y)
 	    {
 	      return sandg_dr;
 	    }
-	  else if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
+	  if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
 	    {
 	      return sandg_dl;
 	    }
 	  return sandg_d;
 	}
-      else if( !MAP[x][y-1] || MAP[x][y-1] == 3 )
+      if( !MAP[x][y-1] || MAP[x][y-1] == 3 )
 	{
-	  if( !MAP[x+1][y] )
+	  if( !MAP[x+1][y] || MAP[x+1][y] == 3 )
 	    {
 	      return sandg_ur;
 	    }
-	  else if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
+	  if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
 	    {
 	      return sandg_ul;
 	    }
 	  return sandg_u;
 	}
-      if( !MAP[x+1][y]  || MAP[x+1][y] == 3 )
+      if( !MAP[x+1][y] || MAP[x+1][y] == 3 )
 	{
 	  return sandg_r;
 	}
