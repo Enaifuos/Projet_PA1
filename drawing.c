@@ -128,7 +128,7 @@ void draw_sandPM(int i, int j, int x, int y)
 {  
   rcSand.x = i * SPRITE_SIZE;
   rcSand.y = j * SPRITE_SIZE;
-  temp =  kind_of_sand(x,y);
+  temp = kind_of_sand(x,y);
   SDL_BlitSurface(temp, NULL, screen, &rcSand);
 }
 
@@ -574,6 +574,7 @@ SDL_Surface* kind_of_dirt(int x, int y)
 	  return dirtg_l;
 	}
     }
+  return dirt;
 }
 
 
@@ -785,4 +786,5 @@ SDL_Surface* kind_of_sand(int x, int y)
 	  return sandw_l;
 	}
     }
+  return sand;
 }
