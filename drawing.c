@@ -35,7 +35,9 @@ SDL_Surface* kind_of_dirt(int x, int y);
 
 SDL_Surface* kind_of_sand(int x, int y);
 
+SDL_Surface* kind_of_sandw(int x, int y);
 
+SDL_Surface* kind_of_sandg(int x, int y);
 
 
 
@@ -371,7 +373,6 @@ void draw_rockwall_urGM(int i, int j)
 
 SDL_Surface* kind_of_dirt(int x, int y)
 {
- 
   //checking if it's the top and then left or right
   if( !y )
     {
@@ -579,10 +580,343 @@ SDL_Surface* kind_of_dirt(int x, int y)
 
 
 
-
-
-
 SDL_Surface* kind_of_sand(int x, int y)
+{
+  SDL_Surface* surfacetemp;
+  if( !x )
+    {
+      if( !y ) // top left corner
+	{
+	  if( MAP[x][y+1] == 1 || MAP[x+1][y] == 1)
+	    {
+	      surfacetemp = kind_of_sandw(x,y);
+	    }
+	  else
+	    {
+	      surfacetemp = kind_of_sandg(x,y);
+	    }
+	}
+      else if( y == MAPheight -1 ) // down left corner
+	{
+	  if( MAP[x][y-1] == 1 || MAP[x+1][y] == 1)
+	    {
+	      surfacetemp = kind_of_sandw(x,y);
+	    }
+	  else
+	    {
+	      surfacetemp = kind_of_sandg(x,y);
+	    }
+	}
+      else // left
+	{
+	  if( MAP[x][y-1] == 1 || MAP[x][y+1] == 1 || MAP[x+1][y] == 1 )
+	    {
+	      surfacetemp = kind_of_sandw(x,y);
+	    }
+	  else
+	    {
+	      surfacetemp = kind_of_sandg(x,y);
+	    }
+	}
+    }
+
+
+  else if( x == MAPlength -1)
+    {
+      if( !y ) //top right corner
+	{
+	  if( MAP[x][y+1] == 1 || MAP[x-1][y] == 1)
+	    {
+	      surfacetemp = kind_of_sandw(x,y);
+	    }
+	  else
+	    {
+	      surfacetemp = kind_of_sandg(x,y);
+	    }
+	}
+      else if( y == MAPheight -1 ) // down right corner
+	{
+	  if( MAP[x][y-1] == 1 || MAP[x-1][y] == 1)
+	    {
+	      surfacetemp = kind_of_sandw(x,y);
+	    }
+	  else
+	    {
+	      surfacetemp = kind_of_sandg(x,y);
+	    }
+	}
+      else //right
+	{
+	  if( MAP[x][y-1] == 1 || MAP[x][y+1] == 1 || MAP[x-1][y] == 1)
+	    {
+	      surfacetemp = kind_of_sandw(x,y);
+	    }
+	  else
+	    {
+	      surfacetemp = kind_of_sandg(x,y);
+	    }
+	}
+    }
+  else if( !y )
+    {
+      if(  MAP[x][y+1] == 1 || MAP[x+1][y] == 1 || MAP[x-1][y] == 1)
+	{
+	  surfacetemp = kind_of_sandw(x,y);
+	}
+      else
+	{
+	  surfacetemp = kind_of_sandg(x,y);
+	}
+    }
+  else if( y == MAPheight -1)
+    {
+      if(  MAP[x][y-1] == 1 || MAP[x+1][y] == 1 || MAP[x-1][y] == 1)
+	{
+	  surfacetemp = kind_of_sandw(x,y);
+	}
+      else
+	{
+	  surfacetemp = kind_of_sandg(x,y);
+	} 
+    }
+  else
+    {
+      if( MAP[x][y+1] == 1 || MAP[x][y-1] == 1 || MAP[x+1][y] == 1 || MAP[x-1][y] == 1 )
+	{
+	  surfacetemp = kind_of_sandw(x,y);
+	}
+      else if( !MAP[x][y+1] || !MAP[x][y-1] || !MAP[x+1][y] || !MAP[x-1][y] )
+	{
+	  surfacetemp = kind_of_sandg(x,y);
+	} 
+      else
+	{
+	  surfacetemp = sand;
+	}
+    }
+  return surfacetemp;
+}
+
+
+
+
+
+SDL_Surface* kind_of_sandg(int x, int y)
+{
+  //checking if it's the top and then left or right
+  if( !y )
+    {
+      if( !x ) //left top corner
+	{
+	  if( !MAP[x+1][y] && !MAP[x][y+1])
+	    {
+	      return sandg_dr;
+	    }
+	  if( !MAP[x][y+1] )
+	    {
+	      return sandg_d;
+	    }
+	  if( !MAP[x+1][y] )
+	    {
+	      return sandg_r;
+	    }
+	}
+      if( x == MAPlength-1 ) //right top corner
+	{
+	  if( !MAP[x-1][y] && !MAP[x][y+1] )
+	    {
+	      return sandg_dl;
+	    } 
+	  if( !MAP[x][y+1] )
+	    {
+	      return sandg_d;
+	    }
+	  if( !MAP[x-1][y] )
+	    {
+	      return sandg_l;
+	    }
+	}
+      else //top
+	{
+	  if( !MAP[x][y+1] )
+	    {
+	      if( !MAP[x+1][y] )
+		{
+		  return sandg_dr;
+		}
+	      if( !MAP[x-1][y] )
+		{
+		  return sandg_dl;
+		}
+	      return sandg_d;
+	    }
+	  if( !MAP[x+1][y] )
+	    {
+	      return sandg_r;
+	    }
+	  if( !MAP[x-1][y] )
+	    {
+	      return sandg_l;
+	    }
+	}
+    }
+  
+  //checking if it's the bottom and then left or right
+  else if( y == MAPheight-1 )
+    {
+      if( !x ) //left down corner 
+	{
+	  if(!MAP[x+1][y] && !MAP[x][y-1])
+	    {
+	      return sandg_ur;
+	    }
+	  if(!MAP[x][y-1])
+	    {
+	      return sandg_u;
+	    }
+	  if(!MAP[x+1][y])
+	    {
+	      return sandg_r;
+	    }
+	}
+      if( x == MAPlength-1 ) //right down corner
+	{
+	  if( !MAP[x-1][y] && !MAP[x][y-1] )
+	    {
+	      return sandg_ul;
+	    }
+	  if( !MAP[x][y-1] )
+	    {
+	      return sandg_u;
+	    }
+	  if( !MAP[x-1][y] )
+	    {
+	      return sandg_l;
+	    }
+	}
+      else //bottom
+	{
+	  if( !MAP[x][y-1] )
+	    {
+	      if( !MAP[x+1][y] )
+		{
+		  return sandg_ur;
+		}
+	      if( !MAP[x-1][y] )
+		{
+		  return sandg_ul;
+		}
+	      return sandg_u;
+	    }
+	  if( !MAP[x+1][y] )
+	    {
+	      return sandg_r;
+	    }
+	  if( !MAP[x-1][y] )
+	    {
+	      return sandg_l;
+	    }
+	}
+    }
+  
+  //check left
+  else if( !x )
+    {
+      if( !MAP[x+1][y] )
+	{
+	  if( !MAP[x][y+1] ) 
+	    {
+	      return sandg_ur;
+	    }
+	  if( !MAP[x][y-1] )
+	    {
+	      return sandg_dr;
+	    }
+	  return sandg_r;
+	}
+      if( !MAP[x][y+1] )
+	{
+	  return sandg_u;
+	}
+      if( !MAP[x][y-1] )
+	{
+	  return sandg_d;
+	}
+    }
+  
+  //check right
+  else if( x == MAPlength-1 ) 
+    {
+      if( !MAP[x-1][y] )
+	{
+	  if( !MAP[x][y+1] ) 
+	    {
+	      return sandg_ul;
+	    }
+	  if( !MAP[x][y-1] )
+	    {
+	      return sandg_dl;
+	    }
+	  return sandg_r;
+	}
+      if( !MAP[x][y+1] )
+	{
+	  return sandg_u;
+	}
+      if( !MAP[x][y-1] )
+	{
+	  return sandg_d;
+	}
+    }
+  
+  //center
+  else
+    {
+      if( !MAP[x][y+1] )
+	{
+	  if( !MAP[x+1][y] )
+	    {
+	      return sandg_dr;
+	    }
+	  if( !MAP[x-1][y] )
+	    {
+	      return sandg_dl;
+	    }
+	  return sandg_d;
+	}
+      if( !MAP[x][y-1] )
+	{
+	  if( !MAP[x+1][y] )
+	    {
+	      return sandg_ur;
+	    }
+	  if( !MAP[x-1][y] )
+	    {
+	      return sandg_ul;
+	    }
+	  return sandg_u;
+	}
+      if( !MAP[x+1][y] )
+	{
+	  return sandg_r;
+	}
+      if( !MAP[x-1][y] )
+	{
+	  return sandg_l;
+	}
+    }
+  return sand;
+}
+
+
+
+
+
+
+
+
+
+SDL_Surface* kind_of_sandw(int x, int y)
 {
   //checking if it's the top and then left or right
   if( !y )
