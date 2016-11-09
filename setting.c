@@ -70,9 +70,13 @@ void set_map()
 	  MAP[j][i] = 3;
 	}
     }
-  for ( j = 0 ; j < 11 ; j++)
+  for ( j = 0 ; j < 13 ; j++)
     {
       MAP[3][j] = MAP[4][j] = 3;
+    }
+  for ( i = 5 ; i < 17 ; i++)
+    {
+      MAP[i][12] = 3 ;
     }
 
   for(i=0;i<6;i++)
@@ -107,6 +111,7 @@ void set_map()
       MAP[i][0] = 10;
     }
   
+  MAP[14][5] = 17;
   
  // Drawing the cave 
 
@@ -138,6 +143,50 @@ void set_map()
       MAP[i][13] = 1 ;
       MAP[i][14] = 1 ;
     }
+  
+  // right permutation of rockwall to draw a second one 
+  for ( i = 10 ; i < 19; i ++ )
+    {
+      for ( j = 0 ; j < 6 ; j ++ )
+	{
+	  MAP[i+11][j] = MAP[i][j];
+	}
+    }
+  MAP[25][5] = 17;
+
+
+  // Drawing the bridge 
+  MAP[14][6] = 15;
+  MAP[14][7] = 15;
+  MAP[15][6] = 16;
+  MAP[15][7] = 16;
+  
+  MAP[17][10] = 15;
+  MAP[17][11] = 15;
+  MAP[18][10] = 16;
+  MAP[18][11] = 16;
+
+  for ( i = 19 ; i < 30 ; i++)
+    {
+      if ( i != 24 && i != 25 ){
+	for ( j = 6 ; j < 10 ; j ++ )
+	  {
+	    MAP[i][j] = 3 ;
+	  }
+	for ( j = 12 ; j < 15 ; j ++ )
+	  {
+	    MAP[i][j] = 3 ;
+	  }
+      }
+    }
+
+  // drawing the mystery box 
+  MAP[25][10] = 18; // à voir la position ou les mettre ! 
+ 
+
+  /* dessiner une échelle 
+   *MAP[24][10] = 19;
+   * MAP[24][11] = 20;*/
 
   //test
 
@@ -145,8 +194,10 @@ void set_map()
   MAP[31][10] = 4;
   MAP[31][11] = 4;
   MAP[30][11] = 4;
-    
+  
+  
 }
+  
 
 
 

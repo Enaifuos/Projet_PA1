@@ -25,8 +25,23 @@ void draw_dirtPM(int i, int j, int x, int y);
 void draw_rockwallGM(int i, int j);
 void draw_rockwallPM(int i, int j);
 
+void draw_rockwall_doorGM(int i, int j);
+void draw_rockwall_doorPM(int i, int j);
 
+void draw_bridge1GM(int i, int j );
+void draw_bridge1PM(int i, int j );
 
+void draw_bridge2GM(int i, int j);
+void draw_bridge2PM(int i, int j);
+
+void draw_mystery_boxGM(int i , int j );
+void draw_mystery_boxPM(int i , int j );
+
+void draw_ladder1_PM(int i , int j );
+void draw_ladder1_GM(int i , int j );
+
+void draw_ladder2_PM(int i , int j );
+void draw_ladder2_GM(int i , int j );
 
 
 SDL_Surface* kind_of_dirt(int x, int y);
@@ -364,12 +379,98 @@ void draw_rockwall_urGM(int i, int j)
   SDL_BlitSurface(rockwall_ur, NULL, screen, &rcRock);
 }
 
+// ===========================================
 
+void draw_rockwall_doorPM(int i, int j)
+{
+  rcRock.x = i * SPRITE_SIZE;
+  rcRock.y = j * SPRITE_SIZE;
+  SDL_BlitSurface(rockwall_door, NULL , screen, &rcRock);
+}
 
+void draw_rockwall_doorGM(int i, int j)
+{
+  rcRock.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+  rcRock.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+  SDL_BlitSurface(rockwall_door, NULL, screen, &rcRock);
+}
 
+//============================================
 
+void draw_bridge1PM(int i, int j)
+{
+  rcBridge.x = i * SPRITE_SIZE;
+  rcBridge.y = j * SPRITE_SIZE;
+  SDL_BlitSurface(bridge1, NULL, screen, &rcBridge);
+}
 
+void draw_bridge1GM(int i, int j)
+{
+  rcBridge.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+  rcBridge.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+  SDL_BlitSurface(bridge1, NULL, screen , &rcBridge);
+}
 
+void draw_bridge2PM(int i, int j)
+{
+  rcBridge.x = i * SPRITE_SIZE;
+  rcBridge.y = j * SPRITE_SIZE;
+  SDL_BlitSurface(bridge2, NULL, screen, &rcBridge);
+}
+
+void draw_bridge2GM(int i, int j)
+{
+  rcBridge.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+  rcBridge.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+  SDL_BlitSurface(bridge2, NULL, screen , &rcBridge);
+}
+
+//================================================= 
+
+void draw_mystery_boxGM(int i , int j )
+{
+  rcBox.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+  rcBox.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+  SDL_BlitSurface(box, NULL, screen, &rcBox);
+}
+
+void draw_mystery_boxPM(int i , int j )
+{
+  rcBox.x = i * SPRITE_SIZE;
+  rcBox.y = j * SPRITE_SIZE;
+  SDL_BlitSurface(box, NULL, screen, &rcBox);
+}
+//================================================
+
+void draw_ladder1_GM(int i , int j )
+{
+  rcLadder.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+  rcLadder.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+  SDL_BlitSurface(ladder1, NULL, screen, &rcLadder);
+}
+
+void draw_ladder1_PM(int i , int j )
+{
+  rcLadder.x = i * SPRITE_SIZE ;
+  rcLadder.y = j * SPRITE_SIZE;
+  SDL_BlitSurface(ladder1, NULL, screen, &rcLadder);
+}
+
+void draw_ladder2_GM(int i , int j )
+{
+  rcLadder.x = i * SPRITE_SIZE - (coordplayerx % SPRITE_SIZE);
+  rcLadder.y = j * SPRITE_SIZE - (coordplayery % SPRITE_SIZE);
+  SDL_BlitSurface(ladder2, NULL, screen, &rcLadder);
+}
+
+void draw_ladder2_PM(int i , int j )
+{
+  rcLadder.x = i * SPRITE_SIZE ;
+  rcLadder.y = j * SPRITE_SIZE;
+  SDL_BlitSurface(ladder2, NULL, screen, &rcLadder);
+}
+
+//================================================
 
 SDL_Surface* kind_of_dirt(int x, int y)
 {

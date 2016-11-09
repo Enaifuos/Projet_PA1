@@ -183,7 +183,32 @@ int main(int argc, char* argv[])
   rockwall_ur = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/rockwall/rockwall_door.bmp");
+  rockwall_door = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
 
+  /* load the bridge */
+  temp = SDL_LoadBMP("ressources/bridge/bridge1.bmp");
+  bridge1 = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/bridge/bridge2.bmp");
+  bridge2 = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  /* load the mystery_box */
+  temp = SDL_LoadBMP("ressources/box/mystery_box.bmp");
+  box = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  /* load the ladder */
+  temp = SDL_LoadBMP("ressources/ladder/ladder1.bmp");
+  ladder1 = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/ladder/ladder2.bmp");
+  ladder2 = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
 
   /* set the sprite frame */
   rcSrcSprite.x = 0;
@@ -333,9 +358,19 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(rockwall_ul);
   SDL_FreeSurface(rockwall_ucr);
   SDL_FreeSurface(rockwall_ucl);
+  SDL_FreeSurface(rockwall_door);
 
-  
+  /* cleaning the bridge */
+  SDL_FreeSurface(bridge1);
+  SDL_FreeSurface(bridge2);
 
+  /* cleaning the mystery box */
+  SDL_FreeSurface(box);
+
+  /* cleaning the ladder */
+  SDL_FreeSurface(ladder1);
+  SDL_FreeSurface(ladder2);
+ 
   SDL_Quit();
   
   return 0;

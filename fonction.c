@@ -57,7 +57,11 @@ void screen_printing_Pmove();
 int check_move_ground(int x, int y)
 {
   int res = 0;
-  if( MAP[x][y] %2 == 0) // test if the player can walk on the ground
+  /* if( MAP[x][y] %2 == 0) // test if the player can walk on the ground
+    {
+      res = 1;
+      }*/
+  if( MAP[x][y] == 0 || MAP[x][y] == 2 || MAP[x][y] == 4 || MAP[x][y] == 15 || MAP[x][y] == 16 )
     {
       res = 1;
     }
@@ -406,6 +410,30 @@ void screen_printing_Gmove()
 		{
 		  draw_rockwall_urGM(i , j);
 		}
+	      if( MAP[x][y] == 15 )
+		{
+		  draw_bridge1GM(i , j);
+		}
+	      if( MAP[x][y] == 16 )
+		{
+		  draw_bridge2GM(i , j);
+		}
+	      if( MAP[x][y] == 17 )
+		{
+		  draw_rockwall_doorGM(i , j);
+		}
+	      if( MAP[x][y] == 18 )
+		{
+		  draw_mystery_boxGM(i , j);
+		}
+	      if( MAP[x][y] == 19 )
+		{
+		  draw_ladder1_GM(i , j);
+		}
+	      if(MAP[x][y] == 20)
+		{
+		  draw_ladder2_GM(i , j);
+		}
 	    }
 	}
       
@@ -485,6 +513,30 @@ void screen_printing_Gmove()
 		{
 		  draw_rockwall_urGM(i , j);
 		}   
+	      if ( MAP[x][y] == 15)
+		{
+		  draw_bridge1GM(i , j);
+		}
+	      if ( MAP[x][y] == 16)
+		{
+		  draw_bridge2GM(i, j);
+		}
+	      if( MAP[x][y] == 17 )
+		{
+		  draw_rockwall_doorGM(i , j);
+		}
+	      if( MAP[x][y] == 18 )
+		{
+		  draw_mystery_boxGM(i , j);
+		}
+	       if( MAP[x][y] == 19 )
+		{
+		  draw_ladder1_GM(i , j);
+		}
+	      if(MAP[x][y] == 20)
+		{
+		  draw_ladder2_GM(i , j);
+		}
 	    }
 	}
       
@@ -570,6 +622,30 @@ void screen_printing_Pmove()
 	    {
 	      draw_rockwall_urPM(i , j);
 	    }
+	   if( MAP[x][y] == 15 )
+	     {
+	       draw_bridge1PM(i , j);
+	     }
+	    if( MAP[x][y] == 16 )
+	      {
+		draw_bridge2PM(i , j);
+	      }
+	    if( MAP[x][y] == 17 )
+	      {
+		draw_rockwall_doorPM(i , j);
+	      }
+	    if( MAP[x][y] == 18 )
+	      {
+		draw_mystery_boxPM(i , j);
+	      }
+	    if( MAP[x][y] == 19 )
+	      {
+		draw_ladder1_GM(i , j);
+	      }
+	    if(MAP[x][y] == 20)
+		{
+		  draw_ladder2_GM(i , j);
+		}
 	}
     }
   
