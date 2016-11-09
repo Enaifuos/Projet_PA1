@@ -786,7 +786,7 @@ SDL_Surface* kind_of_sand(int x, int y)
 	{
 	  surfacetemp = kind_of_sandw(x,y);
 	}
-      else if( !MAP[x][y+1] || !MAP[x][y-1] || !MAP[x+1][y] || !MAP[x-1][y] )
+      else if( !MAP[x][y+1] || !MAP[x][y-1] || !MAP[x+1][y] || !MAP[x-1][y] || MAP[x][y+1] == 3 || MAP[x][y-1] == 3 || MAP[x+1][y] == 3 || MAP[x-1][y] == 3)
 	{
 	  surfacetemp = kind_of_sandg(x,y);
 	} 
