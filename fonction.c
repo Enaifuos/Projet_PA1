@@ -57,15 +57,11 @@ void screen_printing_Pmove();
 int check_move_ground(int x, int y)
 {
   int res = 0;
-  /* if( MAP[x][y] %2 == 0) // test if the player can walk on the ground
-    {
-      res = 1;
-      }*/
   if( MAP[x][y] == 0 || MAP[x][y] == 2 || MAP[x][y] == 4 || MAP[x][y] == 15 || MAP[x][y] == 16 )
     {
-      res = 1;
+      res = 1; //peut passer
     }
-  return res;
+  return 1;
 }
 
 
@@ -73,15 +69,13 @@ void move_down()
 {
   // set the animation fram for the movement
   rcSrcSprite.y = 0; 
-
-  // check if the player can walk on the surface
-  if(check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)+1))
+  if(coordplayery < (MAPheight-1) *  SPRITE_SIZE)
     {
-      stepcount += 1;
-
-      if(coordplayery <= (MAPheight-1) *  SPRITE_SIZE)
+      // check if the player can walk on the surface
+      if(check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)+1))
 	{
 	  int i;
+	  stepcount += 1;
 	  if( coordplayery/SPRITE_SIZE > MAPheight - 9 || coordplayery/SPRITE_SIZE <= 6 )
 	    {
 	      for( i=0 ; i<SPRITE_SIZE ; i++ )
@@ -90,7 +84,7 @@ void move_down()
 		  coordplayery += 1;
 		  if( i%8 == 0 && i != 0)
 		    {
-		     rcSrcSprite.y += SPRITE_SIZE;
+		      rcSrcSprite.y += SPRITE_SIZE;
 		    }
 		  SDL_Delay(5);
 		  screen_printing_Pmove();
@@ -103,7 +97,7 @@ void move_down()
 		  coordplayery += 1;
 		  if( i%8 == 0 && i != 0)
 		    {
-		     rcSrcSprite.y += SPRITE_SIZE;
+		      rcSrcSprite.y += SPRITE_SIZE;
 		    }
 		  SDL_Delay(5);
 		  screen_printing_Gmove();
@@ -112,6 +106,7 @@ void move_down()
 	    }
 	}
     }
+  
 }
 
 
@@ -119,12 +114,12 @@ void move_down()
 void move_up()
 {
   rcSrcSprite.y = SPRITE_SIZE * 18;
-  if( check_move_ground( coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE) -1) )
+  if(coordplayery >= SPRITE_SIZE)
     {
-      stepcount += 1;
-      if(coordplayery >= SPRITE_SIZE)
+      if( check_move_ground( coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE) -1) )
 	{
 	  int i;
+	  stepcount += 1;
 	  if( coordplayery/SPRITE_SIZE > MAPheight - 8 || coordplayery/SPRITE_SIZE <= 7 )
 	    {
 	      for( i=0 ; i<SPRITE_SIZE ; i++ )
@@ -161,12 +156,12 @@ void move_up()
 void move_right()
 {
   rcSrcSprite.y = SPRITE_SIZE * 12;
-  if(check_move_ground((coordplayerx/SPRITE_SIZE)+1 , coordplayery/SPRITE_SIZE))
+  if( coordplayerx < (MAPlength-1) * SPRITE_SIZE )
     {
-      stepcount += 1;
-      if( coordplayerx < (MAPlength-1) * SPRITE_SIZE)
+      if(check_move_ground((coordplayerx/SPRITE_SIZE)+1 , coordplayery/SPRITE_SIZE))
 	{
 	  int i;
+	  stepcount += 1;
 	  if( coordplayerx/SPRITE_SIZE >= MAPlength - 10 || coordplayerx/SPRITE_SIZE <= 8 )
 	    {
 	      SDL_Delay(20);
@@ -207,12 +202,12 @@ void move_right()
 void move_left()
 {
   rcSrcSprite.y = SPRITE_SIZE * 6;
-  if( check_move_ground((coordplayerx/SPRITE_SIZE)-1 , coordplayery/SPRITE_SIZE) )
+  if( coordplayerx >= SPRITE_SIZE )
     {
-      stepcount += 1;
-      if( coordplayerx >= SPRITE_SIZE )
+      if( check_move_ground((coordplayerx/SPRITE_SIZE)-1 , coordplayery/SPRITE_SIZE) )
 	{
 	  int i;
+	  stepcount += 1;
 	  if( coordplayerx/SPRITE_SIZE >= MAPlength - 9  || coordplayerx/SPRITE_SIZE <= 9 ) 
 	    {
 	      SDL_Delay(20);
@@ -529,7 +524,7 @@ void screen_printing_Gmove()
 		{
 		  draw_mystery_boxGM(i , j);
 		}
-	       if( MAP[x][y] == 19 )
+	      if( MAP[x][y] == 19 )
 		{
 		  draw_ladder1_GM(i , j);
 		}
@@ -622,30 +617,30 @@ void screen_printing_Pmove()
 	    {
 	      draw_rockwall_urPM(i , j);
 	    }
-	   if( MAP[x][y] == 15 )
-	     {
-	       draw_bridge1PM(i , j);
-	     }
-	    if( MAP[x][y] == 16 )
-	      {
-		draw_bridge2PM(i , j);
-	      }
-	    if( MAP[x][y] == 17 )
-	      {
-		draw_rockwall_doorPM(i , j);
-	      }
-	    if( MAP[x][y] == 18 )
-	      {
-		draw_mystery_boxPM(i , j);
-	      }
-	    if( MAP[x][y] == 19 )
-	      {
-		draw_ladder1_GM(i , j);
-	      }
-	    if(MAP[x][y] == 20)
-		{
-		  draw_ladder2_GM(i , j);
-		}
+	  if( MAP[x][y] == 15 )
+	    {
+	      draw_bridge1PM(i , j);
+	    }
+	  if( MAP[x][y] == 16 )
+	    {
+	      draw_bridge2PM(i , j);
+	    }
+	  if( MAP[x][y] == 17 )
+	    {
+	      draw_rockwall_doorPM(i , j);
+	    }
+	  if( MAP[x][y] == 18 )
+	    {
+	      draw_mystery_boxPM(i , j);
+	    }
+	  if( MAP[x][y] == 19 )
+	    {
+	      draw_ladder1_GM(i , j);
+	    }
+	  if(MAP[x][y] == 20)
+	    {
+	      draw_ladder2_GM(i , j);
+	    }
 	}
     }
   

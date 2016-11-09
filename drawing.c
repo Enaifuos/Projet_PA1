@@ -722,6 +722,7 @@ SDL_Surface* kind_of_sand(int x, int y)
     }
 
 
+
   else if( x == MAPlength -1)
     {
       if( !y ) //top right corner
@@ -758,7 +759,10 @@ SDL_Surface* kind_of_sand(int x, int y)
 	    }
 	}
     }
-  else if( !y )
+
+
+
+  else if( !y ) // top
     {
       if(  MAP[x][y+1] == 1 || MAP[x+1][y] == 1 || MAP[x-1][y] == 1)
 	{
@@ -769,7 +773,10 @@ SDL_Surface* kind_of_sand(int x, int y)
 	  surfacetemp = kind_of_sandg(x,y);
 	}
     }
-  else if( y == MAPheight -1)
+
+
+
+  else if( y == MAPheight -1) //bottom
     {
       if(  MAP[x][y-1] == 1 || MAP[x+1][y] == 1 || MAP[x-1][y] == 1)
 	{
@@ -780,7 +787,10 @@ SDL_Surface* kind_of_sand(int x, int y)
 	  surfacetemp = kind_of_sandg(x,y);
 	} 
     }
-  else
+
+
+
+  else //center
     {
       if( MAP[x][y+1] == 1 || MAP[x][y-1] == 1 || MAP[x+1][y] == 1 || MAP[x-1][y] == 1 )
 	{

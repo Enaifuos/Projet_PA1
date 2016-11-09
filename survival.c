@@ -52,9 +52,6 @@ int main(int argc, char* argv[])
   sand = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
-  temp = SDL_LoadBMP("ressources/sand/sandg_r.bmp");
-  sandg_r = SDL_DisplayFormat(temp);
-  SDL_FreeSurface(temp);
   
   
        /* load tree */
@@ -70,6 +67,39 @@ int main(int argc, char* argv[])
       /* load dirt  */
   temp = SDL_LoadBMP("ressources/dirt/dirt.bmp");
   dirt = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
+  /* load the special sand with grass */
+  temp = SDL_LoadBMP("ressources/sand/sandg_d.bmp");
+  sandg_d = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandg_dl.bmp");
+  sandg_dl = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandg_dr.bmp");
+  sandg_dr = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandg_l.bmp");
+  sandg_l = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandg_r.bmp");
+  sandg_r = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandg_u.bmp");
+  sandg_u = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandg_ul.bmp");
+  sandg_ul = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandg_ur.bmp");
+  sandg_ur = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
 
@@ -346,6 +376,16 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(sandw_ul);
   SDL_FreeSurface(sandw_r);
   SDL_FreeSurface(sandw_l);
+
+  SDL_FreeSurface(sandg_d);
+  SDL_FreeSurface(sandg_u);
+  SDL_FreeSurface(sandg_dr);
+  SDL_FreeSurface(sandg_dl);
+  SDL_FreeSurface(sandg_ur);
+  SDL_FreeSurface(sandg_ul);
+  SDL_FreeSurface(sandg_r);
+  SDL_FreeSurface(sandg_l);
+
 
   
   /* cleaning the special rockwall */
