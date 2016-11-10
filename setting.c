@@ -32,8 +32,8 @@ void set_position()
 SDL_Surface ** creerTable(int l , int c)
 {
   printf("creation table");
-  SDL_Surface ** t1 = (SDL_Surface **)malloc(sizeof(SDL_Surface*)*l);
-  SDL_Surface *t2 = (SDL_Surface *)malloc(sizeof(SDL_Surface*)*c*l);
+  SDL_Surface ** t1 = (SDL_Surface **)malloc(sizeof(SDL_Surface)*l);
+  SDL_Surface *t2 = (SDL_Surface *)malloc(sizeof(SDL_Surface)*c*l);
   int i ;
   for (i = 0 ; i < l ; i++)
     {
@@ -43,6 +43,9 @@ SDL_Surface ** creerTable(int l , int c)
     {
       printf("missing dynamic memory to run the game");
     }
+  else{
+    printf("\n\nYAHOOOO\n\n");
+  }
   return t1 ;
 }
 
