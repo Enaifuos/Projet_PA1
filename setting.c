@@ -143,6 +143,17 @@ void set_map()
       MAP[19][i] = *tree;
     }
  
+  for ( i = 25 ; i < 30 ; i ++ )
+    {
+      MAP[i][17] = *tree;
+    }
+  for ( i = 17 ; i < 34 ; i ++ )
+    {
+      for (j = 30 ; j < 34 ; j ++ )
+	{
+	  MAP[j][i] = *tree;
+	}
+    }
 
 
 
@@ -202,15 +213,32 @@ void set_map()
       MAP[i][14] = *water ;
     }
   
+  for ( i = 17 ; i < 33 ; i ++ )
+    {
+      MAP[i][15] = *water ;
+      MAP[i][16] = *water ;
+    }
+  
+  for ( i = 0 ; i < 17 ; i ++ )
+    {
+      MAP[32][i] = *water ;
+      MAP[33][i] = *water ;
+    }
+  
   // right permutation of rockwall to draw a second one 
   for ( i = 10 ; i < 19; i ++ )
     {
       for ( j = 0 ; j < 6 ; j ++ )
 	{
-	  MAP[i+11][j] = MAP[i][j];
+	  MAP[i+11][j] = MAP[i][j]; // first permutation ( second rockwall)
+	  MAP[i-2][j+16] = MAP[i][j];// second permutation ( third rockwall )
+	  
 	}
     }
   MAP[25][5] = *rockwall_door;
+
+ 
+
 
 
   // Drawing the bridge 
@@ -224,6 +252,12 @@ void set_map()
   MAP[18][10] = *bridge2;
   MAP[18][11] = *bridge2;
 
+  MAP[24][15] = *bridge1;
+  MAP[25][15] = *bridge2;
+  MAP[24][16] = *bridge1;
+  MAP[25][16] = *bridge2;
+
+  MAP[24][17] = *trap;
   for ( i = 19 ; i < 30 ; i++)
     {
       if ( i != 24 && i != 25 )
@@ -239,10 +273,18 @@ void set_map()
 	}
     }
 
+   // Permutation of the bloc ( rockwall with trees and box )
+  for ( i = 19 ; i < 30 ; i ++ )
+    {
+      for (j = 0 ; j < 15 ; j ++ )
+	{
+	  MAP[i][j+18] = MAP[i][j] ;
+	}
+    }
   // drawing the mystery box 
   MAP[25][10] = *box; // à voir la position ou les mettre ! 
- 
 
+  
   /* dessiner une échelle 
    *MAP[24][10] = 19;
    * MAP[24][11] = 20;*/
