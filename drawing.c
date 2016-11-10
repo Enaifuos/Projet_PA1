@@ -595,21 +595,21 @@ SDL_Surface* kind_of_dirt(int x, int y)
     {
       if( !MAP[x+1][y] )
 	{
-	  if( !MAP[x][y+1] ) 
+	  if( !MAP[x][y-1] ) 
 	    {
 	      return dirtg_ur;
 	    }
-	  if( !MAP[x][y-1] )
+	  if( !MAP[x][y+1] )
 	    {
 	      return dirtg_dr;
 	    }
 	  return dirtg_r;
 	}
-      if( !MAP[x][y+1] )
+      if( !MAP[x][y-1] )
 	{
 	  return dirtg_u;
 	}
-      if( !MAP[x][y-1] )
+      if( !MAP[x][y+1] )
 	{
 	  return dirtg_d;
 	}
@@ -620,21 +620,21 @@ SDL_Surface* kind_of_dirt(int x, int y)
     {
       if( !MAP[x-1][y] )
 	{
-	  if( !MAP[x][y+1] ) 
+	  if( !MAP[x][y-1] ) 
 	    {
 	      return dirtg_ul;
 	    }
-	  if( !MAP[x][y-1] )
+	  if( !MAP[x][y+1] )
 	    {
 	      return dirtg_dl;
 	    }
 	  return dirtg_r;
 	}
-      if( !MAP[x][y+1] )
+      if( !MAP[x][y-1] )
 	{
 	  return dirtg_u;
 	}
-      if( !MAP[x][y-1] )
+      if( !MAP[x][y+1] )
 	{
 	  return dirtg_d;
 	}
@@ -960,21 +960,21 @@ SDL_Surface* kind_of_sandg(int x, int y)
     {
       if( !MAP[x-1][y] || MAP[x-1][y] == 3 )
 	{
-	  if( !MAP[x][y+1] || MAP[x][y+1] == 3 ) 
+	  if( !MAP[x][y-1] || MAP[x][y-1] == 3 ) 
 	    {
 	      return sandg_ul;
 	    }
-	  if( !MAP[x][y-1] || MAP[x][y-1] == 3 )
+	  if( !MAP[x][y+1] || MAP[x][y+1] == 3 )
 	    {
 	      return sandg_dl;
 	    }
 	  return sandg_r;
 	}
-      if( !MAP[x][y+1] || MAP[x][y+1] == 3 )
+      if( !MAP[x][y-1] || MAP[x][y-1] == 3 )
 	{
 	  return sandg_u;
 	}
-      if( !MAP[x][y-1] || MAP[x][y-1] == 3)
+      if( !MAP[x][y+1] || MAP[x][y+1] == 3)
 	{
 	  return sandg_d;
 	}
@@ -1175,21 +1175,21 @@ SDL_Surface* kind_of_sandw(int x, int y)
     {
       if( 1 == MAP[x-1][y] )
 	{
-	  if( 1 == MAP[x][y+1] ) 
+	  if( 1 == MAP[x][y-1] ) 
 	    {
 	      return sandw_ul;
 	    }
-	  if( 1 == MAP[x][y-1] )
+	  if( 1 == MAP[x][y+1] )
 	    {
 	      return sandw_dl;
 	    }
 	  return sandw_r;
 	}
-      if( 1 == MAP[x][y+1] )
+      if( 1 == MAP[x][y-1] )
 	{
 	  return sandw_u;
 	}
-      if( 1 == MAP[x][y-1] )
+      if( 1 == MAP[x][y+1] )
 	{
 	  return sandw_d;
 	}
