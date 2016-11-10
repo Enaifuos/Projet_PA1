@@ -333,7 +333,7 @@ void stats()
 /*--------- screen printing ----------*/
 
 
-void screen_printing_Gmove() 
+void screen_printing_Gmove()
 {
   int i, j, x, y;
   if( (coordplayerx % SPRITE_SIZE) == 0 &&  (coordplayery % SPRITE_SIZE) == 0 )
@@ -349,83 +349,83 @@ void screen_printing_Gmove()
 		{ 
 		  draw_grassGM(i , j);
 		}
-	      if( MAP[x][y] == 1)
+	      else if( MAP[x][y] == 1)
 		{
 		  draw_waterGM(i , j);
 		}
-	      if( MAP[x][y] == 2)
+	      else if( MAP[x][y] == 2)
 		{
 		  draw_sandGM(i ,  j , x , y);
 		}
-	      if( MAP[x][y] == 3)
+	      else if( MAP[x][y] == 3)
 		{
 		  draw_treeGM(i , j);
 		}
-	      if( MAP[x][y] == 4)
+	      else if( MAP[x][y] == 4)
 		{
 		  draw_dirtGM(i , j , x , y);
 		}          
-	      if( MAP[x][y] == 5 )
+	      else if( MAP[x][y] == 5 )
 		{
 		  draw_rockwallGM(i , j);
 		}
-	      if( MAP[x][y] == 6 )
+	      else if( MAP[x][y] == 6 )
 		{
 		  draw_rockwall_dlGM(i , j);
 		}
-	      if( MAP[x][y] == 7 )
+	      else if( MAP[x][y] == 7 )
 		{
 		  draw_rockwall_drGM(i , j);		 
 		}
-	      if( MAP[x][y] == 8 )
+	      else if( MAP[x][y] == 8 )
 		{
 		  draw_rockwall_lGM(i , j);
 		}
-	      if( MAP[x][y] == 9 )
+	      else if( MAP[x][y] == 9 )
 		{
 		  draw_rockwall_rGM(i , j);
 		}
-	      if( MAP[x][y] == 10 )
+	      else if( MAP[x][y] == 10 )
 		{
 		  draw_rockwall_topGM(i , j);
 		}
-	      if( MAP[x][y] == 11 )
+	      else if( MAP[x][y] == 11 )
 		{
 		  draw_rockwall_uclGM(i , j);
 		}
-	      if( MAP[x][y] == 12 )
+	      else if( MAP[x][y] == 12 )
 		{
 		  draw_rockwall_ucrGM(i , j);
 		}
-	      if( MAP[x][y] == 13 )
+	      else if( MAP[x][y] == 13 )
 		{
 		  draw_rockwall_ulGM(i , j);
 		}
-	      if( MAP[x][y] == 14 )
+	      else if( MAP[x][y] == 14 )
 		{
 		  draw_rockwall_urGM(i , j);
 		}
-	      if( MAP[x][y] == 15 )
+	      else if( MAP[x][y] == 15 )
 		{
 		  draw_bridge1GM(i , j);
 		}
-	      if( MAP[x][y] == 16 )
+	      else if( MAP[x][y] == 16 )
 		{
 		  draw_bridge2GM(i , j);
 		}
-	      if( MAP[x][y] == 17 )
+	      else if( MAP[x][y] == 17 )
 		{
 		  draw_rockwall_doorGM(i , j);
 		}
-	      if( MAP[x][y] == 18 )
+	      else if( MAP[x][y] == 18 )
 		{
 		  draw_mystery_boxGM(i , j);
 		}
-	      if( MAP[x][y] == 19 )
+	      else if( MAP[x][y] == 19 )
 		{
 		  draw_ladder1_GM(i , j);
 		}
-	      if(MAP[x][y] == 20)
+	      else if(MAP[x][y] == 20)
 		{
 		  draw_ladder2_GM(i , j);
 		}
@@ -452,83 +452,83 @@ void screen_printing_Gmove()
 		{ 
 		  draw_grassGM(i , j);
 		}
-	      if( MAP[x][y] == 1)
+	      else if( MAP[x][y] == 1)
 		{
 		  draw_waterGM(i , j);
 		}
-	      if( MAP[x][y] == 2 )
+	      else if( MAP[x][y] == 2 )
 		{ 
 		  draw_sandGM(i , j , x , y);
 		}
-	      if( MAP[x][y] == 3)
+	      else if( MAP[x][y] == 3)
 		{
 		  draw_treeGM(i , j);
 		}
-	      if( MAP[x][y] == 4)
+	      else if( MAP[x][y] == 4)
 		{
 		  draw_dirtGM(i , j , x , y);
 		}	  
-	      if( MAP[x][y] == 5 )
+	      else if( MAP[x][y] == 5 )
 		{
 		  draw_rockwallGM(i , j);
 		}
-	      if( MAP[x][y] == 6 )
+	      else if( MAP[x][y] == 6 )
 		{
 		  draw_rockwall_dlGM(i , j);
 		}
-	      if( MAP[x][y] == 7 )
+	      else if( MAP[x][y] == 7 )
 		{
 		  draw_rockwall_drGM(i , j);		 
 		}
-	      if( MAP[x][y] == 8 )
+	      else if( MAP[x][y] == 8 )
 		{
 		  draw_rockwall_lGM(i , j);
 		}
-	      if( MAP[x][y] == 9 )
+	      else if( MAP[x][y] == 9 )
 		{
 		  draw_rockwall_rGM(i , j);
 		}
-	      if( MAP[x][y] == 10 )
+	      else if( MAP[x][y] == 10 )
 		{
 		  draw_rockwall_topGM(i , j);
 		}
-	      if( MAP[x][y] == 11 )
+	      else if( MAP[x][y] == 11 )
 		{
 		  draw_rockwall_uclGM(i , j);
 		}
-	      if( MAP[x][y] == 12 )
+	      else if( MAP[x][y] == 12 )
 		{
 		  draw_rockwall_ucrGM(i , j);
 		}
-	      if( MAP[x][y] == 13 )
+	      else if( MAP[x][y] == 13 )
 		{
 		  draw_rockwall_ulGM(i , j);
 		}
-	      if( MAP[x][y] == 14 )
+	      else if( MAP[x][y] == 14 )
 		{
 		  draw_rockwall_urGM(i , j);
 		}   
-	      if ( MAP[x][y] == 15)
+	      else if( MAP[x][y] == 15)
 		{
 		  draw_bridge1GM(i , j);
 		}
-	      if ( MAP[x][y] == 16)
+	      else if( MAP[x][y] == 16)
 		{
 		  draw_bridge2GM(i, j);
 		}
-	      if( MAP[x][y] == 17 )
+	      else if( MAP[x][y] == 17 )
 		{
 		  draw_rockwall_doorGM(i , j);
 		}
-	      if( MAP[x][y] == 18 )
+	      else if( MAP[x][y] == 18 )
 		{
 		  draw_mystery_boxGM(i , j);
 		}
-	      if( MAP[x][y] == 19 )
+	      else if( MAP[x][y] == 19 )
 		{
 		  draw_ladder1_GM(i , j);
 		}
-	      if(MAP[x][y] == 20)
+	      else if(MAP[x][y] == 20)
 		{
 		  draw_ladder2_GM(i , j);
 		}
@@ -561,83 +561,83 @@ void screen_printing_Pmove()
 	    { 
 	      draw_grassPM(i , j);
 	    }
-	  if( MAP[x][y] == 1)
+	  else if( MAP[x][y] == 1)
 	    {
 	      draw_waterPM(i , j);
 	    }
-	  if( MAP[x][y] == 2)
+	  else if( MAP[x][y] == 2)
 	    {
 	      draw_sandPM(i , j , x , y);
 	    }
-	  if( MAP[x][y] == 3)
+	  else if( MAP[x][y] == 3)
 	    {
 	      draw_treePM(i , j);
 	    }
-	  if( MAP[x][y] == 4 )
+	  else if( MAP[x][y] == 4 )
 	    { 
 	      draw_dirtPM(i , j , x , y);
 	    }
-	  if( MAP[x][y] == 5 )
+	  else if( MAP[x][y] == 5 )
 	    {
 	      draw_rockwallPM(i , j);
 	    }
-	  if( MAP[x][y] == 6 )
+	  else if( MAP[x][y] == 6 )
 	    {
 	      draw_rockwall_dlPM(i , j);
 	    }
-	  if( MAP[x][y] == 7 )
+	  else if( MAP[x][y] == 7 )
 	    {
 	      draw_rockwall_drPM(i , j);		 
 	    }
-	  if( MAP[x][y] == 8 )
+	  else if( MAP[x][y] == 8 )
 	    {
 	      draw_rockwall_lPM(i , j);
 	    }
-	  if( MAP[x][y] == 9 )
+	  else if( MAP[x][y] == 9 )
 	    {
 	      draw_rockwall_rPM(i , j);
 	    }
-	  if( MAP[x][y] == 10 )
+	  else if( MAP[x][y] == 10 )
 	    {
 	      draw_rockwall_topPM(i , j);
 	    }
-	  if( MAP[x][y] == 11 )
+	  else if( MAP[x][y] == 11 )
 	    {
 	      draw_rockwall_uclPM(i , j);
 	    }
-	  if( MAP[x][y] == 12 )
+	  else if( MAP[x][y] == 12 )
 	    {
 	      draw_rockwall_ucrPM(i , j);
 	    }
-	  if( MAP[x][y] == 13 )
+	  else if( MAP[x][y] == 13 )
 	    {
 	      draw_rockwall_ulPM(i , j);
 	    }
-	  if( MAP[x][y] == 14 )
+	  else if( MAP[x][y] == 14 )
 	    {
 	      draw_rockwall_urPM(i , j);
 	    }
-	  if( MAP[x][y] == 15 )
+	  else if( MAP[x][y] == 15 )
 	    {
 	      draw_bridge1PM(i , j);
 	    }
-	  if( MAP[x][y] == 16 )
+	  else if( MAP[x][y] == 16 )
 	    {
 	      draw_bridge2PM(i , j);
 	    }
-	  if( MAP[x][y] == 17 )
+	  else if( MAP[x][y] == 17 )
 	    {
 	      draw_rockwall_doorPM(i , j);
 	    }
-	  if( MAP[x][y] == 18 )
+	  else if( MAP[x][y] == 18 )
 	    {
 	      draw_mystery_boxPM(i , j);
 	    }
-	  if( MAP[x][y] == 19 )
+	  else if( MAP[x][y] == 19 )
 	    {
 	      draw_ladder1_GM(i , j);
 	    }
-	  if(MAP[x][y] == 20)
+	  else if(MAP[x][y] == 20)
 	    {
 	      draw_ladder2_GM(i , j);
 	    }
