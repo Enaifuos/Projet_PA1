@@ -51,8 +51,6 @@ int main(int argc, char* argv[])
   temp = SDL_LoadBMP("ressources/sand/sand.bmp");
   sand = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
-
-  
   
        /* load tree */
   temp = SDL_LoadBMP("ressources/tree.bmp");
@@ -246,7 +244,7 @@ int main(int argc, char* argv[])
   rcSrcSprite.h = SPRITE_SIZE;
   rcSrcSprite.w = SPRITE_SIZE;
 
- /* set sprite position */
+  /* set sprite position */
   rcSprite.x = 9*SPRITE_SIZE;
   rcSprite.y = 7*SPRITE_SIZE;
   set_position();
@@ -255,19 +253,20 @@ int main(int argc, char* argv[])
   gameover = 0;
   
   /* set the MAP */
-  
+  printf("ok");
   set_map();
   
-  //printing the map
-  for(i=0;i<SCREEN_HEIGHT /SPRITE_SIZE;i++)
-    {
-      for(j=0;j<SCREEN_WIDTH /SPRITE_SIZE;j++)
-	{
-	  printf("%d ",MAP[j][i]);
-	}
-      printf("\n");
-    }
+  //printing the map terminal
+  /* for(i=0;i<SCREEN_HEIGHT /SPRITE_SIZE;i++) */
+  /*   { */
+  /*     for(j=0;j<SCREEN_WIDTH /SPRITE_SIZE;j++) */
+  /* 	{ */
+  /* 	  printf("%d ",MAP[j][i]); */
+  /* 	} */
+  /*     printf("\n"); */
+  /*   } */
 
+  screen_printing_Gmove();
 
   /* message pump */
   while (!gameover)
@@ -298,55 +297,32 @@ int main(int argc, char* argv[])
       /* handle sprite movement */
       keystate = SDL_GetKeyState(NULL);
       
-      if (keystate[SDLK_LEFT] )
+      if( keystate[SDLK_LEFT] )
 	{
 	  move_left();
 	}
-      if (keystate[SDLK_RIGHT] )
+      if( keystate[SDLK_RIGHT] )
 	{
 	  move_right();
 	}
-      if (keystate[SDLK_UP] )
+      if( keystate[SDLK_UP] )
 	{
 	  move_up();
 	}
       
-      if (keystate[SDLK_DOWN] )
+      if( keystate[SDLK_DOWN] )
 	{
 	  move_down();
 	}
 
-      if (keystate[SDLK_p])
+      if( keystate[SDLK_p])
 	{
 	  menu_pause();
 	}
-      
-      /* collide with edges of screen */
-      if ( coordplayerx == 0 )
-	{
-	  coordplayerx = 0;
-	}
-      
-      else if ( coordplayerx > (MAPlength-1) * SPRITE_SIZE )
-	{
-	  coordplayerx = (MAPlength-1) * SPRITE_SIZE;
-	}
-      
-      if ( coordplayery < 0 )
-	{
-	  coordplayery = 0;
-	}
-      
-      else if ( coordplayery > (MAPheight-1) * SPRITE_SIZE )
-	{
-	  coordplayery = (MAPheight-1) * SPRITE_SIZE;
-	}
-      
-      screen_printing_Gmove();
     }
   
   /* clean the array */ 
-  freeTable(MAP);
+  //freeTable(MAP);
 
        /* clean up */
   SDL_FreeSurface(sprite);

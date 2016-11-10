@@ -4,7 +4,6 @@
 #define MAPheight      44
 #define SPRITE_SIZE    32
 
-extern int** MAP;
 
 
 /*---Prototypes---*/
@@ -13,13 +12,67 @@ void set_map();
 void set_position();
 
 //array function
-int ** creerTable(int l , int c);
-void freeTable(int **tableau);
+SDL_Surface ** creerTable(int l , int c);
+void freeTable(SDL_Surface **tableau);
 
 
 
 
 /*-----function------*/
+void set_position()
+{
+  coordplayerx = 10*SPRITE_SIZE;   
+  coordplayery = 8*SPRITE_SIZE;  
+}
+
+
+
+
+
+SDL_Surface ** creerTable(int l , int c)
+{
+  printf("creation table");
+  SDL_Surface ** t1 = (SDL_Surface **)malloc(sizeof(SDL_Surface*)*l);
+  SDL_Surface *t2 = (SDL_Surface *)malloc(sizeof(SDL_Surface*)*c*l);
+  int i ;
+  for (i = 0 ; i < l ; i++)
+    {
+      t1[i] = &t2[i*c];
+    }
+  if( t1 == NULL ) // test if the malloc run
+    {
+      printf("missing dynamic memory to run the game");
+    }
+  return t1 ;
+}
+
+
+
+
+void freeTable(SDL_Surface **tableau)
+{
+  int i;
+  for( i = 0 ; i < MAPheight -1 ; i++)
+    {
+      free(tableau[i]);
+    }
+  free(tableau);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*------------------- SET THE MAP ---------------------*/
+
 
 void set_map()
 {
@@ -30,7 +83,7 @@ void set_map()
     {
       for( j=0 ; j < MAPheight  ; j++)
 	{
-	  MAP[i][j] = 0;
+	  MAP[i][j] = *grass;
 	}
     }
 
@@ -38,12 +91,13 @@ void set_map()
   /* Draw two columns of sand */             
   for ( i=0 ; i < MAPheight-2 ; i++)
     {
-      MAP[1][i] = MAP[2][i] = 2;
+      MAP[1][i] = *sandw_l;
+      MAP[2][i] = *sandg_r;
     }
   for(i = 0 ; i < MAPlength ; i++)
     {
-      MAP[i][MAPheight-4] = 2;
-      MAP[i][MAPheight-3] = 2;
+      MAP[i][MAPheight-4] = *sandg_u;
+      MAP[i][MAPheight-3] = *sandw_d;
     }
   
 
@@ -52,12 +106,12 @@ void set_map()
     {
       for( i=0 ; i < MAPlength ; i++ )
 	{
-	  MAP[i][MAPheight-j] = 1;
+	  MAP[i][MAPheight-j] = *water;
 	}
     }
   for( i=0 ; i<MAPheight-2 ; i++)
     {
-      MAP[0][i] = 1;
+      MAP[0][i] = *water;
     }
 
  
@@ -67,22 +121,23 @@ void set_map()
     {
       for(i=0 ; i<5 ; i++)
 	{
-	  MAP[j][i] = 3;
+	  MAP[j][i] = *tree;
 	}
     }
   for ( j = 0 ; j < 13 ; j++)
     {
-      MAP[3][j] = MAP[4][j] = 3;
+      MAP[3][j] = *tree;
+      MAP[4][j] = *tree;
     }
   for ( i = 5 ; i < 17 ; i++)
     {
-      MAP[i][12] = 3 ;
+      MAP[i][12] = *tree;
     }
 
   for(i=0;i<6;i++)
     {
-      MAP[20][i] = 3;
-      MAP[19][i] = 3;
+      MAP[20][i] = *tree;
+      MAP[19][i] = *tree;
     }
  
 
@@ -90,8 +145,8 @@ void set_map()
 
   for( i = 1 ; i < 5 ; i++)
     {
-      MAP[10][i] = 8;
-      MAP[18][i] = 9;
+      MAP[10][i] = *rockwall_l;
+      MAP[18][i] = *rockwall_r;
     }
   
 
@@ -101,47 +156,47 @@ void set_map()
     {
       for(j=1;j<5;j++)
 	{
-	  MAP[i][j] = 10;
+	  MAP[i][j] = *rockwall_top;
 	}
-      MAP[i][5] = 5 ;
+      MAP[i][5] = *rockwall;
     }
   
   for(i = 11 ; i < 18 ; i++)
     {
-      MAP[i][0] = 10;
+      MAP[i][0] = *rockwall_top;
     }
   
-  MAP[14][5] = 17;
+  MAP[14][5] = *rockwall_door;
   
  // Drawing the cave 
 
-  MAP[10][5] = 6;
-  MAP[10][0] = 13;
-  MAP[18][0] = 14;
-  MAP[18][5] = 7;
+  MAP[10][5] = *rockwall_dl;
+  MAP[10][0] = *rockwall_ul;
+  MAP[18][0] = *rockwall_ur;
+  MAP[18][5] = *rockwall_dr;
 
    /* set water beside the cave */
   for( i = 0 ; i < 8 ; i ++ )
     {
-      MAP[9][i] = 1 ;
+      MAP[9][i] = *water ;
     }
 
   for ( i = 10 ; i < 19 ; i ++ )
     {
-      MAP[i][6] = 1 ;
-      MAP[i][7] = 1 ;
+      MAP[i][6] = *water ;
+      MAP[i][7] = *water ;
     }
   
   for ( i = 7 ; i < 15 ; i ++)
     {
-      MAP[17][i] = 1 ;
-      MAP[18][i] = 1 ;
+      MAP[17][i] = *water ;
+      MAP[18][i] = *water ;
     }
 
   for ( i = 0 ; i < 18 ; i ++)
     {
-      MAP[i][13] = 1 ;
-      MAP[i][14] = 1 ;
+      MAP[i][13] = *water ;
+      MAP[i][14] = *water ;
     }
   
   // right permutation of rockwall to draw a second one 
@@ -152,36 +207,37 @@ void set_map()
 	  MAP[i+11][j] = MAP[i][j];
 	}
     }
-  MAP[25][5] = 17;
+  MAP[25][5] = *rockwall_door;
 
 
   // Drawing the bridge 
-  MAP[14][6] = 15;
-  MAP[14][7] = 15;
-  MAP[15][6] = 16;
-  MAP[15][7] = 16;
+  MAP[14][6] = *bridge1;
+  MAP[14][7] = *bridge1;
+  MAP[15][6] = *bridge2;
+  MAP[15][7] = *bridge2;
   
-  MAP[17][10] = 15;
-  MAP[17][11] = 15;
-  MAP[18][10] = 16;
-  MAP[18][11] = 16;
+  MAP[17][10] = *bridge1;
+  MAP[17][11] = *bridge1;
+  MAP[18][10] = *bridge2;
+  MAP[18][11] = *bridge2;
 
   for ( i = 19 ; i < 30 ; i++)
     {
-      if ( i != 24 && i != 25 ){
-	for ( j = 6 ; j < 10 ; j ++ )
-	  {
-	    MAP[i][j] = 3 ;
-	  }
-	for ( j = 12 ; j < 15 ; j ++ )
-	  {
-	    MAP[i][j] = 3 ;
-	  }
-      }
+      if ( i != 24 && i != 25 )
+	{
+	  for ( j = 6 ; j < 10 ; j ++ )
+	    {
+	      MAP[i][j] = *tree ;
+	    }
+	  for ( j = 12 ; j < 15 ; j ++ )
+	    {
+	      MAP[i][j] = *tree ;
+	    }
+	}
     }
 
   // drawing the mystery box 
-  MAP[25][10] = 18; // à voir la position ou les mettre ! 
+  MAP[25][10] = *box; // à voir la position ou les mettre ! 
  
 
   /* dessiner une échelle 
@@ -190,12 +246,10 @@ void set_map()
 
   //test
 
-  MAP[30][10] = 4;
-  MAP[31][10] = 4;
-  MAP[31][11] = 4;
-  MAP[30][11] = 4;
-  
-  
+  MAP[30][10] = *dirt;
+  MAP[31][10] = *dirt;
+  MAP[31][11] = *dirt;
+  MAP[30][11] = *dirt;
 }
   
 
@@ -207,29 +261,4 @@ void set_map()
 
 
 
-void set_position()
-{
-  coordplayerx = 10*SPRITE_SIZE;   
-  coordplayery = 8*SPRITE_SIZE;  
-}
 
-
-
-int ** creerTable(int l , int c)
-{
-  int ** t1 = (int **)malloc(sizeof(int*)*l);
-  int *t2 = (int *)malloc(sizeof(int*)*c*l);
-  int i ;
-  for (i = 0 ; i < l ; i++)
-    {
-      t1[i] = &t2[i*c];
-    }
-  return t1 ;
-}
-
-
-void freeTable(int **tableau)
-{
-  free(tableau[0]);
-  free(tableau);
-}
