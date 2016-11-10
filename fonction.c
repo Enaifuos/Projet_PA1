@@ -84,7 +84,7 @@ void move_down()
 		  coordplayery += 1;
 		  if( i%8 == 0 && i != 0)
 		    {
-		      rcSrcSprite.y += SPRITE_SIZE;
+		      rcSrcSprite.y += SPRITE_SIZE+1;
 		    }
 		  SDL_Delay(5);
 		  screen_printing_Pmove();
@@ -97,7 +97,7 @@ void move_down()
 		  coordplayery += 1;
 		  if( i%8 == 0 && i != 0)
 		    {
-		      rcSrcSprite.y += SPRITE_SIZE;
+		      rcSrcSprite.y += SPRITE_SIZE+1;
 		    }
 		  SDL_Delay(5);
 		  screen_printing_Gmove();
@@ -171,7 +171,7 @@ void move_right()
 		  coordplayerx += 1;
 		  if( i%8 == 0 && i != 0)
 		    {
-		     rcSrcSprite.y += SPRITE_SIZE;
+		     rcSrcSprite.y += SPRITE_SIZE+1;
 		    }
 		  SDL_Delay(5);
 		  screen_printing_Pmove();
@@ -184,7 +184,7 @@ void move_right()
 		  coordplayerx += 1;
 		  if( i%8 == 0 && i != 0)
 		    {
-		     rcSrcSprite.y += SPRITE_SIZE;
+		     rcSrcSprite.y += SPRITE_SIZE+1;
 		    }
 		  SDL_Delay(5);
 		  screen_printing_Gmove(); 
@@ -217,7 +217,7 @@ void move_left()
 		  coordplayerx -= 1;
 		  if( i%8 == 0 && i != 0)
 		    {
-		     rcSrcSprite.y += SPRITE_SIZE;
+		     rcSrcSprite.y += SPRITE_SIZE+1;
 		    }
 		  SDL_Delay(5);
 		  screen_printing_Pmove();
@@ -230,7 +230,7 @@ void move_left()
 		  coordplayerx -= 1;
 		  if( i%8 == 0 && i != 0)
 		    {
-		     rcSrcSprite.y += SPRITE_SIZE;
+		     rcSrcSprite.y += SPRITE_SIZE+1;
 		    }
 		  SDL_Delay(5);
 		  screen_printing_Gmove(); 
