@@ -245,6 +245,31 @@ int main(int argc, char* argv[])
   trap = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  /* load the empty heart */
+  temp = SDL_LoadBMP("ressources/empty_heart.bmp");
+  empty_heart = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
+  /* setup empty heart colorkey and turn on RLE */
+  colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
+  SDL_SetColorKey(empty_heart, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+  
+  /* load the heart */
+  temp = SDL_LoadBMP("ressources/heart.bmp");
+  heart = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
+  /* setup heart colorkey and turn on RLE */
+  colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
+  SDL_SetColorKey(heart, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+  
+
+
+  /* set the heart position */
+  rcHeart.x = 0;
+  rcHeart.y = SCREEN_HEIGHT - 20;
+
+  
   /* set the sprite frame */
   rcSrcSprite.x = 0;
   rcSrcSprite.y = 0;
@@ -260,19 +285,8 @@ int main(int argc, char* argv[])
   gameover = 0;
   
   /* set the MAP */
-  printf("ok");
   set_map();
   
-  //printing the map terminal
-  /* for(i=0;i<SCREEN_HEIGHT /SPRITE_SIZE;i++) */
-  /*   { */
-  /*     for(j=0;j<SCREEN_WIDTH /SPRITE_SIZE;j++) */
-  /* 	{ */
-  /* 	  printf("%d ",MAP[j][i]); */
-  /* 	} */
-  /*     printf("\n"); */
-  /*   } */
-
   screen_printing_Gmove();
 
   /* message pump */

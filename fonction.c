@@ -30,6 +30,7 @@ void move_left();
 
    //action in the game
 void you_lose();
+void player_life();
 void menu_pause();
 void stats();
 
@@ -82,10 +83,13 @@ int check_move_ground(int x, int y)
 }
 
 
+
+
+
 void move_down()
 {
   // set the animation fram for the movement
-  rcSrcSprite.y = 0; 
+  rcSrcSprite.y = 0;
   if( coordplayery < (MAPheight-1) *  SPRITE_SIZE )
     {
       // check if the player can walk on the surface
@@ -123,7 +127,6 @@ void move_down()
 	    }
 	}
     }
-  
 }
 
 
@@ -274,16 +277,44 @@ void move_left()
 void you_lose()
 {
   printf("**********\n YOU LOSE\n**********\n");
+  /* print a picture */
   SDL_Surface *lose;
   temp = SDL_LoadBMP("ressources/YouLose.bmp");
   lose = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
   SDL_SetColorKey(lose, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
   SDL_BlitSurface(lose, NULL, screen, NULL);
+  SDL_Flip(screen);
   SDL_Delay(1800);
+
+  /* restart the game */
   set_map();
   set_position();
+  screen_printing_Gmove();  
 }
+
+
+
+void player_life()
+{
+  int i;
+  rcHeart.x = 1 ;
+  rcHeart.y = SCREEN_HEIGHT - 20;
+  for( i = 0 ; i < 5 ; i++ )
+    {
+      rcHeart.x += 20 ;
+      rcHeart.y = 20;
+      SDL_BlitSurface(heart, NULL, screen, &rcHeart);
+    }
+}
+
+
+
+
+
+
+
+
 
 void menu_pause() //A finir
 {
@@ -373,12 +404,6 @@ void screen_printing_Gmove()
 	    }
 	}
       
-      
-      /* draw the sprite */
-      SDL_BlitSurface(sprite, &rcSrcSprite, screen, &rcSprite);
-      
-      /* update the screen */
-      SDL_UpdateRect(screen,0,0,0,0);
     }
   else
     {
@@ -392,13 +417,15 @@ void screen_printing_Gmove()
 	      draw_GroundGM(i, j, x, y);
 	    }
 	}
-      
-      /* draw the sprite */
-      SDL_BlitSurface(sprite, &rcSrcSprite, screen, &rcSprite);
-      
-      /* update the screen */
-      SDL_UpdateRect(screen,0,0,0,0);
     }
+  /* draw the sprite */
+  SDL_BlitSurface(sprite, &rcSrcSprite, screen, &rcSprite);
+
+  /* draw ther player lifepoint */
+  player_life();
+  
+  /* update the screen */
+  SDL_UpdateRect(screen,0,0,0,0);
 }
 
 
@@ -421,6 +448,9 @@ void screen_printing_Pmove()
   
   /* draw the sprite */
   SDL_BlitSurface(sprite, &rcSrcSprite, screen, &rcSprite);
+
+  /* draw ther player lifepoint */
+  player_life();
   
   /* update the screen */
   SDL_UpdateRect(screen,0,0,0,0);
