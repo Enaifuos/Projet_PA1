@@ -20,8 +20,12 @@
 
 /* action in the game */
 
-    //movement
+    //check
+void check_life(int step);
 int check_move_ground(int x, int y);
+
+
+    //movement
 void move_down();
 void move_up();
 void move_right();
@@ -30,7 +34,6 @@ void move_left();
 
    //action in the game
 void you_lose();
-void player_life();
 void menu_pause();
 void stats();
 
@@ -38,6 +41,7 @@ void stats();
 
 
 /* screen printing */
+void print_player_life();
 void screen_printing_Gmove();
 void screen_printing_Pmove();
 
@@ -54,7 +58,20 @@ void screen_printing_Pmove();
 
 
 
-   /*-----movement-----*/
+/*----------- check -----------*/
+
+void check_life(int step)
+{
+  if( step <= 0 )
+    {
+      you_lose();
+    }
+}
+
+
+
+
+   
 int check_move_ground(int x, int y)
 {
   int res = 0;
@@ -86,6 +103,13 @@ int check_move_ground(int x, int y)
 
 
 
+
+
+
+/*-----movement-----*/
+
+
+
 void move_down()
 {
   // set the animation fram for the movement
@@ -97,6 +121,7 @@ void move_down()
 	{
 	  int i;
 	  stepcount += 1;
+	  stepbfdie -= 1;
 	  if( coordplayery/SPRITE_SIZE > MAPheight - 9 || coordplayery/SPRITE_SIZE <= 6 )
 	    {
 	      for( i=0 ; i<SPRITE_SIZE ; i++ )
@@ -127,6 +152,7 @@ void move_down()
 	    }
 	}
     }
+  check_life(stepbfdie);
 }
 
 
@@ -140,6 +166,7 @@ void move_up()
 	{
 	  int i;
 	  stepcount += 1;
+	  stepbfdie -= 1;
 	  if( coordplayery/SPRITE_SIZE > MAPheight - 8 || coordplayery/SPRITE_SIZE <= 7 )
 	    {
 	      for( i=0 ; i<SPRITE_SIZE ; i++ )
@@ -170,6 +197,7 @@ void move_up()
 	    }
 	}
     }
+  check_life(stepbfdie);
 }
 
 
@@ -182,6 +210,7 @@ void move_right()
 	{
 	  int i;
 	  stepcount += 1;
+	  stepbfdie -= 1;
 	  if( coordplayerx/SPRITE_SIZE >= MAPlength - 10 || coordplayerx/SPRITE_SIZE <= 8 )
 	    {
 	      SDL_Delay(20);
@@ -213,6 +242,7 @@ void move_right()
 	    }	  
 	}
     }
+  check_life(stepbfdie);
 }
 
 
@@ -228,6 +258,7 @@ void move_left()
 	{
 	  int i;
 	  stepcount += 1;
+	  stepbfdie -= 1;
 	  if( coordplayerx/SPRITE_SIZE >= MAPlength - 9  || coordplayerx/SPRITE_SIZE <= 9 ) 
 	    {
 	      SDL_Delay(20);
@@ -259,6 +290,7 @@ void move_left()
 	    }
 	}
     }
+  check_life(stepbfdie);
 }
 
 
@@ -277,7 +309,8 @@ void move_left()
 void you_lose()
 {
   printf("**********\n YOU LOSE\n**********\n");
-  /* print a picture */
+  
+  /* print a loosing picture */
   SDL_Surface *lose;
   temp = SDL_LoadBMP("ressources/YouLose.bmp");
   lose = SDL_DisplayFormat(temp);
@@ -290,28 +323,9 @@ void you_lose()
   /* restart the game */
   set_map();
   set_position();
+  stepbfdie = 75;
   screen_printing_Gmove();  
 }
-
-
-
-void player_life()
-{
-  int i;
-  rcHeart.x = 1 ;
-  rcHeart.y = SCREEN_HEIGHT - 20;
-  SDL_BlitSurface(heart, NULL, screen, &rcHeart);
-  for( i = 0 ; i < 4 ; i++ )
-    {
-      rcHeart.x += 20 ;
-      SDL_BlitSurface(heart, NULL, screen, &rcHeart);
-    }
-}
-
-
-
-
-
 
 
 
@@ -359,6 +373,8 @@ void menu_pause() //A finir
 }
 
 
+
+
 void stats()
 {
   long time;
@@ -386,6 +402,30 @@ void stats()
 
 
 /*--------- screen printing ----------*/
+
+
+void print_player_life()
+{
+  int i;
+  rcHeart.x = 1 ;
+  rcHeart.y = SCREEN_HEIGHT - 20;
+  SDL_BlitSurface(heart, NULL, screen, &rcHeart);
+  for( i = 0 ; i < 4 ; i++ )
+    {
+      rcHeart.x += 20 ;
+      if( stepbfdie/10 >= i+1 )
+	{
+	  SDL_BlitSurface(heart, NULL, screen, &rcHeart);
+	}
+      else
+	{
+	  SDL_BlitSurface(empty_heart, NULL, screen, &rcHeart);
+	}
+    }
+}
+
+
+
 
 
 void screen_printing_Gmove()
@@ -422,7 +462,7 @@ void screen_printing_Gmove()
   SDL_BlitSurface(sprite, &rcSrcSprite, screen, &rcSprite);
 
   /* draw ther player lifepoint */
-  player_life();
+  print_player_life();
   
   /* update the screen */
   SDL_UpdateRect(screen,0,0,0,0);
@@ -450,7 +490,7 @@ void screen_printing_Pmove()
   SDL_BlitSurface(sprite, &rcSrcSprite, screen, &rcSprite);
 
   /* draw ther player lifepoint */
-  player_life();
+  print_player_life();
   
   /* update the screen */
   SDL_UpdateRect(screen,0,0,0,0);

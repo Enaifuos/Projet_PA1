@@ -7,14 +7,22 @@
 
 
 /*---Prototypes---*/
-void set_map();
+
 void set_position();
 
 
-
 //array function
-SDL_Surface ** creerTable(int l , int c);
-void freeTable(SDL_Surface **tableau);
+SDL_Surface ** CreateTable(int l , int c);
+int ** CreateTableObject(int l , int c);
+void FreeTableMAP(SDL_Surface **tableau);
+void FreeTableObject(int **tableau);
+
+
+void set_map();
+void set_objectMAP();
+
+
+
 
 
 
@@ -23,16 +31,17 @@ void freeTable(SDL_Surface **tableau);
 void set_position()
 {
   coordplayerx = 10*SPRITE_SIZE;   
-  coordplayery = 8*SPRITE_SIZE;  
+  coordplayery = 8*SPRITE_SIZE;
+  rcSprite.x = 9*SPRITE_SIZE;
+  rcSprite.y = 7*SPRITE_SIZE;
 }
 
 
 
 
 
-SDL_Surface ** creerTable(int l , int c)
+SDL_Surface ** CreateTable(int l , int c)
 {
-  printf("creation table");
   SDL_Surface ** t1 = (SDL_Surface **)malloc(sizeof(SDL_Surface)*l);
   SDL_Surface *t2 = (SDL_Surface *)malloc(sizeof(SDL_Surface)*c*l);
   int i ;
@@ -42,7 +51,7 @@ SDL_Surface ** creerTable(int l , int c)
     }
   if( t1 == NULL ) // test if the malloc run
     {
-      printf("missing dynamic memory to run the game\n");
+      printf("missing dynamic memory to run the game (error map table)\n");
     }
   else
     {
@@ -53,8 +62,28 @@ SDL_Surface ** creerTable(int l , int c)
 
 
 
+int ** CreateTableObject(int l , int c)
+{
+  int ** t1 = (int **)malloc(sizeof(int)*l);
+  int *t2 = (int *)malloc(sizeof(int)*c*l);
+  int i ;
+  for (i = 0 ; i < l ; i++)
+    {
+      t1[i] = &t2[i*c];
+    }
+  if( t1 == NULL ) // test if the malloc run
+    {
+      printf("missing dynamic memory to run the game (error object table)\n");
+    }
+  return t1 ;
+}
 
-void freeTable(SDL_Surface **tableau)
+
+
+
+
+
+void FreeTableMAP(SDL_Surface **tableau)
 {
   int i;
   for( i = 0 ; i < MAPheight -1 ; i++)
@@ -66,6 +95,15 @@ void freeTable(SDL_Surface **tableau)
 
 
 
+void FreeTableObject(int **tableau)
+{
+  int i;
+  for( i = 0 ; i < MAPheight -1 ; i++)
+    {
+      free(tableau[i]);
+    }
+  free(tableau);
+}
 
 
 
@@ -284,7 +322,7 @@ void set_map()
 	}
     }
   // drawing the mystery box 
-  MAP[25][10] = *box; // à voir la position ou les mettre ! 
+  MAP[25][10] = *grass; 
 
   
   /* dessiner une échelle 
@@ -309,3 +347,11 @@ void set_map()
 
 
 
+
+
+
+
+void set_objectMAP()
+{
+  MAP[25][10] = *box;
+}

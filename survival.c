@@ -16,8 +16,10 @@ int main(int argc, char* argv[])
 {
   int i, j;
  
-
-   MAP = creerTable(MAPlength , MAPheight );
+  //set the MAP and the object 
+  MAP = CreateTable(MAPlength , MAPheight );
+  OBJECTMAP = CreateTableObject(MAPlength, MAPheight);
+  
   /* initialize video system */
   SDL_Init(SDL_INIT_VIDEO);
   
@@ -281,7 +283,9 @@ int main(int argc, char* argv[])
   rcSprite.y = 7*SPRITE_SIZE;
   set_position();
 
-
+  //set the step number you can do before die
+  stepbfdie = 75;
+  
   gameover = 0;
   
   /* set the MAP */
@@ -330,12 +334,10 @@ int main(int argc, char* argv[])
 	{
 	  move_up();
 	}
-      
       if( keystate[SDLK_DOWN] )
 	{
 	  move_down();
 	}
-
       if( keystate[SDLK_p])
 	{
 	  menu_pause();
@@ -345,7 +347,7 @@ int main(int argc, char* argv[])
   
   
   /* clean the array */ 
-  //freeTable(MAP);
+  //FreeTableMAP(MAP);
 
        /* clean up */
   SDL_FreeSurface(sprite);
