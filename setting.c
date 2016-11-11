@@ -14,7 +14,6 @@ void set_position();
 //array function
 SDL_Surface ** CreateTable(int l , int c);
 void FreeTableMAP(SDL_Surface **tableau);
-void FreeTableObject(int **tableau);
 
 
 void set_map();
@@ -52,10 +51,6 @@ SDL_Surface ** CreateTable(int l , int c)
     {
       printf("missing dynamic memory to run the game (error table)\n");
     }
-  else
-    {
-      printf("\n\nWELCOME TO SURVIVAL.\n\n");
-    }
   return t1 ;
 }
 
@@ -73,21 +68,6 @@ void FreeTableMAP(SDL_Surface **tableau)
     }
   free(tableau);
 }
-
-
-
-void FreeTableObject(int **tableau)
-{
-  int i;
-  for( i = 0 ; i < MAPheight -1 ; i++)
-    {
-      free(tableau[i]);
-    }
-  free(tableau);
-}
-
-
-
 
 
 
