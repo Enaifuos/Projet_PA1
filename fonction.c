@@ -57,11 +57,28 @@ void screen_printing_Pmove();
 int check_move_ground(int x, int y)
 {
   int res = 0;
-  //if( MAP[x][y] == *grass || MAP[x][y] == *dirt || MAP[x][y] == *sand )
-  //{
-  //  res = 1; //peut passer
-  // }
-  return 1;
+  SDL_Surface pos = MAP[x][y];
+  if( pos.pixels == (*grass).pixels || pos.pixels == (*dirt).pixels || pos.pixels == (*sand).pixels || pos.pixels == (*bridge1).pixels || pos.pixels == (*bridge2).pixels)
+  {
+    res = 1; //peut passer
+   }
+  
+  //special sandg
+  else if( pos.pixels == (*sandg_u).pixels || pos.pixels == (*sandg_d).pixels || pos.pixels == (*sandg_dl).pixels || pos.pixels == (*sandg_dr).pixels || pos.pixels == (*sandg_ul).pixels || pos.pixels == (*sandg_ur).pixels || pos.pixels == (*sandg_l).pixels || pos.pixels == (*sandg_r).pixels)
+    {
+      res = 1;
+    }
+  //special sandw
+  else if( pos.pixels == (*sandw_u).pixels || pos.pixels == (*sandw_d).pixels || pos.pixels == (*sandw_dl).pixels || pos.pixels == (*sandw_dr).pixels || pos.pixels == (*sandw_ul).pixels || pos.pixels == (*sandw_ur).pixels || pos.pixels == (*sandw_l).pixels || pos.pixels == (*sandw_r).pixels )
+    {
+      res = 1;
+    }
+  //special dirt
+  else if( pos.pixels == (*dirtg_u).pixels || pos.pixels == (*dirtg_d).pixels || pos.pixels == (*dirtg_ul).pixels || pos.pixels == (*dirtg_ur).pixels || pos.pixels == (*dirtg_dl).pixels || pos.pixels == (*dirtg_dr).pixels || pos.pixels == (*dirtg_l).pixels || pos.pixels == (*dirtg_r).pixels )
+    {
+      res = 1;
+    }
+  return res;
 }
 
 

@@ -41,11 +41,12 @@ SDL_Surface ** creerTable(int l , int c)
     }
   if( t1 == NULL ) // test if the malloc run
     {
-      printf("missing dynamic memory to run the game");
+      printf("missing dynamic memory to run the game\n");
     }
-  else{
-    printf("\n\nYAHOOOO\n\n");
-  }
+  else
+    {
+      printf("\n\nWELCOME TO SURVIVAL.\n\n");
+    }
   return t1 ;
 }
 
@@ -291,10 +292,10 @@ void set_map()
 
   //test
 
-  MAP[30][10] = *dirt;
-  MAP[31][10] = *dirt;
-  MAP[31][11] = *dirt;
-  MAP[30][11] = *dirt;
+  MAP[30][10] = *dirtg_ul;
+  MAP[31][10] = *dirtg_ur;
+  MAP[31][11] = *dirtg_dr;
+  MAP[30][11] = *dirtg_dl;
 }
   
 
