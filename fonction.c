@@ -29,7 +29,7 @@ void move_left();
 
 
    //action in the game
-void you_loose();
+void you_lose();
 void menu_pause();
 void stats();
 
@@ -271,9 +271,16 @@ void move_left()
 /*--------action in the game---------*/
 
 
-void you_loose()
+void you_lose()
 {
   printf("**********\n YOU LOSE\n**********\n");
+  SDL_Surface *lose;
+  temp = SDL_LoadBMP("ressources/YouLose.bmp");
+  lose = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  SDL_SetColorKey(lose, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+  SDL_BlitSurface(lose, NULL, screen, NULL);
+  SDL_Delay(1800);
   set_map();
   set_position();
 }

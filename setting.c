@@ -7,9 +7,10 @@
 
 
 /*---Prototypes---*/
-
 void set_map();
 void set_position();
+
+
 
 //array function
 SDL_Surface ** creerTable(int l , int c);
