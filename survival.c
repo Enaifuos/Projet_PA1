@@ -16,9 +16,10 @@ int main(int argc, char* argv[])
 {
   int i, j;
  
-  //set the MAP and the object 
+  //create the MAP and the object MAP
   MAP = CreateTable(MAPlength , MAPheight );
-  OBJECTMAP = CreateTableObject(MAPlength, MAPheight);
+  OBJECTMAP = CreateTable(MAPlength, MAPheight);
+  
   
   /* initialize video system */
   SDL_Init(SDL_INIT_VIDEO);
@@ -264,12 +265,31 @@ int main(int argc, char* argv[])
   /* setup heart colorkey and turn on RLE */
   colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
   SDL_SetColorKey(heart, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+
+  /* load the apple */
+  temp = SDL_LoadBMP("ressources/apple.bmp");
+  apple = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
+  /* setup apple colorkey and turn on RLE */
+  colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
+  SDL_SetColorKey(apple, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+  
+  /* load the talismant */
+  temp = SDL_LoadBMP("ressources/dragon_talismant.bmp");
+  talismant = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
+  /* setup heart colorkey and turn on RLE */
+  colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
+  SDL_SetColorKey(talismant, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+
   
 
 
   /* set the heart position */
   rcHeart.x = 0;
-  rcHeart.y = SCREEN_HEIGHT - 20;
+  rcHeart.y = 0;
 
   
   /* set the sprite frame */
@@ -288,8 +308,9 @@ int main(int argc, char* argv[])
   
   gameover = 0;
   
-  /* set the MAP */
+  /* set the MAP and objectMAP*/
   set_map();
+  set_objectmap();
   
   screen_printing_Gmove();
 

@@ -13,13 +13,12 @@ void set_position();
 
 //array function
 SDL_Surface ** CreateTable(int l , int c);
-int ** CreateTableObject(int l , int c);
 void FreeTableMAP(SDL_Surface **tableau);
 void FreeTableObject(int **tableau);
 
 
 void set_map();
-void set_objectMAP();
+void set_objectmap();
 
 
 
@@ -51,29 +50,11 @@ SDL_Surface ** CreateTable(int l , int c)
     }
   if( t1 == NULL ) // test if the malloc run
     {
-      printf("missing dynamic memory to run the game (error map table)\n");
+      printf("missing dynamic memory to run the game (error table)\n");
     }
   else
     {
       printf("\n\nWELCOME TO SURVIVAL.\n\n");
-    }
-  return t1 ;
-}
-
-
-
-int ** CreateTableObject(int l , int c)
-{
-  int ** t1 = (int **)malloc(sizeof(int)*l);
-  int *t2 = (int *)malloc(sizeof(int)*c*l);
-  int i ;
-  for (i = 0 ; i < l ; i++)
-    {
-      t1[i] = &t2[i*c];
-    }
-  if( t1 == NULL ) // test if the malloc run
-    {
-      printf("missing dynamic memory to run the game (error object table)\n");
     }
   return t1 ;
 }
@@ -321,8 +302,6 @@ void set_map()
 	  MAP[i][j+18] = MAP[i][j] ;
 	}
     }
-  // drawing the mystery box 
-  MAP[25][10] = *grass; 
 
   
   /* dessiner une échelle 
@@ -351,7 +330,17 @@ void set_map()
 
 
 
-void set_objectMAP()
+void set_objectmap()
 {
-  MAP[25][10] = *box;
+  int i, j;
+  for( i=0 ; i < MAPlength ; i++)
+    {
+      for( j=0 ; j < MAPheight  ; j++)
+	{
+	  OBJECTMAP[i][j].pitch = 0;
+	}
+    }
+  OBJECTMAP[25][10] = *box;
+  OBJECTMAP[24][10] = *talismant;
+  OBJECTMAP[25][11] = *apple;
 }
