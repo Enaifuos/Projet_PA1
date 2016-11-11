@@ -300,10 +300,10 @@ void player_life()
   int i;
   rcHeart.x = 1 ;
   rcHeart.y = SCREEN_HEIGHT - 20;
-  for( i = 0 ; i < 5 ; i++ )
+  SDL_BlitSurface(heart, NULL, screen, &rcHeart);
+  for( i = 0 ; i < 4 ; i++ )
     {
       rcHeart.x += 20 ;
-      rcHeart.y = 20;
       SDL_BlitSurface(heart, NULL, screen, &rcHeart);
     }
 }
