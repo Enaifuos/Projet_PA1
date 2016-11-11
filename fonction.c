@@ -330,15 +330,21 @@ void you_lose()
 
 
 
-void menu_pause() //A finir
+void menu_pause()
 {
- int menu = 1;
+  int menu = 1;
+  int optionselect = 0;
+  
   rcPause.x = 507;
   rcPause.y = 0;
-
   SDL_BlitSurface(pause, NULL, screen, &rcPause);
-  SDL_UpdateRect(screen,0,0,0,0);
 
+  rcRedrect.x = SCREEN_WIDTH - 88;
+  rcRedrect.y = 16;
+  SDL_BlitSurface(redrect, NULL, screen, &rcRedrect);
+
+  SDL_UpdateRect(screen,0,0,0,0);
+ 
   while(menu)
     {
       if (SDL_PollEvent(&event))
@@ -349,7 +355,7 @@ void menu_pause() //A finir
 	    case SDL_QUIT:
 	      pause = 0;
 	      break;
-	      
+	     
 	      /* move the selection case */
 	    case SDL_KEYDOWN:
 	      switch (event.key.keysym.sym) 
@@ -359,15 +365,37 @@ void menu_pause() //A finir
 		  menu = 0;
 		  break;
 		case SDLK_DOWN:
-		  stats();
+		  if( optionselect < 2 )
+		    {
+		      optionselect += 1;
+		    }
 		  break;
 		case SDLK_UP:
+		  if( optionselect > 0 )
+		    {
+		      optionselect -= 1;
+		    }
 		  break;
 		}
 	      break;
 	    }
 	}
-      
+      switch (optionselect)
+	{
+	case 0:
+	  rcRedrect.y = 16;
+	  break;
+	case 1 :
+	  rcRedrect.y = 67;
+	  break;
+	case 2 :
+	  rcRedrect.y = 117 ;
+	  break;
+	}
+      //printing the menu
+      SDL_BlitSurface(pause, NULL, screen, &rcPause);
+      SDL_BlitSurface(redrect, NULL, screen, &rcRedrect);
+      SDL_UpdateRect(screen,0,0,0,0);
     } 
   screen_printing_Pmove();
 }

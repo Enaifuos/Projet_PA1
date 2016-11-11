@@ -66,6 +66,15 @@ int main(int argc, char* argv[])
   temp = SDL_LoadBMP("ressources/pause_menu.bmp");
   pause = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
+
+  /* load the red rectangle */
+  temp = SDL_LoadBMP("ressources/select_rectangle.bmp");
+  redrect = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
+  /* setup heart colorkey and turn on RLE */
+  colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
+  SDL_SetColorKey(redrect, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
   
       /* load dirt  */
   temp = SDL_LoadBMP("ressources/dirt/dirt.bmp");

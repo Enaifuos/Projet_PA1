@@ -34,5 +34,5 @@ SDL_Surface  *box, *apple, *talismant;
 SDL_Rect rcObject;
 
 //pause menu & life
-SDL_Rect rcPause, rcHeart;
-SDL_Surface *pause, *empty_heart, *heart;
+SDL_Rect rcPause, rcHeart, rcRedrect;
+SDL_Surface *pause, *empty_heart, *heart, *redrect;
