@@ -35,9 +35,11 @@ void move_left();
    //action in the game
 void you_lose();
 void menu_pause();
+
+   //help for the player
 void stats();
-
-
+void help();
+void bag();
 
 
 /* screen printing */
@@ -376,6 +378,20 @@ void menu_pause()
 		      optionselect -= 1;
 		    }
 		  break;
+		case SDLK_RETURN:
+		  switch (optionselect)
+		    {
+		    case 0:
+		      bag();
+		      break;
+		    case 1 :
+		      stats();
+		      break;
+		    case 2:
+		      help();
+		      break;
+		    }
+		  break;
 		}
 	      break;
 	    }
@@ -417,9 +433,21 @@ void stats()
 
 
 
+void help()
+{
+  printf("This game was managed by Soufiane Aouri and Alex Ginestra\nYou can move width the directional up, down, left and right\n");
+  printf("keyboard key. If can quit the game by using the escape keyboard key\nAnd use p for the pause menu.\n");
+  printf("The object of this game is find the\n6 talismants and also avoid to die... ;) you can use BAG in the\n");
+  printf("pause menu to know how much talismant you have.\n\n");
+}
 
 
 
+void bag()
+{
+  int nbtofind = NumbTalis - countertalismant;
+  printf("You have find %d talismant, %d more to win!\n\n", countertalismant , nbtofind);
+}
 
 
 

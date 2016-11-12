@@ -5,6 +5,7 @@
 #define SPRITE_SIZE    32
 #define MAPlength      64
 #define MAPheight      44
+#define NumbTalis       6
 
 
 /*---- usufull for the code ----*/
@@ -12,7 +13,7 @@ SDL_Event event;
 Uint8 *keystate;
 int colorkey, gameover, stepcount, stepbfdie;
 int coordplayerx, coordplayery;
-
+int countertalismant;
 
 
 /*---- usefull for the printing ----*/
