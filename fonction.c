@@ -78,6 +78,22 @@ int check_move_ground(int x, int y)
 {
   int res = 0;
   SDL_Surface pos = MAP[x][y];
+  if( OBJECTMAP[x][y].pitch )
+    {
+      //doesn't works
+      if( OBJECTMAP[x][y] == (*apple).flags )
+	{
+	  stepbfdie += 20;
+	  printf("%d talismant", countertalismant);
+
+	}
+      if( OBJECTMAP[x][y].flags == (*talismant).flags )
+	{
+	  printf("%d talismant", countertalismant);
+	  countertalismant += 1;
+	}
+      OBJECTMAP[x][y].pitch = 0;
+    }
   if( pos.pixels == (*grass).pixels || pos.pixels == (*dirt).pixels || pos.pixels == (*sand).pixels || pos.pixels == (*bridge1).pixels || pos.pixels == (*bridge2).pixels)
   {
     res = 1; //peut passer
