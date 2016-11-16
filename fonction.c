@@ -66,7 +66,7 @@ void check_life(int step)
 {
   if( step <= 0 )
     {
-      you_lose();
+      //   you_lose();
     }
 }
 
@@ -326,7 +326,7 @@ void move_left()
 /*--------action in the game---------*/
 
 
-void you_lose()
+void you_lose(double k)
 {
   printf("**********\n YOU LOSE\n**********\n");
   
@@ -341,7 +341,7 @@ void you_lose()
   SDL_Delay(1800);
 
   /* restart the game */
-  set_map();
+  set_map(k);
   set_position();
   set_objectmap();
   stepbfdie = 75;

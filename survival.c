@@ -15,6 +15,7 @@
 int main(int argc, char* argv[])
 {
   int i, j;
+  double k = 0.0 ;
  
   //create the MAP and the object MAP
   MAP = CreateTable(MAPlength , MAPheight );
@@ -47,10 +48,19 @@ int main(int argc, char* argv[])
   grass = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
   
+  temp = SDL_LoadBMP("ressources/grass_night.bmp");
+  grass_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
 	/* load water */
   temp = SDL_LoadBMP("ressources/water.bmp");
   water = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/water_night.bmp");
+  water_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
 
        /* load sand  */
   temp = SDL_LoadBMP("ressources/sand/sand.bmp");
@@ -60,6 +70,10 @@ int main(int argc, char* argv[])
        /* load tree */
   temp = SDL_LoadBMP("ressources/tree.bmp");
   tree = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/tree_night.bmp");
+  tree_night = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
   /* load pause menu */
@@ -183,7 +197,7 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(temp);
 
 
-      /* load the special rockwall */
+      /* load the special rockwall (day) */
   temp = SDL_LoadBMP("ressources/rockwall/rockwall.bmp");
   rockwall = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
@@ -229,6 +243,52 @@ int main(int argc, char* argv[])
   rockwall_door = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+
+  /* load the rockwall (night) */
+  temp = SDL_LoadBMP("ressources/rockwall_night/rockwall_night.bmp");
+  rockwall_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/rockwall_night/rockwall_dl_night.bmp");
+  rockwall_dl_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/rockwall_night/rockwall_dr_night.bmp");
+  rockwall_dr_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/rockwall_night/rockwall_l_night.bmp");
+  rockwall_l_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
+  temp = SDL_LoadBMP("ressources/rockwall_night/rockwall_r_night.bmp");
+  rockwall_r_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/rockwall_night/rockwall_top_night.bmp");
+  rockwall_top_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/rockwall_night/rockwall_ucl_night.bmp");
+  rockwall_ucl_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/rockwall_night/rockwall_ucr_night.bmp");
+  rockwall_ucr_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
+  temp = SDL_LoadBMP("ressources/rockwall_night/rockwall_ul_night.bmp");
+  rockwall_ul_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/rockwall_night/rockwall_ur_night.bmp");
+  rockwall_ur_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/rockwall_night/rockwall_door_night.bmp");
+  rockwall_door_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
   /* load the bridge */
   temp = SDL_LoadBMP("ressources/bridge/bridge1.bmp");
   bridge1 = SDL_DisplayFormat(temp);
@@ -237,6 +297,15 @@ int main(int argc, char* argv[])
   temp = SDL_LoadBMP("ressources/bridge/bridge2.bmp");
   bridge2 = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/bridge/bridge1_night.bmp");
+  bridge1_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
+  temp = SDL_LoadBMP("ressources/bridge/bridge2_night.bmp");
+  bridge2_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
 
   /* load the mystery_box */
   temp = SDL_LoadBMP("ressources/box/mystery_box.bmp");
@@ -318,7 +387,7 @@ int main(int argc, char* argv[])
   gameover = 0;
   
   /* set the MAP and objectMAP*/
-  set_map();
+  set_map(k);
   set_objectmap();
   
   screen_printing_Gmove();
@@ -326,6 +395,27 @@ int main(int argc, char* argv[])
   /* message pump */
   while (!gameover)
     {
+
+ // Drawing the cave 
+
+ /*                               // CE QU'A FOUTU LE PROF !! 
+
+  if( k < 100.0 ){
+    MAP[10][5] = *rockwall_dl;
+    MAP[10][0] = *rockwall_ul;
+    MAP[18][0] = *rockwall_ur;
+    MAP[18][5] = *rockwall_dr;
+  }
+  else{
+    MAP[10][5] = *rockwall_dl_night;
+    MAP[10][0] = *rockwall_ul_night;
+    MAP[18][0] = *rockwall_ur_night;
+    MAP[18][5] = *rockwall_dr_night;
+  }
+*/
+      set_map(k);
+      k += 0.001;
+      printf("\n%f",k);
       /* look for an event */
       if (SDL_PollEvent(&event))
 	{
@@ -382,11 +472,14 @@ int main(int argc, char* argv[])
        /* clean up */
   SDL_FreeSurface(sprite);
   SDL_FreeSurface(grass);
+  SDL_FreeSurface(grass_night);
   SDL_FreeSurface(water);
+  SDL_FreeSurface(water_night);
   SDL_FreeSurface(sand);
   SDL_FreeSurface(dirt);
   SDL_FreeSurface(pause);
   SDL_FreeSurface(rockwall);
+  SDL_FreeSurface(rockwall_night);
 
   /* cleaning the special dirt */
   SDL_FreeSurface(dirtg_d);
@@ -431,9 +524,23 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(rockwall_ucl);
   SDL_FreeSurface(rockwall_door);
 
+  SDL_FreeSurface(rockwall_dr_night);
+  SDL_FreeSurface(rockwall_dl_night);
+  SDL_FreeSurface(rockwall_top_night);
+  SDL_FreeSurface(rockwall_r_night);
+  SDL_FreeSurface(rockwall_l_night);
+  SDL_FreeSurface(rockwall_ur_night);
+  SDL_FreeSurface(rockwall_ul_night);
+  SDL_FreeSurface(rockwall_ucr_night);
+  SDL_FreeSurface(rockwall_ucl_night);
+  SDL_FreeSurface(rockwall_door_night);
+
   /* cleaning the bridge */
   SDL_FreeSurface(bridge1);
   SDL_FreeSurface(bridge2);
+  SDL_FreeSurface(bridge1_night);
+  SDL_FreeSurface(bridge2_night);
+  
 
   /* cleaning the mystery box */
   SDL_FreeSurface(box);
@@ -449,5 +556,6 @@ int main(int argc, char* argv[])
   
   return 0;
 }
+
 
 

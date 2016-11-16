@@ -16,7 +16,7 @@ SDL_Surface ** CreateTable(int l , int c);
 void FreeTableMAP(SDL_Surface **tableau);
 
 
-void set_map();
+void set_map(double time);
 void set_objectmap();
 
 
@@ -78,7 +78,7 @@ void FreeTableMAP(SDL_Surface **tableau)
 /*------------------- SET THE MAP ---------------------*/
 
 
-void set_map()
+void set_map(double time)
 {
   int i,j;
   
@@ -87,7 +87,12 @@ void set_map()
     {
       for( j=0 ; j < MAPheight  ; j++)
 	{
-	  MAP[i][j] = *grass;
+	  if ( time < DAY_DURATION ){
+	    MAP[i][j] = *grass;
+	  }
+	  else{
+	    //  MAP[i][j] = *grass_night;       // it blocks the program 
+	  }
 	}
     }
 
@@ -110,12 +115,22 @@ void set_map()
     {
       for( i=0 ; i < MAPlength ; i++ )
 	{
-	  MAP[i][MAPheight-j] = *water;
+	  if ( time < DAY_DURATION ){
+	    MAP[i][MAPheight-j] = *water;
+	  }
+	  else{
+	    MAP[i][MAPheight-j] = *water_night ;
+	  }
 	}
     }
   for( i=0 ; i<MAPheight-2 ; i++)
     {
-      MAP[0][i] = *water;
+       if ( time < DAY_DURATION ){
+	 MAP[0][i] = *water;
+       }
+       else{
+	 MAP[0][i] = *water_night ;
+       }
     }
 
  
@@ -125,34 +140,66 @@ void set_map()
     {
       for(i=0 ; i<5 ; i++)
 	{
-	  MAP[j][i] = *tree;
+	  if ( time < DAY_DURATION ){
+	    MAP[j][i] = *tree;
+	  }
+	  else{
+	    MAP[j][i] = *tree_night;
+	  }
 	}
     }
   for ( j = 0 ; j < 13 ; j++)
     {
-      MAP[3][j] = *tree;
-      MAP[4][j] = *tree;
+      if ( time < DAY_DURATION ){
+	MAP[3][j] = *tree;
+	MAP[4][j] = *tree;
+      }
+      else{
+	MAP[3][j] = *tree_night;
+	MAP[4][j] = *tree_night;
+      }
     }
   for ( i = 5 ; i < 17 ; i++)
     {
-      MAP[i][12] = *tree;
+      if ( time < DAY_DURATION ){
+	MAP[i][12] = *tree;
+      }
+      else{
+	MAP[i][12] = *tree_night;
+      } 
     }
 
   for(i=0;i<6;i++)
     {
-      MAP[20][i] = *tree;
-      MAP[19][i] = *tree;
+      if ( time < DAY_DURATION ){
+	MAP[20][i] = *tree;
+	MAP[19][i] = *tree;
+      }
+      else{
+	MAP[20][i] = *tree_night;
+	MAP[19][i] = *tree_night;
+      }
     }
  
   for ( i = 25 ; i < 30 ; i ++ )
     {
-      MAP[i][17] = *tree;
+      if ( time < DAY_DURATION ){
+	MAP[i][17] = *tree;
+      }
+      else{
+	MAP[i][17] = *tree_night;
+      }
     }
   for ( i = 17 ; i < 34 ; i ++ )
     {
       for (j = 30 ; j < 34 ; j ++ )
 	{
-	  MAP[j][i] = *tree;
+	  if ( time < DAY_DURATION ){
+	    MAP[j][i] = *tree;
+	  }
+	  else{
+	    MAP[j][i] = *tree_night; 
+	  }
 	}
     }
 
@@ -160,8 +207,16 @@ void set_map()
 
   for( i = 1 ; i < 5 ; i++)
     {
-      MAP[10][i] = *rockwall_l;
-      MAP[18][i] = *rockwall_r;
+      if( time < DAY_DURATION ){
+	MAP[10][i] = *rockwall_l;
+	MAP[18][i] = *rockwall_r;
+      }
+      else{
+	MAP[10][i] = *rockwall_l_night;
+	MAP[18][i] = *rockwall_r_night; 
+
+
+      }
     }
   
 
@@ -171,59 +226,129 @@ void set_map()
     {
       for(j=1;j<5;j++)
 	{
-	  MAP[i][j] = *rockwall_top;
+	  if( time < DAY_DURATION ){
+	    MAP[i][j] = *rockwall_top;
+	  }
+	  else{
+	    MAP[i][j] = *rockwall_top_night;
+
+	 
+	  }
 	}
-      MAP[i][5] = *rockwall;
+      if( time < DAY_DURATION ){
+	MAP[i][5] = *rockwall;
+      }
+      else{
+	MAP[i][5] = *rockwall_night;
+
+
+      }
     }
   
   for(i = 11 ; i < 18 ; i++)
     {
-      MAP[i][0] = *rockwall_top;
+      if( time < DAY_DURATION ){
+	MAP[i][0] = *rockwall_top;
+      }
+      else{
+	MAP[i][0] = *rockwall_top_night;
+      
+
+      }
     }
   
-  MAP[14][5] = *rockwall_door;
+  if( time < DAY_DURATION ){
+    MAP[14][5] = *rockwall_door;
+  }
+  else{
+    MAP[14][5] = *rockwall_door_night; 
+  }
   
- // Drawing the cave 
 
-  MAP[10][5] = *rockwall_dl;
-  MAP[10][0] = *rockwall_ul;
-  MAP[18][0] = *rockwall_ur;
-  MAP[18][5] = *rockwall_dr;
+
+ // Drawing the cave 
+  if( time < DAY_DURATION ){
+    MAP[10][5] = *rockwall_dl;
+    MAP[10][0] = *rockwall_ul;
+    MAP[18][0] = *rockwall_ur;
+    MAP[18][5] = *rockwall_dr;
+  }
+  else{
+    MAP[10][5] = *rockwall_dl_night;
+    MAP[10][0] = *rockwall_ul_night;
+    MAP[18][0] = *rockwall_ur_night;
+    MAP[18][5] = *rockwall_dr_night;
+  }
 
    /* set water beside the cave */
   for( i = 0 ; i < 8 ; i ++ )
     {
-      MAP[9][i] = *water ;
+      if ( time < DAY_DURATION ){
+	MAP[9][i] = *water ;
+      }
+      else{
+	MAP[9][i] = *water_night ;
+      }
     }
 
   for ( i = 10 ; i < 19 ; i ++ )
     {
-      MAP[i][6] = *water ;
-      MAP[i][7] = *water ;
+      if ( time < DAY_DURATION ){
+	MAP[i][6] = *water ;
+	MAP[i][7] = *water ;
+      }
+      else{
+	MAP[i][6] = *water_night ;
+	MAP[i][7] = *water_night ;
+      }
     }
   
   for ( i = 7 ; i < 15 ; i ++)
     {
-      MAP[17][i] = *water ;
-      MAP[18][i] = *water ;
+      if ( time < DAY_DURATION ){
+	MAP[17][i] = *water ;
+	MAP[18][i] = *water ;
+      }
+      else{
+	MAP[17][i] = *water_night ;
+	MAP[18][i] = *water_night ;
+      }
     }
 
   for ( i = 0 ; i < 18 ; i ++)
     {
-      MAP[i][13] = *water ;
-      MAP[i][14] = *water ;
+      if ( time < DAY_DURATION ){
+	MAP[i][13] = *water ;
+	MAP[i][14] = *water ;
+      }
+      else{
+	MAP[i][13] = *water_night ;
+	MAP[i][14] = *water_night ;
+      }
     }
   
   for ( i = 17 ; i < 33 ; i ++ )
     {
-      MAP[i][15] = *water ;
-      MAP[i][16] = *water ;
+      if ( time < DAY_DURATION ){
+	MAP[i][15] = *water ;
+	MAP[i][16] = *water ;
+      }
+      else{
+	MAP[i][15] = *water_night ;
+	MAP[i][16] = *water_night ;
+      }
     }
   
   for ( i = 0 ; i < 17 ; i ++ )
     {
-      MAP[32][i] = *water ;
-      MAP[33][i] = *water ;
+      if ( time < DAY_DURATION ){
+	MAP[32][i] = *water ;
+	MAP[33][i] = *water ;
+      }
+      else{
+	MAP[32][i] = *water_night ;
+	MAP[33][i] = *water_night ;
+      }
     }
   
   // right permutation of rockwall to draw a second one 
@@ -236,40 +361,72 @@ void set_map()
 	  
 	}
     }
-  MAP[25][5] = *rockwall_door;
-
+  if(time < DAY_DURATION){
+    MAP[25][5] = *rockwall_door;
+  }
+  else{
+    MAP[25][5] = *rockwall_door_night;
+  }
  
 
 
 
   // Drawing the bridge 
-  MAP[14][6] = *bridge1;
-  MAP[14][7] = *bridge1;
-  MAP[15][6] = *bridge2;
-  MAP[15][7] = *bridge2;
-  
-  MAP[17][10] = *bridge1;
-  MAP[17][11] = *bridge1;
-  MAP[18][10] = *bridge2;
-  MAP[18][11] = *bridge2;
+  if( time < DAY_DURATION ){
+    MAP[14][6] = *bridge1;
+    MAP[14][7] = *bridge1;
+    MAP[15][6] = *bridge2;
+    MAP[15][7] = *bridge2;
+    
+    MAP[17][10] = *bridge1;
+    MAP[17][11] = *bridge1;
+    MAP[18][10] = *bridge2;
+    MAP[18][11] = *bridge2;
 
-  MAP[24][15] = *bridge1;
-  MAP[25][15] = *bridge2;
-  MAP[24][16] = *bridge1;
-  MAP[25][16] = *bridge2;
+    MAP[24][15] = *bridge1;
+    MAP[25][15] = *bridge2;
+    MAP[24][16] = *bridge1;
+    MAP[25][16] = *bridge2;
+  }
+  else{
+    MAP[14][6] = *bridge1_night;
+    MAP[14][7] = *bridge1_night;
+    MAP[15][6] = *bridge2_night;
+    MAP[15][7] = *bridge2_night;
+    
+    MAP[17][10] = *bridge1_night;
+    MAP[17][11] = *bridge1_night;
+    MAP[18][10] = *bridge2_night;
+    MAP[18][11] = *bridge2_night;
 
-  MAP[24][17] = *trap;
+    MAP[24][15] = *bridge1_night;
+    MAP[25][15] = *bridge2_night;
+    MAP[24][16] = *bridge1_night;
+    MAP[25][16] = *bridge2_night;
+  }
+
+  // MAP[24][17] = *trap;
   for ( i = 19 ; i < 30 ; i++)
     {
       if ( i != 24 && i != 25 )
 	{
 	  for ( j = 6 ; j < 10 ; j ++ )
 	    {
-	      MAP[i][j] = *tree ;
+	      if ( time < DAY_DURATION ){
+		MAP[i][j] = *tree ;
+	      }
+	      else{
+		MAP[i][j] = *tree_night;
+	      }
 	    }
 	  for ( j = 12 ; j < 15 ; j ++ )
 	    {
-	      MAP[i][j] = *tree ;
+	      if ( time < DAY_DURATION ){
+		MAP[i][j] = *tree ;
+	      }
+	      else{
+		MAP[i][j] = *tree;
+	      }
 	    }
 	}
     }
@@ -284,9 +441,74 @@ void set_map()
     }
 
   
-  /* dessiner une échelle 
-   *MAP[24][10] = 19;
-   * MAP[24][11] = 20;*/
+  MAP[3][22] = *dirtg_ul ;
+  for (i = 4 ; i < 18 ; i ++)
+    {
+      MAP[i][22] = *dirtg_u ;
+      MAP[i][39] = *dirtg_d ;
+    }
+  MAP[18][22] = *dirtg_ur ;
+
+  for ( i = 23 ; i < 39 ; i ++ )
+    {
+      MAP[3][i] = *dirtg_l ;
+      if ( i < 33 ){
+	MAP[18][i] = *dirtg_r ;
+      }
+    }
+  MAP[3][39] = *dirtg_dl ;
+ 
+
+  // remplissage 
+  for ( i = 4 ; i < 18 ; i ++ )
+    {
+      for ( j = 23 ; j < 39 ; j ++ )
+	{
+	  MAP[i][j] = *dirt ;
+	}
+    }
+
+  for ( i = 34 ; i < 39 ; i ++ )
+    {
+      for (j = 18 ; j < 33 ; j ++ )
+	{
+     	    
+	      MAP[j][i] = *dirt ;	   
+	}
+    }
+  MAP[18][33] = *dirt ;
+  for ( i = 19 ; i < 33 ; i ++ )
+    {
+      MAP[i][33] = *dirtg_u ;
+    }
+  MAP[33][33] = *dirtg_ur ;
+  for (i = 34 ; i < 39 ; i ++ )
+    {
+      MAP[33][i] = *dirtg_r ;
+    }
+  
+  MAP[33][39] = *dirtg_dr ;
+
+  for ( i = 32 ; i > 17 ; i -- )
+    {
+      MAP[i][39] = *dirtg_d ;
+    }
+  // ======================
+  // Drawing the escape zone 
+  for( i=50 ; i < MAPlength ; i++)
+    {
+      for( j=0 ; j < MAPheight  ; j++)
+	{
+	  if ( time < DAY_DURATION ){
+	    MAP[i][j] = *water ;
+	  }
+	  else{
+	    MAP[i][j] = *water_night ;
+	  }
+	}
+    }
+  
+  // ======================
 
   //test
 
