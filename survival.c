@@ -17,7 +17,8 @@ int main(int argc, char* argv[])
   int i, j;
   unsigned int Time = 0 ;
   unsigned int TimePrev = 1;
- 
+  day = 1; // use to check if it's the day
+
   //create the MAP and the object MAP
   MAP = CreateTable(MAPlength , MAPheight );
   OBJECTMAP = CreateTable(MAPlength, MAPheight);
@@ -405,13 +406,15 @@ int main(int argc, char* argv[])
       Time = ((Time / 1000)/ DAY_DURATION) % 2; 
       if( !Time && Time != TimePrev) //day
 	{
-	  set_map(1);
+	  day = 1;
+	  set_map(day);
 	  screen_printing_Gmove();
 	  TimePrev = Time;
 	}
       else if( Time && Time != TimePrev ) // night
 	{
-	  set_map(0);
+	  day = 0;
+	  set_map(day);
 	  screen_printing_Gmove();
 	  TimePrev = Time;
 	}

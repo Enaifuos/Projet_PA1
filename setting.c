@@ -78,10 +78,10 @@ void FreeTableMAP(SDL_Surface **tableau, int c)
 /*------------------- SET THE MAP ---------------------*/
 
 
-void set_map(int day)
+void set_map(int DAY)
 {
   int i,j;
-  if( day )
+  if( DAY )
     {
       
     }

@@ -11,9 +11,9 @@
 /*---- usufull for the code ----*/
 SDL_Event event;
 Uint8 *keystate;
-int colorkey, gameover, stepcount, stepbfdie;
+int colorkey, gameover, day, stepbfdie;
 int coordplayerx, coordplayery;
-int countertalismant;
+int countertalismant, stepcount;
 
 
 /*---- usefull for the printing ----*/

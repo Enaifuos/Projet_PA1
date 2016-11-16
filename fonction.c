@@ -76,7 +76,7 @@ void check_life(int step)
    
 int check_move_ground(int x, int y)
 {
-  int res = 0;
+  int allow = 0;
   SDL_Surface pos = MAP[x][y];
   SDL_Surface obj = OBJECTMAP[x][y];
   //check if there is an object
@@ -97,28 +97,47 @@ int check_move_ground(int x, int y)
       OBJECTMAP[x][y].pitch = 0;
     }
 
-  /* check if the player can go */
-  if( pos.pixels == (*grass).pixels || pos.pixels == (*dirt).pixels || pos.pixels == (*sand).pixels || pos.pixels == (*bridge1).pixels || pos.pixels == (*bridge2).pixels)
-  {
-    res = 1; //peut passer
-   }
-  
-  //special sandg
-  else if( pos.pixels == (*sandg_u).pixels || pos.pixels == (*sandg_d).pixels || pos.pixels == (*sandg_dl).pixels || pos.pixels == (*sandg_dr).pixels || pos.pixels == (*sandg_ul).pixels || pos.pixels == (*sandg_ur).pixels || pos.pixels == (*sandg_l).pixels || pos.pixels == (*sandg_r).pixels)
+
+
+  //DAY
+  if( day )
     {
-      res = 1;
+      /* check if the player can go */
+      if( pos.pixels == (*grass).pixels || pos.pixels == (*dirt).pixels || pos.pixels == (*sand).pixels || pos.pixels == (*bridge1).pixels || pos.pixels == (*bridge2).pixels)
+	{
+	  allow = 1;
+	}
+      
+      //special sandg
+      else if( pos.pixels == (*sandg_u).pixels || pos.pixels == (*sandg_d).pixels || pos.pixels == (*sandg_dl).pixels || pos.pixels == (*sandg_dr).pixels || pos.pixels == (*sandg_ul).pixels || pos.pixels == (*sandg_ur).pixels || pos.pixels == (*sandg_l).pixels || pos.pixels == (*sandg_r).pixels)
+	{
+	  allow = 1;
+	}
+      //special sandw
+      else if( pos.pixels == (*sandw_u).pixels || pos.pixels == (*sandw_d).pixels || pos.pixels == (*sandw_dl).pixels || pos.pixels == (*sandw_dr).pixels || pos.pixels == (*sandw_ul).pixels || pos.pixels == (*sandw_ur).pixels || pos.pixels == (*sandw_l).pixels || pos.pixels == (*sandw_r).pixels )
+	{
+	  allow = 1;
+	}
+      //special dirt
+      else if( pos.pixels == (*dirtg_u).pixels || pos.pixels == (*dirtg_d).pixels || pos.pixels == (*dirtg_ul).pixels || pos.pixels == (*dirtg_ur).pixels || pos.pixels == (*dirtg_dl).pixels || pos.pixels == (*dirtg_dr).pixels || pos.pixels == (*dirtg_l).pixels || pos.pixels == (*dirtg_r).pixels )
+	{
+	  allow = 1;
+	}
     }
-  //special sandw
-  else if( pos.pixels == (*sandw_u).pixels || pos.pixels == (*sandw_d).pixels || pos.pixels == (*sandw_dl).pixels || pos.pixels == (*sandw_dr).pixels || pos.pixels == (*sandw_ul).pixels || pos.pixels == (*sandw_ur).pixels || pos.pixels == (*sandw_l).pixels || pos.pixels == (*sandw_r).pixels )
+
+
+
+
+
+  //NIGHT
+  else
     {
-      res = 1;
+      if( pos.pixels == (*grass_night).pixels || pos.pixels == (*dirt_night).pixels )
+	{
+	  allow = 1;
+	}
     }
-  //special dirt
-  else if( pos.pixels == (*dirtg_u).pixels || pos.pixels == (*dirtg_d).pixels || pos.pixels == (*dirtg_ul).pixels || pos.pixels == (*dirtg_ur).pixels || pos.pixels == (*dirtg_dl).pixels || pos.pixels == (*dirtg_dr).pixels || pos.pixels == (*dirtg_l).pixels || pos.pixels == (*dirtg_r).pixels )
-    {
-      res = 1;
-    }
-  return res;
+  return allow;
 }
 
 
