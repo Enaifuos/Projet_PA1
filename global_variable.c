@@ -20,7 +20,7 @@ int countertalismant;
 
 //Ground int he map
 SDL_Surface ** MAP; //[MAPlength][MAPheight]
-SDL_Surface *screen, *temp, *sprite, *grass, *grass_night, *water, *water_night, *sand, *tree, *tree_night, *dirt;
+SDL_Surface *screen, *temp, *sprite, *grass, *grass_night, *water, *water_night, *sand, *tree, *tree_night, *dirt, *dirt_night;
 SDL_Surface *dirtg_d, *dirtg_dl, *dirtg_dr, *dirtg_l, *dirtg_r, *dirtg_u, *dirtg_ul, *dirtg_ur;
 SDL_Surface *sandg_dl, *sandg_dr, *sandg_l, *sandg_r, *sandg_ul, *sandg_ur, *sandg_d, *sandg_u;
 SDL_Surface *sandw_dl, *sandw_dr, *sandw_l, *sandw_r, *sandw_ul, *sandw_ur, *sandw_d, *sandw_u;

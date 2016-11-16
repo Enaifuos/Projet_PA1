@@ -95,6 +95,10 @@ int main(int argc, char* argv[])
   dirt = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
   
+  temp = SDL_LoadBMP("ressources/dirt/dirt_night.bmp");
+  dirt_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
   /* load the special sand with grass */
   temp = SDL_LoadBMP("ressources/sand/sandg_d.bmp");
   sandg_d = SDL_DisplayFormat(temp);
@@ -397,7 +401,6 @@ int main(int argc, char* argv[])
     {
       /* managing the time to set the day or the night */
       Time = SDL_GetTicks();
-      printf("%d\n", Time);
       Time = ((Time / 1000)/ DAY_DURATION) % 2; 
       if( !Time ) //day
 	{
@@ -469,6 +472,7 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(water_night);
   SDL_FreeSurface(sand);
   SDL_FreeSurface(dirt);
+  SDL_FreeSurface(dirt_night);
   SDL_FreeSurface(pause);
   SDL_FreeSurface(rockwall);
   SDL_FreeSurface(rockwall_night);

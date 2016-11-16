@@ -428,7 +428,7 @@ void set_map(int day)
 		MAP[i][j] = *tree ;
 	      }
 	      else{
-		MAP[i][j] = *tree;
+		MAP[i][j] = *tree_night;
 	      }
 	    }
 	}
@@ -467,7 +467,12 @@ void set_map(int day)
     {
       for ( j = 23 ; j < 39 ; j ++ )
 	{
-	  MAP[i][j] = *dirt ;
+	  if(day){
+	    MAP[i][j] = *dirt ;
+	  }
+	  else{
+	    MAP[i][j] = *dirt_night ;
+	  }
 	}
     }
 
@@ -475,8 +480,12 @@ void set_map(int day)
     {
       for (j = 18 ; j < 33 ; j ++ )
 	{
-     	    
-	      MAP[j][i] = *dirt ;	   
+	  if(day){
+	    MAP[j][i] = *dirt ;	   
+	  }
+	  else{
+	    MAP[j][i] = *dirt_night ;
+	  }
 	}
     }
   MAP[18][33] = *dirt ;
