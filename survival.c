@@ -395,9 +395,14 @@ int main(int argc, char* argv[])
   /* message pump */
   while (!gameover)
     {
+      /* managing the time to set the day or the night */
       Time = SDL_GetTicks();
-      Time = ((Time / 1000) / DAY_DURATION) % 2; // ms => s
-      if( Time )
+      Time = ((Time / 1000) / DAY_DURATION) % 2; 
+      if( !Time ) //day
+	{
+	  set_map(1);
+	}
+      else // night
 	{
 	  set_map(0);
 	}
