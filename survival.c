@@ -395,24 +395,6 @@ int main(int argc, char* argv[])
   /* message pump */
   while (!gameover)
     {
-
- // Drawing the cave 
-
- /*                               // CE QU'A FOUTU LE PROF !! 
-
-  if( k < 100.0 ){
-    MAP[10][5] = *rockwall_dl;
-    MAP[10][0] = *rockwall_ul;
-    MAP[18][0] = *rockwall_ur;
-    MAP[18][5] = *rockwall_dr;
-  }
-  else{
-    MAP[10][5] = *rockwall_dl_night;
-    MAP[10][0] = *rockwall_ul_night;
-    MAP[18][0] = *rockwall_ur_night;
-    MAP[18][5] = *rockwall_dr_night;
-  }
-*/
       set_map(k);
       k += 0.001;
       printf("\n%f",k);
@@ -467,7 +449,7 @@ int main(int argc, char* argv[])
   
   
   /* clean the array */ 
-  //FreeTableMAP(MAP);
+  FreeTableMAP(MAP , MAPlength);
 
        /* clean up */
   SDL_FreeSurface(sprite);

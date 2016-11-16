@@ -12,8 +12,8 @@ void set_position();
 
 
 //array function
-SDL_Surface ** CreateTable(int l , int c);
-void FreeTableMAP(SDL_Surface **tableau);
+SDL_Surface ** CreateTable(int c , int l);
+void FreeTableMAP(SDL_Surface **tableau, int c);
 
 
 void set_map(double time);
@@ -38,19 +38,19 @@ void set_position()
 
 
 
-SDL_Surface ** CreateTable(int l , int c)
+SDL_Surface ** CreateTable(int c , int l)
 {
-  SDL_Surface ** t1 = (SDL_Surface **)malloc(sizeof(SDL_Surface)*l);
-  SDL_Surface *t2 = (SDL_Surface *)malloc(sizeof(SDL_Surface)*c*l);
-  int i ;
-  for (i = 0 ; i < l ; i++)
-    {
-      t1[i] = &t2[i*c];
-    }
-  if( t1 == NULL ) // test if the malloc run
+  SDL_Surface ** t1 = (SDL_Surface **)malloc(sizeof(SDL_Surface*)*c);
+  if ( t1 == NULL ) // test if the malloc run
     {
       printf("missing dynamic memory to run the game (error table)\n");
     }
+
+  int i ;
+  for (i = 0 ; i < c ; i++) {
+      t1[i] = (SDL_Surface *)malloc(sizeof(SDL_Surface)*l);
+  }
+
   return t1 ;
 }
 
@@ -59,10 +59,10 @@ SDL_Surface ** CreateTable(int l , int c)
 
 
 
-void FreeTableMAP(SDL_Surface **tableau)
+void FreeTableMAP(SDL_Surface **tableau, int c)
 {
   int i;
-  for( i = 0 ; i < MAPheight -1 ; i++)
+  for( i = 0 ; i < c ; i++)
     {
       free(tableau[i]);
     }
