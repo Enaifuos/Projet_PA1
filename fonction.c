@@ -48,7 +48,7 @@ void screen_printing_Gmove();
 void screen_printing_Pmove();
 
 
-
+//Uint32 SDL_GetTicks(void);
 
 
 

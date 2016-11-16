@@ -399,7 +399,7 @@ int main(int argc, char* argv[])
       Time = ((Time / 1000) / DAY_DURATION) % 2; // ms => s
       if( Time )
 	{
-	  set_map(0);
+	  set_map();
 	}
 
       /* look for an event */

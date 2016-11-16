@@ -16,7 +16,7 @@ SDL_Surface ** CreateTable(int c , int l);
 void FreeTableMAP(SDL_Surface **tableau, int c);
 
 
-void set_map(double time);
+void set_map(int day);
 void set_objectmap();
 
 
@@ -78,10 +78,13 @@ void FreeTableMAP(SDL_Surface **tableau, int c)
 /*------------------- SET THE MAP ---------------------*/
 
 
-void set_map(double time)
+void set_map(int day)
 {
   int i,j;
-  
+  if( day )
+    {
+      
+    }
      /* set grass everywhere */  
   for( i=0 ; i < MAPlength ; i++)
     {
