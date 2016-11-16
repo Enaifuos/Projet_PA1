@@ -90,7 +90,7 @@ void set_map(int day)
     {
       for( j=0 ; j < MAPheight  ; j++)
 	{
-	  if ( time < DAY_DURATION ){
+	  if ( day ){
 	    MAP[i][j] = *grass;
 	  }
 	  else{
@@ -118,7 +118,7 @@ void set_map(int day)
     {
       for( i=0 ; i < MAPlength ; i++ )
 	{
-	  if ( time < DAY_DURATION ){
+	  if ( day ){
 	    MAP[i][MAPheight-j] = *water;
 	  }
 	  else{
@@ -128,7 +128,7 @@ void set_map(int day)
     }
   for( i=0 ; i<MAPheight-2 ; i++)
     {
-       if ( time < DAY_DURATION ){
+       if ( day ){
 	 MAP[0][i] = *water;
        }
        else{
@@ -143,7 +143,7 @@ void set_map(int day)
     {
       for(i=0 ; i<5 ; i++)
 	{
-	  if ( time < DAY_DURATION ){
+	  if ( day){
 	    MAP[j][i] = *tree;
 	  }
 	  else{
@@ -153,7 +153,7 @@ void set_map(int day)
     }
   for ( j = 0 ; j < 13 ; j++)
     {
-      if ( time < DAY_DURATION ){
+      if ( day){
 	MAP[3][j] = *tree;
 	MAP[4][j] = *tree;
       }
@@ -164,7 +164,7 @@ void set_map(int day)
     }
   for ( i = 5 ; i < 17 ; i++)
     {
-      if ( time < DAY_DURATION ){
+      if ( day){
 	MAP[i][12] = *tree;
       }
       else{
@@ -174,7 +174,7 @@ void set_map(int day)
 
   for(i=0;i<6;i++)
     {
-      if ( time < DAY_DURATION ){
+      if ( day){
 	MAP[20][i] = *tree;
 	MAP[19][i] = *tree;
       }
@@ -186,7 +186,7 @@ void set_map(int day)
  
   for ( i = 25 ; i < 30 ; i ++ )
     {
-      if ( time < DAY_DURATION ){
+      if ( day){
 	MAP[i][17] = *tree;
       }
       else{
@@ -197,7 +197,7 @@ void set_map(int day)
     {
       for (j = 30 ; j < 34 ; j ++ )
 	{
-	  if ( time < DAY_DURATION ){
+	  if ( day){
 	    MAP[j][i] = *tree;
 	  }
 	  else{
@@ -210,7 +210,7 @@ void set_map(int day)
 
   for( i = 1 ; i < 5 ; i++)
     {
-      if( time < DAY_DURATION ){
+      if( day){
 	MAP[10][i] = *rockwall_l;
 	MAP[18][i] = *rockwall_r;
       }
@@ -229,7 +229,7 @@ void set_map(int day)
     {
       for(j=1;j<5;j++)
 	{
-	  if( time < DAY_DURATION ){
+	  if( day){
 	    MAP[i][j] = *rockwall_top;
 	  }
 	  else{
@@ -238,7 +238,7 @@ void set_map(int day)
 	 
 	  }
 	}
-      if( time < DAY_DURATION ){
+      if( day){
 	MAP[i][5] = *rockwall;
       }
       else{
@@ -250,7 +250,7 @@ void set_map(int day)
   
   for(i = 11 ; i < 18 ; i++)
     {
-      if( time < DAY_DURATION ){
+      if( day){
 	MAP[i][0] = *rockwall_top;
       }
       else{
@@ -260,7 +260,7 @@ void set_map(int day)
       }
     }
   
-  if( time < DAY_DURATION ){
+  if( day){
     MAP[14][5] = *rockwall_door;
   }
   else{
@@ -270,7 +270,7 @@ void set_map(int day)
 
 
  // Drawing the cave 
-  if( time < DAY_DURATION ){
+  if( day){
     MAP[10][5] = *rockwall_dl;
     MAP[10][0] = *rockwall_ul;
     MAP[18][0] = *rockwall_ur;
@@ -286,7 +286,7 @@ void set_map(int day)
    /* set water beside the cave */
   for( i = 0 ; i < 8 ; i ++ )
     {
-      if ( time < DAY_DURATION ){
+      if ( day){
 	MAP[9][i] = *water ;
       }
       else{
@@ -296,7 +296,7 @@ void set_map(int day)
 
   for ( i = 10 ; i < 19 ; i ++ )
     {
-      if ( time < DAY_DURATION ){
+      if ( day){
 	MAP[i][6] = *water ;
 	MAP[i][7] = *water ;
       }
@@ -308,7 +308,7 @@ void set_map(int day)
   
   for ( i = 7 ; i < 15 ; i ++)
     {
-      if ( time < DAY_DURATION ){
+      if ( day){
 	MAP[17][i] = *water ;
 	MAP[18][i] = *water ;
       }
@@ -320,7 +320,7 @@ void set_map(int day)
 
   for ( i = 0 ; i < 18 ; i ++)
     {
-      if ( time < DAY_DURATION ){
+      if ( day){
 	MAP[i][13] = *water ;
 	MAP[i][14] = *water ;
       }
@@ -332,7 +332,7 @@ void set_map(int day)
   
   for ( i = 17 ; i < 33 ; i ++ )
     {
-      if ( time < DAY_DURATION ){
+      if ( day){
 	MAP[i][15] = *water ;
 	MAP[i][16] = *water ;
       }
@@ -344,7 +344,7 @@ void set_map(int day)
   
   for ( i = 0 ; i < 17 ; i ++ )
     {
-      if ( time < DAY_DURATION ){
+      if ( day){
 	MAP[32][i] = *water ;
 	MAP[33][i] = *water ;
       }
@@ -364,7 +364,7 @@ void set_map(int day)
 	  
 	}
     }
-  if(time < DAY_DURATION){
+  if(day){
     MAP[25][5] = *rockwall_door;
   }
   else{
@@ -375,7 +375,7 @@ void set_map(int day)
 
 
   // Drawing the bridge 
-  if( time < DAY_DURATION ){
+  if( day){
     MAP[14][6] = *bridge1;
     MAP[14][7] = *bridge1;
     MAP[15][6] = *bridge2;
@@ -415,7 +415,7 @@ void set_map(int day)
 	{
 	  for ( j = 6 ; j < 10 ; j ++ )
 	    {
-	      if ( time < DAY_DURATION ){
+	      if ( day){
 		MAP[i][j] = *tree ;
 	      }
 	      else{
@@ -424,7 +424,7 @@ void set_map(int day)
 	    }
 	  for ( j = 12 ; j < 15 ; j ++ )
 	    {
-	      if ( time < DAY_DURATION ){
+	      if ( day){
 		MAP[i][j] = *tree ;
 	      }
 	      else{
@@ -502,7 +502,7 @@ void set_map(int day)
     {
       for( j=0 ; j < MAPheight  ; j++)
 	{
-	  if ( time < DAY_DURATION ){
+	  if ( day){
 	    MAP[i][j] = *water ;
 	  }
 	  else{

@@ -387,7 +387,7 @@ int main(int argc, char* argv[])
   gameover = 0;
   
   /* set the MAP and objectMAP*/
-  set_map(k);
+  set_map(Time);
   set_objectmap();
   
   screen_printing_Gmove();
