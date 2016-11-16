@@ -397,7 +397,8 @@ int main(int argc, char* argv[])
     {
       /* managing the time to set the day or the night */
       Time = SDL_GetTicks();
-      Time = ((Time / 1000) / DAY_DURATION) % 2; 
+      printf("%d\n", Time);
+      Time = ((Time / 1000)/ DAY_DURATION) % 2; 
       if( !Time ) //day
 	{
 	  set_map(1);

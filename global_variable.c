@@ -6,7 +6,7 @@
 #define MAPlength      64
 #define MAPheight      44
 #define NumbTalis       6
-#define DAY_DURATION  50
+#define DAY_DURATION   10
 
 /*---- usufull for the code ----*/
 SDL_Event event;
