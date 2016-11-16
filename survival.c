@@ -16,6 +16,7 @@ int main(int argc, char* argv[])
 {
   int i, j;
   unsigned int Time = 0 ;
+  unsigned int TimePrev = 1;
  
   //create the MAP and the object MAP
   MAP = CreateTable(MAPlength , MAPheight );
@@ -402,13 +403,17 @@ int main(int argc, char* argv[])
       /* managing the time to set the day or the night */
       Time = SDL_GetTicks();
       Time = ((Time / 1000)/ DAY_DURATION) % 2; 
-      if( !Time ) //day
+      if( !Time && Time != TimePrev) //day
 	{
 	  set_map(1);
+	  screen_printing_Gmove();
+	  TimePrev = Time;
 	}
-      else // night
+      else if( Time && Time != TimePrev ) // night
 	{
 	  set_map(0);
+	  screen_printing_Gmove();
+	  TimePrev = Time;
 	}
 
       /* look for an event */
