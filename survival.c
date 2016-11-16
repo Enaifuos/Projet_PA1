@@ -397,7 +397,6 @@ int main(int argc, char* argv[])
     {
       /* managing the time to set the day or the night */
       Time = SDL_GetTicks();
-      printf("%d\n", Time);
       Time = ((Time / 1000)/ DAY_DURATION) % 2; 
       if( !Time ) //day
 	{
@@ -458,7 +457,7 @@ int main(int argc, char* argv[])
   
   
   
-  /* clean the array */ 
+    /* clean the array */ 
   FreeTableMAP(MAP , MAPlength);
 
        /* clean up */

@@ -78,19 +78,21 @@ int check_move_ground(int x, int y)
 {
   int res = 0;
   SDL_Surface pos = MAP[x][y];
+  SDL_Surface obj = OBJECTMAP[x][y];
   //check if there is an object
+
   if( OBJECTMAP[x][y].pitch )
     {
-      printf("x %d      y %d      z %d\n", OBJECTMAP[x][y].pitch , (*apple).pitch, (*talismant).pitch );
-      //doesn't works
-
-      if( OBJECTMAP[x][y].pitch == (*talismant).pitch )
+      printf("ici");
+      if( obj.pixels == (*talismant).pixels )
 	{
 	  countertalismant += 1;
+	  printf("talsimant\n");
 	}
-      else if( OBJECTMAP[x][y].pitch == (*apple).pitch )
+      else if( obj.pixels == (*apple).pixels )
 	{
 	  stepbfdie += 20;
+	  printf("apple\n");
 	}
       OBJECTMAP[x][y].pitch = 0;
     }
