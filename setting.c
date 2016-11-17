@@ -1,5 +1,6 @@
 #include "SDL.h" 
 #include "global_variable.c"
+
 #define MAPlength      64
 #define MAPheight      44
 #define SPRITE_SIZE    32

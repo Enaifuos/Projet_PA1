@@ -1,5 +1,6 @@
 #include "SDL.h"
-#include "struct.c"
+#include <stdio.h>
+#include <stdlib.h>
 
 #define SCREEN_WIDTH  608   
 #define SCREEN_HEIGHT 480
@@ -8,6 +9,17 @@
 #define MAPheight      44
 #define NumbTalis       6
 #define DAY_DURATION   10
+
+
+
+//struct object in the map
+typedef struct Objectmap Objmap;
+struct Objectmap
+{
+  SDL_Surface objsprite;
+  int objvalue;
+};
+
 
 
 

@@ -1,7 +1,5 @@
 #include "SDL.h"
-#include "setting.c"
 #include "drawing.c"
-#include "global_variable.c"
 
 
 
@@ -84,7 +82,7 @@ int check_move_ground(int x, int y)
 	  stepbfdie += 20;
 	  printf("apple\n");
 	  }*/
-      OBJECTMAP[x][y].pitch = 0;
+      OBJECTMAP[x][y].objsprite.pitch = 0;
     }
 
 

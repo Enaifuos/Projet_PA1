@@ -1,5 +1,5 @@
 #include "SDL.h"
-#include "global_variable.c"
+#include "setting.c"
 
 #define SPRITE_SIZE    32
 
