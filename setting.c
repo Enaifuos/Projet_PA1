@@ -13,7 +13,9 @@ void set_position();
 
 //array function
 SDL_Surface ** CreateTable(int c , int l);
+Objmap ** CreateObjtable(int c , int l);
 void FreeTableMAP(SDL_Surface **tableau, int c);
+void FreeTableOBJ(Objmap **tableau, int c);
 
 
 void set_map(int day);
@@ -47,12 +49,35 @@ SDL_Surface ** CreateTable(int c , int l)
     }
 
   int i ;
-  for (i = 0 ; i < c ; i++) {
+  for (i = 0 ; i < c ; i++) 
+    {
       t1[i] = (SDL_Surface *)malloc(sizeof(SDL_Surface)*l);
-  }
+    }
 
   return t1 ;
 }
+
+
+
+Objmap ** CreateObjtable(int c , int l)
+{
+  Objmap ** t1 = (Objmap **)malloc(sizeof(Objmap*)*c);
+  if ( t1 == NULL ) // test if the malloc run
+    {
+      printf("missing dynamic memory to run the game (error table)\n");
+    }
+  
+  int i ;
+  for (i = 0 ; i < c ; i++) 
+    {
+      t1[i] = (Objmap *)malloc(sizeof(Objmap)*l);
+    }
+  
+  return t1 ;
+}
+
+
+
 
 
 
@@ -69,7 +94,15 @@ void FreeTableMAP(SDL_Surface **tableau, int c)
   free(tableau);
 }
 
-
+void FreeTableOBJ(Objmap **tableau, int c)
+{
+  int i;
+  for( i = 0 ; i < c ; i++)
+    {
+      free(tableau[i]);
+    }
+  free(tableau);
+}
 
 
 
@@ -551,10 +584,10 @@ void set_objectmap()
     {
       for( j=0 ; j < MAPheight  ; j++)
 	{
-	  OBJECTMAP[i][j].pitch = 0;
+	  OBJECTMAP[i][j].objsprite.pitch = 0;
 	}
     }
-  OBJECTMAP[25][10] = *box;
-  OBJECTMAP[24][10] = *talismant;
-  OBJECTMAP[25][11] = *apple;
+  OBJECTMAP[25][10].objsprite = *box;
+  OBJECTMAP[24][10].objsprite = *talismant;
+  OBJECTMAP[25][11].objsprite = *apple;
 }

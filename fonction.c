@@ -3,13 +3,6 @@
 #include "drawing.c"
 #include "global_variable.c"
 
-#define SCREEN_WIDTH  608
-#define SCREEN_HEIGHT 480
-#define SPRITE_SIZE    32
-#define MAPlength      64
-#define MAPheight      44
-
-
 
 
 
@@ -34,6 +27,7 @@ void move_left();
 
    //action in the game
 void you_lose();
+void you_win();
 void menu_pause();
 
    //help for the player
@@ -46,10 +40,6 @@ void bag();
 void print_player_life();
 void screen_printing_Gmove();
 void screen_printing_Pmove();
-
-
-//Uint32 SDL_GetTicks(void);
-
 
 
 
@@ -66,7 +56,7 @@ void check_life(int step)
 {
   if( step <= 0 )
     {
-      //   you_lose();
+      you_win();
     }
 }
 
@@ -78,22 +68,22 @@ int check_move_ground(int x, int y)
 {
   int allow = 0;
   SDL_Surface pos = MAP[x][y];
-  SDL_Surface obj = OBJECTMAP[x][y];
+
   //check if there is an object
 
-  if( OBJECTMAP[x][y].pitch )
+  if( OBJECTMAP[x][y].objsprite.pitch )
     {
       printf("ici");
-      if( obj.pixels == (*talismant).pixels )
+      /*if( compare_picture( &OBJECTMAP[x][y], talismant ) )
 	{
 	  countertalismant += 1;
 	  printf("talsimant\n");
 	}
-      else if( obj.pixels == (*apple).pixels )
+      else if( compare_picture( &OBJECTMAP[x][y], apple) )
 	{
 	  stepbfdie += 20;
 	  printf("apple\n");
-	}
+	  }*/
       OBJECTMAP[x][y].pitch = 0;
     }
 
@@ -353,7 +343,7 @@ void you_lose(double k)
   
   /* print a loosing picture */
   SDL_Surface *lose;
-  temp = SDL_LoadBMP("ressources/YouLose.bmp");
+  temp = SDL_LoadBMP("ressources/you_lose.bmp");
   lose = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
   SDL_SetColorKey(lose, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
@@ -362,12 +352,34 @@ void you_lose(double k)
   SDL_Delay(1800);
 
   /* restart the game */
-  set_map(k);
+  set_map(day);
   set_position();
   set_objectmap();
   stepbfdie = 75;
   screen_printing_Gmove();  
 }
+
+
+void you_win()
+{
+  printf(" YOU WIN !!!!! \n\n");
+  SDL_Surface *win;
+  temp = SDL_LoadBMP("ressources/you_win.bmp");
+  win = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  SDL_SetColorKey(win, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+  SDL_BlitSurface(win, NULL, screen, NULL);
+  SDL_Flip(screen);
+  SDL_Delay(1800);
+
+  /* restart the game */
+  set_map(day);
+  set_position();
+  set_objectmap();
+  stepbfdie = 75;
+  screen_printing_Gmove();  
+}
+
 
 
 
@@ -537,7 +549,7 @@ void screen_printing_Gmove()
 	      x = (coordplayerx - rcSprite.x)/SPRITE_SIZE + i;
 	      y = (coordplayery - rcSprite.y)/SPRITE_SIZE + j;
 	      draw_GroundGM(i, j, x, y);
-	      if( OBJECTMAP[x][y].pitch )
+	      if( OBJECTMAP[x][y].objsprite.pitch )
 		{
 		  draw_ObjectGM(i, j, x, y);
 		}
@@ -555,7 +567,7 @@ void screen_printing_Gmove()
 	      x = (coordplayerx - rcSprite.x) / SPRITE_SIZE +i ;
 	      y = (coordplayery - rcSprite.y) / SPRITE_SIZE +j;
 	      draw_GroundGM(i, j, x, y);
-	      if( OBJECTMAP[x][y].pitch )
+	      if( OBJECTMAP[x][y].objsprite.pitch )
 		{
 		  draw_ObjectGM(i, j, x, y);
 		}
@@ -587,7 +599,7 @@ void screen_printing_Pmove()
 	  x = (coordplayerx - rcSprite.x)/SPRITE_SIZE + i;
 	  y = (coordplayery - rcSprite.y)/SPRITE_SIZE + j;
 	  draw_GroundPM(i, j, x, y);
-	  if( OBJECTMAP[x][y].pitch )
+	  if( OBJECTMAP[x][y].objsprite.pitch )
 	    {
 	      draw_ObjectPM(i, j, x, y);
 	    }
@@ -603,5 +615,7 @@ void screen_printing_Pmove()
   /* update the screen */
   SDL_UpdateRect(screen,0,0,0,0);
 }
+
+
 
 

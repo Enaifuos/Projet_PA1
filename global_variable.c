@@ -1,4 +1,5 @@
 #include "SDL.h"
+#include "struct.c"
 
 #define SCREEN_WIDTH  608   
 #define SCREEN_HEIGHT 480
@@ -7,6 +8,10 @@
 #define MAPheight      44
 #define NumbTalis       6
 #define DAY_DURATION   10
+
+
+
+
 
 /*---- usufull for the code ----*/
 SDL_Event event;
@@ -30,7 +35,7 @@ SDL_Rect rcSprite, rcSrcSprite, rcGround;
 SDL_Rect rcLadder, rcTrap;
 
 //Object in the map
-SDL_Surface **OBJECTMAP; //[MAPlength][MAPheight]
+Objmap **OBJECTMAP; //[MAPlength][MAPheight]
 SDL_Surface  *box, *apple, *talismant;
 SDL_Rect rcObject;
 

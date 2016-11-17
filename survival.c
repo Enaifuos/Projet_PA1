@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
 
   //create the MAP and the object MAP
   MAP = CreateTable(MAPlength , MAPheight );
-  OBJECTMAP = CreateTable(MAPlength, MAPheight);
+  OBJECTMAP.objsprite = CreateTable(MAPlength, MAPheight);
   
   
   /* initialize video system */
