@@ -106,66 +106,130 @@ int main(int argc, char* argv[])
   sandg_d = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/sand/sandg_d_night.bmp");
+  sandg_d_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
   temp = SDL_LoadBMP("ressources/sand/sandg_dl.bmp");
   sandg_dl = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandg_dl_night.bmp");
+  sandg_dl_night = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
   temp = SDL_LoadBMP("ressources/sand/sandg_dr.bmp");
   sandg_dr = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/sand/sandg_dr_night.bmp");
+  sandg_dr_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+
   temp = SDL_LoadBMP("ressources/sand/sandg_l.bmp");
   sandg_l = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandg_l_night.bmp");
+  sandg_l_night = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
   temp = SDL_LoadBMP("ressources/sand/sandg_r.bmp");
   sandg_r = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/sand/sandg_r_night.bmp");
+  sandg_r_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
   temp = SDL_LoadBMP("ressources/sand/sandg_u.bmp");
   sandg_u = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandg_u_night.bmp");
+  sandg_u_night = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
   temp = SDL_LoadBMP("ressources/sand/sandg_ul.bmp");
   sandg_ul = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/sand/sandg_ul_night.bmp");
+  sandg_ul_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
   temp = SDL_LoadBMP("ressources/sand/sandg_ur.bmp");
   sandg_ur = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/sand/sandg_ur_night.bmp");
+  sandg_ur_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
 
   /* load the special sand with water */
   temp = SDL_LoadBMP("ressources/sand/sandw_d.bmp");
   sandw_d = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/sand/sandw_d_night.bmp");
+  sandw_d_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
   temp = SDL_LoadBMP("ressources/sand/sandw_dl.bmp");
   sandw_dl = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandw_dl_night.bmp");
+  sandw_dl_night = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
   temp = SDL_LoadBMP("ressources/sand/sandw_dr.bmp");
   sandw_dr = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/sand/sandw_dr_night.bmp");
+  sandw_dr_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
   temp = SDL_LoadBMP("ressources/sand/sandw_l.bmp");
   sandw_l = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/sand/sandw_l_night.bmp");
+  sandw_l_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
   temp = SDL_LoadBMP("ressources/sand/sandw_r.bmp");
   sandw_r = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
+  temp = SDL_LoadBMP("ressources/sand/sandw_r_night.bmp");
+  sandw_r_night = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
   temp = SDL_LoadBMP("ressources/sand/sandw_u.bmp");
   sandw_u = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/sand/sandw_u_night.bmp");
+  sandw_u_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
   temp = SDL_LoadBMP("ressources/sand/sandw_ul.bmp");
   sandw_ul = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/sand/sandw_ul_night.bmp");
+  sandw_ul_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
   temp = SDL_LoadBMP("ressources/sand/sandw_ur.bmp");
   sandw_ur = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/sand/sandw_ur_night.bmp");
+  sandw_ur_night = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
 
@@ -174,35 +238,68 @@ int main(int argc, char* argv[])
   dirtg_d = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/dirt/dirtg_d_night.bmp");
+  dirtg_d_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+
   temp = SDL_LoadBMP("ressources/dirt/dirtg_dl.bmp");
   dirtg_dl = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/dirt/dirtg_dl_night.bmp");
+  dirtg_dl_night = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
   temp = SDL_LoadBMP("ressources/dirt/dirtg_dr.bmp");
   dirtg_dr = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/dirt/dirtg_dr_night.bmp");
+  dirtg_dr_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
   temp = SDL_LoadBMP("ressources/dirt/dirtg_l.bmp");
   dirtg_l = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/dirt/dirtg_l_night.bmp");
+  dirtg_l_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+
   temp = SDL_LoadBMP("ressources/dirt/dirtg_r.bmp");
   dirtg_r = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/dirt/dirtg_r_night.bmp");
+  dirtg_r_night = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
   temp = SDL_LoadBMP("ressources/dirt/dirtg_u.bmp");
   dirtg_u = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/dirt/dirtg_u_night.bmp");
+  dirtg_u_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
   temp = SDL_LoadBMP("ressources/dirt/dirtg_ul.bmp");
   dirtg_ul = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
+  temp = SDL_LoadBMP("ressources/dirt/dirtg_ul_night.bmp");
+  dirtg_ul_night = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
   temp = SDL_LoadBMP("ressources/dirt/dirtg_ur.bmp");
   dirtg_ur = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
-
+  temp = SDL_LoadBMP("ressources/dirt/dirtg_ur_night.bmp");
+  dirtg_ur_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
       /* load the special rockwall (day) */
   temp = SDL_LoadBMP("ressources/rockwall/rockwall.bmp");
   rockwall = SDL_DisplayFormat(temp);
