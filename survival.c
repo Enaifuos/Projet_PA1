@@ -68,6 +68,10 @@ int main(int argc, char* argv[])
   temp = SDL_LoadBMP("ressources/sand/sand.bmp");
   sand = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
+ 
+  temp = SDL_LoadBMP("ressources/sand/sand_night.bmp");
+  sand_night = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
   
        /* load tree */
   temp = SDL_LoadBMP("ressources/tree.bmp");

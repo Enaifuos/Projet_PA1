@@ -69,20 +69,9 @@ int check_move_ground(int x, int y)
 
   //check if there is an object
 
-  if( OBJECTMAP[x][y].objsprite.pitch )
+  if( OBJECTMAP[x][y].objvalue )
     {
-      printf("ici");
-      /*if( compare_picture( &OBJECTMAP[x][y], talismant ) )
-	{
-	  countertalismant += 1;
-	  printf("talsimant\n");
-	}
-      else if( compare_picture( &OBJECTMAP[x][y], apple) )
-	{
-	  stepbfdie += 20;
-	  printf("apple\n");
-	  }*/
-      OBJECTMAP[x][y].objsprite.pitch = 0;
+      OBJECTMAP[x][y].objvalue = 0;
     }
 
 
@@ -120,7 +109,21 @@ int check_move_ground(int x, int y)
   //NIGHT
   else
     {
-      if( pos.pixels == (*grass_night).pixels || pos.pixels == (*dirt_night).pixels )
+      if( pos.pixels == (*grass_night).pixels || pos.pixels == (*dirt_night).pixels || pos.pixels == (*sand_night).pixels || pos.pixels == (*bridge1_night).pixels || pos.pixels == (*bridge2_night).pixels)
+	{
+	  allow = 1;
+	}
+      else if( pos.pixels == (*sandg_u_night).pixels || pos.pixels == (*sandg_d_night).pixels || pos.pixels == (*sandg_dl_night).pixels || pos.pixels == (*sandg_dr_night).pixels || pos.pixels == (*sandg_ul_night).pixels || pos.pixels == (*sandg_ur_night).pixels || pos.pixels == (*sandg_l_night).pixels || pos.pixels == (*sandg_r_night).pixels)
+	{
+	  allow = 1;
+	}
+      //special sandw
+      else if( pos.pixels == (*sandw_u_night).pixels || pos.pixels == (*sandw_d_night).pixels || pos.pixels == (*sandw_dl_night).pixels || pos.pixels == (*sandw_dr_night).pixels || pos.pixels == (*sandw_ul_night).pixels || pos.pixels == (*sandw_ur_night).pixels || pos.pixels == (*sandw_l_night).pixels || pos.pixels == (*sandw_r_night).pixels )
+	{
+	  allow = 1;
+	}
+      //special dirt
+      else if( pos.pixels == (*dirtg_u_night).pixels || pos.pixels == (*dirtg_d_night).pixels || pos.pixels == (*dirtg_ul_night).pixels || pos.pixels == (*dirtg_ur_night).pixels || pos.pixels == (*dirtg_dl_night).pixels || pos.pixels == (*dirtg_dr_night).pixels || pos.pixels == (*dirtg_l_night).pixels || pos.pixels == (*dirtg_r_night).pixels )
 	{
 	  allow = 1;
 	}
@@ -547,7 +550,7 @@ void screen_printing_Gmove()
 	      x = (coordplayerx - rcSprite.x)/SPRITE_SIZE + i;
 	      y = (coordplayery - rcSprite.y)/SPRITE_SIZE + j;
 	      draw_GroundGM(i, j, x, y);
-	      if( OBJECTMAP[x][y].objsprite.pitch )
+	      if( OBJECTMAP[x][y].objvalue != 0 )
 		{
 		  draw_ObjectGM(i, j, x, y);
 		}
@@ -565,7 +568,7 @@ void screen_printing_Gmove()
 	      x = (coordplayerx - rcSprite.x) / SPRITE_SIZE +i ;
 	      y = (coordplayery - rcSprite.y) / SPRITE_SIZE +j;
 	      draw_GroundGM(i, j, x, y);
-	      if( OBJECTMAP[x][y].objsprite.pitch )
+	      if( OBJECTMAP[x][y].objvalue != 0 )
 		{
 		  draw_ObjectGM(i, j, x, y);
 		}
@@ -597,7 +600,7 @@ void screen_printing_Pmove()
 	  x = (coordplayerx - rcSprite.x)/SPRITE_SIZE + i;
 	  y = (coordplayery - rcSprite.y)/SPRITE_SIZE + j;
 	  draw_GroundPM(i, j, x, y);
-	  if( OBJECTMAP[x][y].objsprite.pitch )
+	  if( OBJECTMAP[x][y].objvalue != 0 )
 	    {
 	      draw_ObjectPM(i, j, x, y);
 	    }

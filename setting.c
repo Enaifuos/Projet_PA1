@@ -722,6 +722,9 @@ void set_objectmap()
 	}
     }
   OBJECTMAP[25][10].objsprite = *box;
-  OBJECTMAP[24][10].objsprite = *talismant;
+  OBJECTMAP[25][10].objvalue = 1;
   OBJECTMAP[25][11].objsprite = *apple;
+  OBJECTMAP[25][10].objvalue = 2; 
+  OBJECTMAP[24][10].objsprite = *talismant;
+  OBJECTMAP[25][10].objvalue = 3; 
 }
