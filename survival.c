@@ -465,6 +465,11 @@ int main(int argc, char* argv[])
   talismant = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
   
+  /* load the insiede rockwall sprites */
+  temp = SDL_LoadBMP("ressources/rockwall_inside.bmp");
+  rockwall_inside = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
   /* setup heart colorkey and turn on RLE */
   colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
   SDL_SetColorKey(talismant, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
@@ -500,19 +505,31 @@ int main(int argc, char* argv[])
   screen_printing_Gmove();
 
   /* message pump */
+  int inside_rock = 0 ;
   while (!gameover)
     {
+      int printed = 0 ;
+      if ( printed < 10 && check_enter_rockwall(coordplayerx,coordplayery)){
+	inside_rock = 1 ;
+       
+	set_rockwall_map();
+	if ( !printed){
+	  screen_printing_Gmove();
+	  printed++;
+	}
+      }
+
       /* managing the time to set the day or the night */
       Time = SDL_GetTicks();
       Time = ((Time / 1000)/ DAY_DURATION) % 2; 
-      if( !Time && Time != TimePrev) //day
+      if( !Time && Time != TimePrev && !inside_rock ) //day
 	{
 	  day = 1;
 	  set_map(day);
 	  screen_printing_Gmove();
 	  TimePrev = Time;
 	}
-      else if( Time && Time != TimePrev ) // night
+      else if( Time && Time != TimePrev  && !inside_rock) // night
 	{
 	  day = 0;
 	  set_map(day);
@@ -656,11 +673,15 @@ int main(int argc, char* argv[])
 
   /* cleaning the trap */
   SDL_FreeSurface(trap);
+
+  /* cleaning inside the rockwall */
+  SDL_FreeSurface(rockwall_inside);
  
   SDL_Quit();
   
   return 0;
 }
+
 
 
 

@@ -695,6 +695,8 @@ void set_map(int DAY) //
       MAP[31][11] = *dirtg_dr_night;
       MAP[30][11] = *dirtg_dl_night;
     }
+
+
 }
   
 
@@ -720,4 +722,14 @@ void set_objectmap()
   OBJECTMAP[25][10].objvalue = 2; 
   OBJECTMAP[24][10].objsprite = *talismant;
   OBJECTMAP[25][10].objvalue = 3; 
+}
+
+void set_rockwall_map(){
+  int i , j ;
+   for( i=0 ; i < 44 ; i++)
+    {
+      for( j=0 ; j <64 ; j++){
+	MAP[j][i] = *rockwall_inside ;
+      }
+    }
 }

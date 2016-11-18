@@ -14,7 +14,7 @@
     //check
 void check_life(int step);
 int check_move_ground(int x, int y);
-
+int check_enter_rockwall(int x , int y );
 
     //movement
 void move_down();
@@ -54,7 +54,7 @@ void check_life(int step)
 {
   if( step <= 0 )
     {
-      you_win();
+      //you_win();
     }
 }
 
@@ -64,8 +64,8 @@ void check_life(int step)
    
 int check_move_ground(int x, int y)
 {
-  int allow = 0;
-  SDL_Surface pos = MAP[x][y];
+   int allow = 0;
+   SDL_Surface pos = MAP[x][y];
 
   //check if there is an object
 
@@ -79,7 +79,7 @@ int check_move_ground(int x, int y)
   //DAY
   if( day )
     {
-      /* check if the player can go */
+      /* check if the player can go*/
       if( pos.pixels == (*grass).pixels || pos.pixels == (*dirt).pixels || pos.pixels == (*sand).pixels || pos.pixels == (*bridge1).pixels || pos.pixels == (*bridge2).pixels)
 	{
 	  allow = 1;
@@ -100,6 +100,10 @@ int check_move_ground(int x, int y)
 	{
 	  allow = 1;
 	}
+       //inside the rockwall 
+      else if( pos.pixels == (*rockwall_inside).pixels ){
+	allow = 1;
+      }
     }
 
 
@@ -127,12 +131,14 @@ int check_move_ground(int x, int y)
 	{
 	  allow = 1;
 	}
+      //inside the rockwall 
+      else if( pos.pixels == (*rockwall_inside).pixels ){
+	allow = 1;
+      }
     }
   return allow;
+  //return 1;
 }
-
-
-
 
 
 
@@ -149,7 +155,7 @@ void move_down()
   if( coordplayery < (MAPheight-1) *  SPRITE_SIZE )
     {
       // check if the player can walk on the surface
-      if( check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)+1) )
+      if(  check_move_ground(coordplayerx/SPRITE_SIZE , (coordplayery/SPRITE_SIZE)+1) )
 	{
 	  int i;
 	  stepcount += 1;
@@ -238,7 +244,7 @@ void move_right()
   rcSrcSprite.y = SPRITE_SIZE * 12;
   if( coordplayerx < (MAPlength-1) * SPRITE_SIZE )
     {
-      if(check_move_ground((coordplayerx/SPRITE_SIZE)+1 , coordplayery/SPRITE_SIZE))
+      if(  check_move_ground((coordplayerx/SPRITE_SIZE)+1 , coordplayery/SPRITE_SIZE))
 	{
 	  int i;
 	  stepcount += 1;
@@ -286,7 +292,7 @@ void move_left()
   rcSrcSprite.y = SPRITE_SIZE * 6;
   if( coordplayerx >= SPRITE_SIZE )
     {
-      if( check_move_ground((coordplayerx/SPRITE_SIZE)-1 , coordplayery/SPRITE_SIZE) )
+      if(  check_move_ground((coordplayerx/SPRITE_SIZE)-1 , coordplayery/SPRITE_SIZE) )
 	{
 	  int i;
 	  stepcount += 1;
@@ -622,3 +628,6 @@ void screen_printing_Pmove()
 
 
 
+int check_enter_rockwall(int x , int y ){
+  return ( (y == 192 && (x == 448 || x == 800)) || (x == 384 && y == 704) || ( x == 800 && y == 768));
+}
