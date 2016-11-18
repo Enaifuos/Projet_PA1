@@ -714,13 +714,6 @@ void set_map(int DAY) //
 void set_objectmap()
 {
   int i, j;
-  for( i=0 ; i < MAPlength ; i++)
-    {
-      for( j=0 ; j < MAPheight  ; j++)
-	{
-	  OBJECTMAP[i][j].objsprite.pitch = 0;
-	}
-    }
   OBJECTMAP[25][10].objsprite = *box;
   OBJECTMAP[25][10].objvalue = 1;
   OBJECTMAP[25][11].objsprite = *apple;

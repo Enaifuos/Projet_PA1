@@ -357,6 +357,7 @@ void you_lose(double k)
   set_position();
   set_objectmap();
   stepbfdie = 75;
+  countertalismant = 0;
   screen_printing_Gmove();  
 }
 
@@ -378,6 +379,7 @@ void you_win()
   set_position();
   set_objectmap();
   stepbfdie = 75;
+  countertalismant = 0;
   screen_printing_Gmove();  
 }
 
