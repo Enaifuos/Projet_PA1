@@ -19,10 +19,8 @@ int main(int argc, char* argv[])
   unsigned int TimePrev = 1;
   day = 1; // use to check if it's the day
 
-  //create the MAP and the object MAP
-  MAP = CreateTable(MAPlength , MAPheight );
-  OBJECTMAP = CreateObjtable(MAPlength, MAPheight);
-  
+  MAP = (SDL_Surface *)malloc(sizeof(SDL_Surface)*MAPlength*MAPheight);
+  OBJECTMAP = (Objmap *)malloc(sizeof(Objmap)*MAPlength*MAPheight);
   
   /* initialize video system */
   SDL_Init(SDL_INIT_VIDEO);
@@ -499,8 +497,8 @@ int main(int argc, char* argv[])
   gameover = 0;
   
   /* set the MAP and objectMAP*/
-  set_map(Time);
-  set_objectmap();
+  set_map(MAP, Time);
+  set_objectmap(OBJECTMAP);
   
   screen_printing_Gmove();
 
@@ -512,11 +510,12 @@ int main(int argc, char* argv[])
       if ( printed < 10 && check_enter_rockwall(coordplayerx,coordplayery)){
 	inside_rock = 1 ;
        
-	set_rockwall_map();
-	if ( !printed){
-	  screen_printing_Gmove();
-	  printed++;
-	}
+	//set_rockwall_map();
+	if ( !printed)
+	  {
+	    screen_printing_Gmove();
+	    printed++;
+	  }
       }
 
       /* managing the time to set the day or the night */
@@ -525,14 +524,14 @@ int main(int argc, char* argv[])
       if( !Time && Time != TimePrev && !inside_rock ) //day
 	{
 	  day = 1;
-	  set_map(day);
+	  set_map(MAP, day);
 	  screen_printing_Gmove();
 	  TimePrev = Time;
 	}
       else if( Time && Time != TimePrev  && !inside_rock) // night
 	{
 	  day = 0;
-	  set_map(day);
+	  set_map(MAP, day);
 	  screen_printing_Gmove();
 	  TimePrev = Time;
 	}
@@ -588,7 +587,8 @@ int main(int argc, char* argv[])
   
   
     /* clean the array */ 
-  FreeTableMAP(MAP , MAPlength);
+  free(MAP);
+  free(OBJECTMAP);
 
        /* clean up */
   SDL_FreeSurface(sprite);

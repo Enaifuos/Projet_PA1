@@ -13,14 +13,14 @@ void set_position();
 
 
 //array function
-SDL_Surface ** CreateTable(int c , int l);
+SDL_Surface * CreateTable(int c , int l);
 Objmap ** CreateObjtable(int c , int l);
-void FreeTableMAP(SDL_Surface **tableau, int c);
+void FreeTableMAP(SDL_Surface *tableau);
 void FreeTableOBJ(Objmap **tableau, int c);
 
 
-void set_map(int day);
-void set_objectmap();
+void set_map(SDL_Surface * map, int day);
+void set_objectmap(Objmap * map);
 
 
 
@@ -41,20 +41,10 @@ void set_position()
 
 
 
-SDL_Surface ** CreateTable(int c , int l)
+SDL_Surface * CreateTable(int c , int l)
 {
-  SDL_Surface ** t1 = (SDL_Surface **)malloc(sizeof(SDL_Surface*)*c);
-  if ( t1 == NULL ) // test if the malloc run
-    {
-      printf("missing dynamic memory to run the game (error table)\n");
-    }
-
-  int i ;
-  for (i = 0 ; i < c ; i++) 
-    {
-      t1[i] = (SDL_Surface *)malloc(sizeof(SDL_Surface)*l);
-    }
-
+  SDL_Surface * t1;
+  t1 = (SDL_Surface *)malloc(sizeof(SDL_Surface)*c*l);
   return t1 ;
 }
 
@@ -67,13 +57,15 @@ Objmap ** CreateObjtable(int c , int l)
     {
       printf("missing dynamic memory to run the game (error table)\n");
     }
-  
-  int i ;
-  for (i = 0 ; i < c ; i++) 
-    {
-      t1[i] = (Objmap *)malloc(sizeof(Objmap)*l);
+
+  else
+    {      
+      int i ;
+      for (i = 0 ; i < c ; i++) 
+	{
+	  t1[i] = (Objmap *)malloc(sizeof(Objmap)*l);
+	}
     }
-  
   return t1 ;
 }
 
@@ -84,35 +76,10 @@ Objmap ** CreateObjtable(int c , int l)
 
 
 
-
-void FreeTableMAP(SDL_Surface **tableau, int c)
-{
-  int i;
-  for( i = 0 ; i < c ; i++)
-    {
-      free(tableau[i]);
-    }
-  free(tableau);
-}
-
-void FreeTableOBJ(Objmap **tableau, int c)
-{
-  int i;
-  for( i = 0 ; i < c ; i++)
-    {
-      free(tableau[i]);
-    }
-  free(tableau);
-}
-
-
-
-
-
 /*------------------- SET THE MAP ---------------------*/
 
 
-void set_map(int DAY) //
+void set_map(SDL_Surface * map, int DAY) //
 {
   int i,j;
 
@@ -124,11 +91,11 @@ void set_map(int DAY) //
 	{
 	  if ( day )
 	    {
-	      MAP[i][j] = *grass;
+	      map[i+j*MAPlength] = *grass;
 	    }
 	  else
 	    {
-	      MAP[i][j] = *grass_night;       // it blocks the program 
+	      map[i+j*MAPlength] = *grass_night;       // it blocks the program 
 	    }
 	}
     }
@@ -137,53 +104,63 @@ void set_map(int DAY) //
   /* Draw two columns of sand */             
   if( DAY )
     {
-    for ( i=0 ; i < MAPheight-2 ; i++)
-      {
-	MAP[1][i] = *sandw_l;
-	MAP[2][i] = *sandg_r;
-      }
-    for(i = 0 ; i < MAPlength ; i++)
-      {
-	MAP[i][MAPheight-4] = *sandg_u;
-	MAP[i][MAPheight-3] = *sandw_d;
-      }
-  }
-  else{
-    for ( i=0 ; i < MAPheight-2 ; i++)
-      {
-	MAP[1][i] = *sandw_l_night;
-	MAP[2][i] = *sandg_r_night;
-      }
-    for(i = 0 ; i < MAPlength ; i++)
-      {
-	MAP[i][MAPheight-4] = *sandg_u_night;
-	MAP[i][MAPheight-3] = *sandw_d_night;
-      }
-  }
+      for ( i=0 ; i < MAPheight-2 ; i++)
+	{
+	  map[1+i*MAPlength] = *sandw_l;
+	  map[2+i*MAPlength] = *sandg_r;
+	}
+      for(i = 0 ; i < MAPlength ; i++)
+	{
+	  map[i+(MAPheight-4)*MAPlength] = *sandg_u;
+	  map[i+(MAPheight-3)*MAPlength] = *sandw_d;
+	}
+      map[1+(MAPheight-4)*MAPlength] = *sandw_l;
+      map[2+(MAPheight-4)*MAPlength] = *sand;
+      map[1+(MAPheight-3)*MAPlength] = *sandw_dl;
+    }
+  else
+    {
+      for ( i=0 ; i < MAPheight-2 ; i++)
+	{
+	  map[1+i*MAPlength] = *sandw_l_night;
+	  map[2+i*MAPlength] = *sandg_r_night;
+	}
+      for(i = 0 ; i < MAPlength ; i++)
+	{
+	  map[i+(MAPheight-4)*MAPlength] = *sandg_u_night;
+	  map[i+(MAPheight-3)*MAPlength] = *sandw_d_night;
+	}
+      map[1+(MAPheight-4)*MAPlength] = *sandw_l_night;
+      map[2+(MAPheight-4)*MAPlength] = *sand_night;
+      map[1+(MAPheight-3)*MAPlength] = *sandw_dl_night;
+    }
+  
 
-     /* set water */
+  /* set water */
   for( j=1 ; j < 3 ; j++ )
     {
       for( i=0 ; i < MAPlength ; i++ )
 	{
-	  if ( DAY ){
-	    MAP[i][MAPheight-j] = *water;
-	  }
-	  else{
-	    MAP[i][MAPheight-j] = *water_night ;
-	  }
+	  if ( DAY )
+	    {
+	      map[i+(MAPheight-j)*MAPlength] = *water;
+	    }
+	  else
+	    {
+	      map[i+(MAPheight-j)*MAPlength] = *water_night ;
+	    }
 	}
     }
   for( i=0 ; i<MAPheight-2 ; i++)
     {
-       if ( DAY )
-	 {
-	   MAP[0][i] = *water;
-	 }
-       else
-	 {
-	   MAP[0][i] = *water_night ;
-	 }
+      if ( DAY )
+	{
+	  map[i*MAPlength] = *water;
+	}
+      else
+	{
+	  map[i*MAPlength] = *water_night ;
+	}
     }
 
  
@@ -195,11 +172,11 @@ void set_map(int DAY) //
 	{
 	  if ( DAY )
 	    {
-	      MAP[j][i] = *tree;
+	      map[j+i*MAPlength] = *tree;
 	    }
 	  else
 	    {
-	      MAP[j][i] = *tree_night;
+	      map[j+i*MAPlength] = *tree_night;
 	    }
 	}
     }
@@ -207,24 +184,24 @@ void set_map(int DAY) //
     {
       if ( DAY )
 	{
-	  MAP[3][j] = *tree;
-	  MAP[4][j] = *tree;
+	  map[3+j*MAPlength] = *tree;
+	  map[4+j*MAPlength] = *tree;
 	}
       else
 	{
-	  MAP[3][j] = *tree_night;
-	  MAP[4][j] = *tree_night;
+	  map[3+j*MAPlength] = *tree_night;
+	  map[4+j*MAPlength] = *tree_night;
 	}
     }
   for ( i = 5 ; i < 17 ; i++)
     {
       if ( DAY )
 	{
-	  MAP[i][12] = *tree;
+	  map[i+12*MAPlength] = *tree;
 	}
       else
 	{
-	  MAP[i][12] = *tree_night;
+	  map[i+12*MAPlength] = *tree_night;
 	} 
     }
   
@@ -232,13 +209,13 @@ void set_map(int DAY) //
     {
       if ( DAY )
 	{
-	  MAP[20][i] = *tree;
-	  MAP[19][i] = *tree;
+	  map[20+i*MAPlength] = *tree;
+	  map[19+i*MAPlength] = *tree;
 	}
       else
 	{
-	  MAP[20][i] = *tree_night;
-	  MAP[19][i] = *tree_night;
+	  map[20+i*MAPlength] = *tree_night;
+	  map[19+i*MAPlength] = *tree_night;
 	}
     }
   
@@ -246,11 +223,11 @@ void set_map(int DAY) //
     {
       if ( DAY )
 	{
-	  MAP[i][17] = *tree;
+	  map[i+17*MAPlength] = *tree;
 	}
       else
 	{
-	  MAP[i][17] = *tree_night;
+	  map[i+17*MAPlength] = *tree_night;
 	}
     }
   for ( i = 17 ; i < 34 ; i ++ )
@@ -259,11 +236,11 @@ void set_map(int DAY) //
 	{
 	  if ( DAY )
 	    {
-	      MAP[j][i] = *tree;
+	      map[j+i*MAPlength] = *tree;
 	    }
 	  else
 	    {
-	      MAP[j][i] = *tree_night; 
+	      map[j+i*MAPlength] = *tree_night; 
 	    }
 	}
     }
@@ -274,13 +251,13 @@ void set_map(int DAY) //
     {
       if( DAY )
 	{
-	  MAP[10][i] = *rockwall_l;
-	  MAP[18][i] = *rockwall_r;
-      }
+	  map[10+i*MAPlength] = *rockwall_l;
+	  map[18+i*MAPlength] = *rockwall_r;
+	}
       else
 	{
-	  MAP[10][i] = *rockwall_l_night;
-	  MAP[18][i] = *rockwall_r_night;	  
+	  map[10+i*MAPlength] = *rockwall_l_night;
+	  map[18+i*MAPlength] = *rockwall_r_night;	  
 	}
     }
   
@@ -293,20 +270,20 @@ void set_map(int DAY) //
 	{
 	  if( DAY )
 	    {
-	      MAP[i][j] = *rockwall_top;
+	      map[i+j*MAPlength] = *rockwall_top;
 	    }
 	  else
 	    {
-	      MAP[i][j] = *rockwall_top_night;
+	      map[i+j*MAPlength] = *rockwall_top_night;
 	    }
 	}
       if( DAY )
 	{
-	  MAP[i][5] = *rockwall;
+	  map[i+5*MAPlength] = *rockwall;
 	}
       else
 	{
-	  MAP[i][5] = *rockwall_night;
+	  map[i+5*MAPlength] = *rockwall_night;
 	}
     }
   
@@ -314,39 +291,39 @@ void set_map(int DAY) //
     {
       if( DAY )
 	{
-	  MAP[i][0] = *rockwall_top;
+	  map[i] = *rockwall_top;
 	}
       else
 	{
-	  MAP[i][0] = *rockwall_top_night;
+	  map[i] = *rockwall_top_night;
 	}
     }
   
   if( DAY )
     {
-      MAP[14][5] = *rockwall_door;
+      map[14+5*MAPlength] = *rockwall_door;
     }
   else
     {
-      MAP[14][5] = *rockwall_door_night; 
+      map[14+5*MAPlength] = *rockwall_door_night; 
     }
   
 
 
- // Drawing the cave 
+  // Drawing the cave 
   if( DAY )
     {
-      MAP[10][5] = *rockwall_dl;
-      MAP[10][0] = *rockwall_ul;
-      MAP[18][0] = *rockwall_ur;
-      MAP[18][5] = *rockwall_dr;
+      map[10+5*MAPlength] = *rockwall_dl;
+      map[10] = *rockwall_ul;
+      map[18] = *rockwall_ur;
+      map[18+5*MAPlength] = *rockwall_dr;
     }
   else
     {
-      MAP[10][5] = *rockwall_dl_night;
-      MAP[10][0] = *rockwall_ul_night;
-      MAP[18][0] = *rockwall_ur_night;
-      MAP[18][5] = *rockwall_dr_night;
+      map[10+5*MAPlength] = *rockwall_dl_night;
+      map[10] = *rockwall_ul_night;
+      map[18] = *rockwall_ur_night;
+      map[18+5*MAPlength] = *rockwall_dr_night;
     }
   
   /* set water beside the cave */
@@ -354,11 +331,11 @@ void set_map(int DAY) //
     {
       if ( DAY )
 	{
-	  MAP[9][i] = *water ;
+	  map[9+i*MAPlength] = *water ;
 	}
       else
 	{
-	  MAP[9][i] = *water_night ;
+	  map[9+i*MAPlength] = *water_night ;
 	}
     }
 
@@ -366,13 +343,13 @@ void set_map(int DAY) //
     {
       if ( DAY )
 	{
-	  MAP[i][6] = *water ;
-	  MAP[i][7] = *water ;
+	  map[i+6*MAPlength] = *water ;
+	  map[i+7*MAPlength] = *water ;
 	}
       else
 	{
-	  MAP[i][6] = *water_night ;
-	  MAP[i][7] = *water_night ;
+	  map[i+6*MAPlength] = *water_night ;
+	  map[i+7*MAPlength] = *water_night ;
 	}
     }
   
@@ -380,13 +357,13 @@ void set_map(int DAY) //
     {
       if ( DAY )
 	{
-	  MAP[17][i] = *water ;
-	  MAP[18][i] = *water ;
+	  map[17+i*MAPlength] = *water ;
+	  map[18+i*MAPlength] = *water ;
 	}
       else
 	{
-	  MAP[17][i] = *water_night ;
-	  MAP[18][i] = *water_night ;
+	  map[17+i*MAPlength] = *water_night ;
+	  map[18+i*MAPlength] = *water_night ;
 	}
     }
   
@@ -394,13 +371,13 @@ void set_map(int DAY) //
     {
       if ( DAY )
 	{
-	  MAP[i][13] = *water ;
-	  MAP[i][14] = *water ;
+	  map[i+13*MAPlength] = *water ;
+	  map[i+14*MAPlength] = *water ;
 	}
       else
 	{
-	  MAP[i][13] = *water_night ;
-	  MAP[i][14] = *water_night ;
+	  map[i+13*MAPlength] = *water_night ;
+	  map[i+14*MAPlength] = *water_night ;
 	}
     }
   
@@ -408,13 +385,13 @@ void set_map(int DAY) //
     {
       if ( DAY )
 	{
-	  MAP[i][15] = *water ;
-	  MAP[i][16] = *water ;
+	  map[i+15*MAPlength] = *water ;
+	  map[i+16*MAPlength] = *water ;
 	}
       else
 	{
-	  MAP[i][15] = *water_night ;
-	  MAP[i][16] = *water_night ;
+	  map[i+15*MAPlength] = *water_night ;
+	  map[i+16*MAPlength] = *water_night ;
 	}
     }
   
@@ -422,13 +399,13 @@ void set_map(int DAY) //
     {
       if ( DAY )
 	{
-	  MAP[32][i] = *water ;
-	  MAP[33][i] = *water ;
+	  map[32+i*MAPlength] = *water ;
+	  map[33+i*MAPlength] = *water ;
 	}
       else
 	{
-	  MAP[32][i] = *water_night ;
-	  MAP[33][i] = *water_night ;
+	  map[32+i*MAPlength] = *water_night ;
+	  map[33+i*MAPlength] = *water_night ;
 	}
     }
   
@@ -437,17 +414,17 @@ void set_map(int DAY) //
     {
       for ( j = 0 ; j < 6 ; j ++ )
 	{
-	  MAP[i+11][j] = MAP[i][j]; // first permutation ( second rockwall)
-	  MAP[i-2][j+16] = MAP[i][j];// second permutation ( third rockwall )
+	  map[i+11+j*MAPlength] = map[i+j*MAPlength]; // first copy ( second rockwall)
+	  map[i-2+(j+16)*MAPlength] = map[i+j*MAPlength];// second copy ( third rockwall )
 	}
     }
   if( DAY )
     {
-      MAP[25][5] = *rockwall_door;
+      map[25+5*MAPlength] = *rockwall_door;
     }
   else
     {
-      MAP[25][5] = *rockwall_door_night;
+      map[25+5*MAPlength] = *rockwall_door_night;
     }
  
 
@@ -456,40 +433,40 @@ void set_map(int DAY) //
   // Drawing the bridge 
   if( DAY )
     {
-      MAP[14][6] = *bridge1;
-      MAP[14][7] = *bridge1;
-      MAP[15][6] = *bridge2;
-      MAP[15][7] = *bridge2;
+      map[14+6*MAPlength] = *bridge1;
+      map[14+7*MAPlength] = *bridge1;
+      map[15+6*MAPlength] = *bridge2;
+      map[15+7*MAPlength] = *bridge2;
       
-      MAP[17][10] = *bridge1;
-      MAP[17][11] = *bridge1;
-      MAP[18][10] = *bridge2;
-      MAP[18][11] = *bridge2;
+      map[17+10*MAPlength] = *bridge1;
+      map[17+11*MAPlength] = *bridge1;
+      map[18+10*MAPlength] = *bridge2;
+      map[18+11*MAPlength] = *bridge2;
       
-      MAP[24][15] = *bridge1;
-      MAP[25][15] = *bridge2;
-      MAP[24][16] = *bridge1;
-      MAP[25][16] = *bridge2;
+      map[24+15*MAPlength] = *bridge1;
+      map[25+15*MAPlength] = *bridge2;
+      map[24+16*MAPlength] = *bridge1;
+      map[25+16*MAPlength] = *bridge2;
     }
   else
     {
-      MAP[14][6] = *bridge1_night;
-      MAP[14][7] = *bridge1_night;
-      MAP[15][6] = *bridge2_night;
-      MAP[15][7] = *bridge2_night;
+      map[14+6*MAPlength] = *bridge1_night;
+      map[14+7*MAPlength] = *bridge1_night;
+      map[15+6*MAPlength] = *bridge2_night;
+      map[15+7*MAPlength] = *bridge2_night;
     
-      MAP[17][10] = *bridge1_night;
-      MAP[17][11] = *bridge1_night;
-      MAP[18][10] = *bridge2_night;
-      MAP[18][11] = *bridge2_night;
+      map[17+10*MAPlength] = *bridge1_night;
+      map[17+11*MAPlength] = *bridge1_night;
+      map[18+10*MAPlength] = *bridge2_night;
+      map[18+11*MAPlength] = *bridge2_night;
 
-      MAP[24][15] = *bridge1_night;
-      MAP[25][15] = *bridge2_night;
-      MAP[24][16] = *bridge1_night;
-      MAP[25][16] = *bridge2_night;
+      map[24+15*MAPlength] = *bridge1_night;
+      map[25+15*MAPlength] = *bridge2_night;
+      map[24+16*MAPlength] = *bridge1_night;
+      map[25+16*MAPlength] = *bridge2_night;
     }
 
-  // MAP[24][17] = *trap;
+  // map[24][17] = *trap;
   for ( i = 19 ; i < 30 ; i++)
     {
       if ( i != 24 && i != 25 )
@@ -498,74 +475,75 @@ void set_map(int DAY) //
 	    {
 	      if ( DAY )
 		{
-		  MAP[i][j] = *tree ;
+		  map[i+j*MAPlength] = *tree ;
 		}
 	      else
 		{
-		  MAP[i][j] = *tree_night;
+		  map[i+j*MAPlength] = *tree_night;
 		}
 	    }
 	  for ( j = 12 ; j < 15 ; j ++ )
 	    {
 	      if ( DAY )
 		{
-		  MAP[i][j] = *tree ;
+		  map[i+j*MAPlength] = *tree ;
 		}
 	      else
 		{
-		  MAP[i][j] = *tree_night;
+		  map[i+j*MAPlength] = *tree_night;
 		}
 	    }
 	}
     }
   
-  // Permutation of the bloc ( rockwall with trees and box )
+  // Copy of the bloc ( rockwall with trees and box )
   for ( i = 19 ; i < 30 ; i ++ )
     {
       for (j = 0 ; j < 15 ; j ++ )
 	{
-	  MAP[i][j+18] = MAP[i][j] ;
+	  map[i+(j+18)*MAPlength] = map[i+j*MAPlength] ;
 	}
     }
 
   if( DAY )
     {
-      MAP[3][22] = *dirtg_ul ;
+      map[3+22*MAPlength] = *dirtg_ul ;
       for (i = 4 ; i < 18 ; i ++)
 	{
-	  MAP[i][22] = *dirtg_u ;
-	  MAP[i][39] = *dirtg_d ;
+	  map[i+22*MAPlength] = *dirtg_u ;
+	  map[i+39*MAPlength] = *dirtg_d ;
 	}
-      MAP[18][22] = *dirtg_ur ;
+      map[18+22*MAPlength] = *dirtg_ur ;
       
       for ( i = 23 ; i < 39 ; i ++ )
 	{
-	  MAP[3][i] = *dirtg_l ;
+	  map[3+i*MAPlength] = *dirtg_l ;
 	  if ( i < 33 )
 	    {
-	      MAP[18][i] = *dirtg_r ;
+	      map[18+i*MAPlength] = *dirtg_r ;
 	    }
 	}
-      MAP[3][39] = *dirtg_dl ;
+      map[3+39*MAPlength] = *dirtg_dl ;
     }
   else
     {
-      MAP[3][22] = *dirtg_ul_night ;
+      map[3+22*MAPlength] = *dirtg_ul_night ;
       for (i = 4 ; i < 18 ; i ++)
 	{
-	  MAP[i][22] = *dirtg_u_night ;
-	  MAP[i][39] = *dirtg_d_night ;
+	  map[i+22*MAPlength] = *dirtg_u_night ;
+	  map[i+39*MAPlength] = *dirtg_d_night ;
 	}
-      MAP[18][22] = *dirtg_ur_night ;
+      map[18+22*MAPlength] = *dirtg_ur_night ;
       
       for ( i = 23 ; i < 39 ; i ++ )
 	{
-	  MAP[3][i] = *dirtg_l_night ;
-	  if ( i < 33 ){
-	    MAP[18][i] = *dirtg_r_night ;
-	  }
+	  map[3+i*MAPlength] = *dirtg_l_night ;
+	  if ( i < 33 )
+	    {
+	      map[18+i*MAPlength] = *dirtg_r_night ;
+	    }
 	}
-      MAP[3][39] = *dirtg_dl_night ;
+      map[3+39*MAPlength] = *dirtg_dl_night ;
     }
   
   // remplissage 
@@ -575,11 +553,11 @@ void set_map(int DAY) //
 	{
 	  if( DAY )
 	    {
-	      MAP[i][j] = *dirt ;
+	      map[i+j*MAPlength] = *dirt ;
 	    }
 	  else
 	    {
-	      MAP[i][j] = *dirt_night ;
+	      map[i+j*MAPlength] = *dirt_night ;
 	    }
 	}
     }
@@ -590,52 +568,52 @@ void set_map(int DAY) //
 	{
 	  if( DAY )
 	    {
-	      MAP[j][i] = *dirt ;	   
+	      map[j+i*MAPlength] = *dirt ;	   
 	    }
 	  else
 	    {
-	      MAP[j][i] = *dirt_night ;
+	      map[j+i*MAPlength] = *dirt_night ;
 	    }
 	}
     }
   if( DAY )
     {
-      MAP[18][33] = *dirt ;
+      map[18+33*MAPlength] = *dirt ;
       for ( i = 19 ; i < 33 ; i ++ )
 	{
-	  MAP[i][33] = *dirtg_u ;
+	  map[i+33*MAPlength] = *dirtg_u ;
 	}
-      MAP[33][33] = *dirtg_ur ;
+      map[33+33*MAPlength] = *dirtg_ur ;
       for (i = 34 ; i < 39 ; i ++ )
 	{
-	  MAP[33][i] = *dirtg_r ;
+	  map[33+i*MAPlength] = *dirtg_r ;
 	}
       
-      MAP[33][39] = *dirtg_dr ;
+      map[33+39*MAPlength] = *dirtg_dr ;
       
       for ( i = 32 ; i > 17 ; i -- )
 	{
-	  MAP[i][39] = *dirtg_d ;
+	  map[i+39*MAPlength] = *dirtg_d ;
 	}
     }
   else
     {
-      MAP[18][33] = *dirt_night ;
+      map[18+33*MAPlength] = *dirt_night ;
       for ( i = 19 ; i < 33 ; i ++ )
 	{
-	  MAP[i][33] = *dirtg_u_night ;
+	  map[i+33*MAPlength] = *dirtg_u_night ;
 	}
-      MAP[33][33] = *dirtg_ur_night ;
+      map[33+33*MAPlength] = *dirtg_ur_night ;
       for (i = 34 ; i < 39 ; i ++ )
 	{
-	  MAP[33][i] = *dirtg_r_night ;
+	  map[33+i*MAPlength] = *dirtg_r_night ;
 	}
       
-      MAP[33][39] = *dirtg_dr_night ;
+      map[33+39*MAPlength] = *dirtg_dr_night ;
       
       for ( i = 32 ; i > 17 ; i -- )
 	{
-	  MAP[i][39] = *dirtg_d_night ;
+	  map[i+39*MAPlength] = *dirtg_d_night ;
 	}
     }
   // ======================
@@ -645,36 +623,36 @@ void set_map(int DAY) //
       for( i=50 ; i < MAPlength ; i++){
 	if ( DAY )
 	  {
-	    MAP[i][j] = *water ;
+	    map[i+j*MAPlength] = *water ;
 	  }
 	else
 	  {
-	    MAP[i][j] = *water_night ;
+	    map[i+j*MAPlength] = *water_night ;
 	  }
       }
-      if ( j<MAPheight-2 )
+      if( j < MAPheight-2 )
 	{
 	  if( DAY )
 	    {
-	      MAP[49][j] = *sandw_r ;
-	      if( j<MAPheight-4 )
-		MAP[48][j] = *sandg_l ;
+	      map[49+j*MAPlength] = *sandw_r ;
+	      if( j < MAPheight-4 )
+		map[48+j*MAPlength] = *sandg_l ;
 	    }
 	  else
 	    {
-	      MAP[49][j] = *sandw_r_night ;
+	      map[49+j*MAPlength] = *sandw_r_night ;
 	      if(j<MAPheight-4)
-		MAP[48][j] = *sandg_l_night ;
+		map[48+j*MAPlength] = *sandg_l_night ;
 	    }
 	}
     }
   if( DAY )
     {
-      MAP[49][MAPheight-3] = *sandw_dr ;
+      map[49+(MAPheight-3)*MAPlength] = *sandw_dr ;
     }
   else
     {
-      MAP[49][MAPheight-3] = *sandw_dr_night ;
+      map[49+(MAPheight-3)*MAPlength] = *sandw_dr_night ;
     }
 
   
@@ -683,20 +661,18 @@ void set_map(int DAY) //
   //test
   if( DAY )
     {
-      MAP[30][10] = *dirtg_ul;
-      MAP[31][10] = *dirtg_ur;
-      MAP[31][11] = *dirtg_dr;
-      MAP[30][11] = *dirtg_dl;
+      map[30+10*MAPlength] = *dirtg_ul;
+      map[31+10*MAPlength] = *dirtg_ur;
+      map[31+11*MAPlength] = *dirtg_dr;
+      map[30+11*MAPlength] = *dirtg_dl;
     }
   else
     {
-      MAP[30][10] = *dirtg_ul_night;
-      MAP[31][10] = *dirtg_ur_night;
-      MAP[31][11] = *dirtg_dr_night;
-      MAP[30][11] = *dirtg_dl_night;
+      map[30+10*MAPlength] = *dirtg_ul_night;
+      map[31+10*MAPlength] = *dirtg_ur_night;
+      map[31+11*MAPlength] = *dirtg_dr_night;
+      map[30+11*MAPlength] = *dirtg_dl_night;
     }
-
-
 }
   
 
@@ -713,17 +689,25 @@ void set_map(int DAY) //
 
 
 
-void set_objectmap()
+void set_objectmap(Objmap *map)
 {
   int i, j;
-  OBJECTMAP[25][10].objsprite = *box;
-  OBJECTMAP[25][10].objvalue = 1;
-  OBJECTMAP[25][11].objsprite = *apple;
-  OBJECTMAP[25][10].objvalue = 2; 
-  OBJECTMAP[24][10].objsprite = *talismant;
-  OBJECTMAP[25][10].objvalue = 3; 
+  for( i = 0 ; i < MAPheight ; i ++)
+    {
+      for( j = 0 ; j < MAPlength ; j ++)
+	{
+	  map[j+i*MAPlength].objvalue = 0;
+	}
+    }
+  map[25+10*MAPlength].objsprite = *box;
+  map[25+10*MAPlength].objvalue = 1;
+  map[25+11*MAPlength].objsprite = *apple;
+  map[25+10*MAPlength].objvalue = 2; 
+  map[24+10*MAPlength].objsprite = *talismant;
+  map[25+10*MAPlength].objvalue = 3; 
 }
 
+/*
 void set_rockwall_map(){
   int i , j ;
    for( i=0 ; i < 44 ; i++)
@@ -733,3 +717,4 @@ void set_rockwall_map(){
       }
     }
 }
+*/

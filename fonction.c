@@ -54,7 +54,7 @@ void check_life(int step)
 {
   if( step <= 0 )
     {
-      //you_win();
+      //you_lose();
     }
 }
 
@@ -65,13 +65,13 @@ void check_life(int step)
 int check_move_ground(int x, int y)
 {
    int allow = 0;
-   SDL_Surface pos = MAP[x][y];
+   SDL_Surface pos = MAP[x+y*MAPlength];
 
   //check if there is an object
 
-  if( OBJECTMAP[x][y].objvalue )
+  if( OBJECTMAP[x+y*MAPlength].objvalue )
     {
-      OBJECTMAP[x][y].objvalue = 0;
+      OBJECTMAP[x+y*MAPlength].objvalue = 0;
     }
 
 
@@ -136,8 +136,8 @@ int check_move_ground(int x, int y)
 	allow = 1;
       }
     }
-  return allow;
-  //return 1;
+  //return allow;
+  return 1;
 }
 
 
@@ -359,12 +359,14 @@ void you_lose(double k)
   SDL_Delay(1800);
 
   /* restart the game */
-  set_map(day);
+  set_map(MAP, day);
   set_position();
-  set_objectmap();
+  set_objectmap(OBJECTMAP);
   stepbfdie = 75;
   countertalismant = 0;
-  screen_printing_Gmove();  
+  screen_printing_Gmove();
+
+  SDL_FreeSurface(lose);
 }
 
 
@@ -381,12 +383,15 @@ void you_win()
   SDL_Delay(1800);
 
   /* restart the game */
-  set_map(day);
+  set_map(MAP, day);
   set_position();
-  set_objectmap();
+  set_objectmap(OBJECTMAP);
   stepbfdie = 75;
   countertalismant = 0;
-  screen_printing_Gmove();  
+  screen_printing_Gmove();
+
+
+  SDL_FreeSurface(win);
 }
 
 
@@ -558,7 +563,7 @@ void screen_printing_Gmove()
 	      x = (coordplayerx - rcSprite.x)/SPRITE_SIZE + i;
 	      y = (coordplayery - rcSprite.y)/SPRITE_SIZE + j;
 	      draw_GroundGM(i, j, x, y);
-	      if( OBJECTMAP[x][y].objvalue != 0 )
+	      if( OBJECTMAP[x+y*MAPlength].objvalue != 0 )
 		{
 		  draw_ObjectGM(i, j, x, y);
 		}
@@ -576,7 +581,7 @@ void screen_printing_Gmove()
 	      x = (coordplayerx - rcSprite.x) / SPRITE_SIZE +i ;
 	      y = (coordplayery - rcSprite.y) / SPRITE_SIZE +j;
 	      draw_GroundGM(i, j, x, y);
-	      if( OBJECTMAP[x][y].objvalue != 0 )
+	      if( OBJECTMAP[x+y*MAPlength].objvalue != 0 )
 		{
 		  draw_ObjectGM(i, j, x, y);
 		}
@@ -608,7 +613,7 @@ void screen_printing_Pmove()
 	  x = (coordplayerx - rcSprite.x)/SPRITE_SIZE + i;
 	  y = (coordplayery - rcSprite.y)/SPRITE_SIZE + j;
 	  draw_GroundPM(i, j, x, y);
-	  if( OBJECTMAP[x][y].objvalue != 0 )
+	  if( OBJECTMAP[x+y*MAPlength].objvalue != 0 )
 	    {
 	      draw_ObjectPM(i, j, x, y);
 	    }
@@ -628,6 +633,7 @@ void screen_printing_Pmove()
 
 
 
-int check_enter_rockwall(int x , int y ){
+int check_enter_rockwall(int x , int y )
+{
   return ( (y == 192 && (x == 448 || x == 800)) || (x == 384 && y == 704) || ( x == 800 && y == 768));
 }

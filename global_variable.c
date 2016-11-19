@@ -35,7 +35,7 @@ int countertalismant, stepcount;
 /*---- usefull for the printing ----*/
 
 //Ground int he map
-SDL_Surface ** MAP; //[MAPlength][MAPheight]
+SDL_Surface * MAP; //[MAPlength][MAPheight]
 SDL_Surface *screen, *temp, *sprite, *grass, *grass_night, *water, *water_night, *sand, *sand_night, *tree, *tree_night, *dirt, *dirt_night, *rockwall_inside;
 SDL_Surface *dirtg_d, *dirtg_d_night,  *dirtg_dl, *dirtg_dl_night, *dirtg_dr, *dirtg_dr_night, *dirtg_l, *dirtg_l_night, *dirtg_r, *dirtg_r_night, *dirtg_u, *dirtg_u_night, *dirtg_ul, *dirtg_ul_night,  *dirtg_ur, *dirtg_ur_night;
 SDL_Surface *sandg_dl, *sandg_dl_night, *sandg_dr, *sandg_dr_night, *sandg_l, *sandg_l_night,*sandg_r,*sandg_r_night, *sandg_ul,*sandg_ul_night, *sandg_ur, *sandg_ur_night, *sandg_d, *sandg_d_night, *sandg_u, *sandg_u_night;
@@ -46,7 +46,7 @@ SDL_Rect rcSprite, rcSrcSprite, rcGround;
 SDL_Rect rcLadder, rcTrap;
 
 //Object in the map
-Objmap **OBJECTMAP; //[MAPlength][MAPheight]
+Objmap *OBJECTMAP; //[MAPlength][MAPheight]
 SDL_Surface  *box, *apple, *talismant;
 SDL_Rect rcObject;
 
