@@ -47,8 +47,8 @@ SDL_Rect rcLadder, rcTrap;
 
 //Object in the map
 Objmap *OBJECTMAP; //[MAPlength][MAPheight]
-SDL_Surface  *box, *apple, *talismant;
-SDL_Rect rcObject;
+SDL_Surface  *box, *apple, *talismant, *letter, *empty_letter;
+SDL_Rect rcObject, rcLetter, rcSrcLetter;
 
 //pause menu & life
 SDL_Rect rcPause, rcHeart, rcRedrect;

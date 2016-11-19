@@ -472,9 +472,35 @@ int main(int argc, char* argv[])
   colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
   SDL_SetColorKey(talismant, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
 
+  /* load the insiede rockwall sprites */
+  temp = SDL_LoadBMP("ressources/Survival.bmp");
+  letter = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  /* setup heart colorkey and turn on RLE */
+  colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
+  SDL_SetColorKey(letter, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+
+  /* load the empty letter */
+  temp = SDL_LoadBMP("ressources/Survival_empty.bmp");
+  empty_letter = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  /* setup heart colorkey and turn on RLE */
+  colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
+  SDL_SetColorKey(empty_letter, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+
+  /*set the letter fram */
+  rcSrcLetter.x = 0;
+  rcSrcLetter.y = 0;
+  rcSrcLetter.w = SPRITE_SIZE;
+  rcSrcLetter.h = SPRITE_SIZE;
   
+  /* set the letter position */
+  rcLetter.x = 0;
+  rcLetter.y = 0;
 
-
+  
   /* set the heart position */
   rcHeart.x = 0;
   rcHeart.y = 0;
@@ -507,16 +533,17 @@ int main(int argc, char* argv[])
   while (!gameover)
     {
       int printed = 0 ;
-      if ( printed < 10 && check_enter_rockwall(coordplayerx,coordplayery)){
-	inside_rock = 1 ;
-       
-	//set_rockwall_map();
-	if ( !printed)
-	  {
-	    screen_printing_Gmove();
-	    printed++;
-	  }
-      }
+      if ( printed < 10 && check_enter_rockwall(coordplayerx,coordplayery))
+	{
+	  inside_rock = 1 ;
+	  
+	  //set_rockwall_map();
+	  if ( !printed)
+	    {
+	      screen_printing_Gmove();
+	      printed++;
+	    }
+	}
 
       /* managing the time to set the day or the night */
       Time = SDL_GetTicks();

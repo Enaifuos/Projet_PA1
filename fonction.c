@@ -36,6 +36,7 @@ void bag();
 
 /* screen printing */
 void print_player_life();
+void print_player_letter();
 void screen_printing_Gmove();
 void screen_printing_Pmove();
 
@@ -525,6 +526,28 @@ void bag()
 
 /*--------- screen printing ----------*/
 
+void print_player_letter()
+{
+  int i;
+  rcSrcLetter.x = 0;
+  rcSrcLetter.y = 0;
+  rcSrcLetter.w = SPRITE_SIZE;
+  rcSrcLetter.h = SPRITE_SIZE;
+  
+  rcLetter.x = SCREEN_WIDTH-1 -256;
+  rcLetter.y = SCREEN_HEIGHT-1 -SPRITE_SIZE;
+  SDL_BlitSurface(letter, &rcSrcLetter, screen, &rcLetter);
+
+  for(i = 0; i < 7 ; i++)
+    {
+      rcSrcLetter.x += SPRITE_SIZE;
+      rcLetter.x += SPRITE_SIZE;
+      SDL_BlitSurface(letter, &rcSrcLetter, screen, &rcLetter);
+    }
+}
+
+
+
 
 void print_player_life()
 {
@@ -625,6 +648,8 @@ void screen_printing_Pmove()
 
   /* draw ther player lifepoint */
   print_player_life();
+
+  print_player_letter();
   
   /* update the screen */
   SDL_UpdateRect(screen,0,0,0,0);
