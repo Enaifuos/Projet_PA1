@@ -536,13 +536,13 @@ void print_player_letter()
   
   rcLetter.x = SCREEN_WIDTH-1 -256;
   rcLetter.y = SCREEN_HEIGHT-1 -SPRITE_SIZE;
-  SDL_BlitSurface(letter, &rcSrcLetter, screen, &rcLetter);
+  SDL_BlitSurface(empty_letter, &rcSrcLetter, screen, &rcLetter);
 
   for(i = 0; i < 7 ; i++)
     {
       rcSrcLetter.x += SPRITE_SIZE;
       rcLetter.x += SPRITE_SIZE;
-      SDL_BlitSurface(letter, &rcSrcLetter, screen, &rcLetter);
+      SDL_BlitSurface(empty_letter, &rcSrcLetter, screen, &rcLetter);
     }
 }
 
@@ -614,8 +614,12 @@ void screen_printing_Gmove()
   /* draw the sprite */
   SDL_BlitSurface(sprite, &rcSrcSprite, screen, &rcSprite);
 
-  /* draw ther player lifepoint */
+  /* draw the player lifepoint */
   print_player_life();
+  
+  /* draw the player letter found */
+  print_player_letter();
+
   
   /* update the screen */
   SDL_UpdateRect(screen,0,0,0,0);
@@ -649,6 +653,7 @@ void screen_printing_Pmove()
   /* draw ther player lifepoint */
   print_player_life();
 
+  /* draw the player letter found */
   print_player_letter();
   
   /* update the screen */
