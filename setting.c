@@ -703,9 +703,9 @@ void set_objectmap(Objmap *map)
   map[25+10*MAPlength].objsprite = *box;
   map[25+10*MAPlength].objvalue = 1;
   map[25+11*MAPlength].objsprite = *apple;
-  map[25+10*MAPlength].objvalue = 2; 
+  map[25+11*MAPlength].objvalue = 2; 
   map[24+10*MAPlength].objsprite = *talismant;
-  map[25+10*MAPlength].objvalue = 3; 
+  map[24+10*MAPlength].objvalue = 3;
 }
 
 /*
