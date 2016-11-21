@@ -519,10 +519,19 @@ void stats()
 
 void help()
 {
-  printf("This game was managed by Soufiane Aouri and Alex Ginestra\nYou can move width the directional up, down, left and right\n");
-  printf("keyboard key. If can quit the game by using the escape keyboard key\nAnd use p for the pause menu.\n");
-  printf("The object of this game is find the\n6 talismants and also avoid to die... ;) you can use BAG in the\n");
-  printf("pause menu to know how much talismant you have.\n\n");
+  SDL_Surface *help_picture;
+  SDL_Rect rcHelp;
+  rcHelp.x = 10;
+  rcHelp.y = SCREEN_HEIGHT - 240;
+  temp = SDL_LoadBMP("ressources/help.bmp");
+  help_picture = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  SDL_SetColorKey(help_picture, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+  SDL_BlitSurface(help_picture, NULL, screen, &rcHelp);
+  SDL_Flip(screen);
+  SDL_Delay(1800);
+  screen_printing_Pmove();
+  SDL_FreeSurface(help_picture);
 }
 
 

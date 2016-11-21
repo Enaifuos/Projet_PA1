@@ -710,6 +710,7 @@ int main(int argc, char* argv[])
   /* cleaning inside the rockwall */
   SDL_FreeSurface(rockwall_inside);
  
+
   SDL_Quit();
   
   return 0;
