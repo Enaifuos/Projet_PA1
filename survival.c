@@ -534,7 +534,7 @@ int main(int argc, char* argv[])
   int inside_rock = 0 ;
   while (!gameover)
     {
-      int printed = 0 ;
+      /*int printed = 0 ;
       if ( printed < 10 && check_enter_rockwall(coordplayerx,coordplayery))
 	{
 	  inside_rock = 1 ;
@@ -545,7 +545,7 @@ int main(int argc, char* argv[])
 	      screen_printing_Gmove();
 	      printed++;
 	    }
-	}
+	    }*/
 
       /* managing the time to set the day or the night */
       Time = SDL_GetTicks();

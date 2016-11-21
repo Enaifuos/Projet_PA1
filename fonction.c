@@ -626,7 +626,7 @@ void screen_printing_Gmove()
 	      x = (coordplayerx - rcSprite.x)/SPRITE_SIZE + i;
 	      y = (coordplayery - rcSprite.y)/SPRITE_SIZE + j;
 	      draw_GroundGM(i, j, x, y);
-	      if( OBJECTMAP[x+y*MAPlength].objvalue > 0  ||  OBJECTMAP[x+y*MAPlength].objvalue < 9 )
+	      if( OBJECTMAP[x+y*MAPlength].objvalue > 0  &&  OBJECTMAP[x+y*MAPlength].objvalue < 9 )
 		{
 		  rcSrcLetter.x = (OBJECTMAP[x+y*MAPlength].objvalue -1) * SPRITE_SIZE;
 		  draw_ObjectGM(i, j, x, y, &rcSrcLetter);
@@ -649,7 +649,7 @@ void screen_printing_Gmove()
 	      x = (coordplayerx - rcSprite.x) / SPRITE_SIZE +i ;
 	      y = (coordplayery - rcSprite.y) / SPRITE_SIZE +j;
 	      draw_GroundGM(i, j, x, y);
-	      if( OBJECTMAP[x+y*MAPlength].objvalue > 0  ||  OBJECTMAP[x+y*MAPlength].objvalue < 9 )
+	      if( OBJECTMAP[x+y*MAPlength].objvalue > 0  &&  OBJECTMAP[x+y*MAPlength].objvalue < 9 )
 		{
 		  rcSrcLetter.x = (OBJECTMAP[x+y*MAPlength].objvalue -1) * SPRITE_SIZE;
 		  draw_ObjectGM(i, j, x, y, &rcSrcLetter);
@@ -690,7 +690,7 @@ void screen_printing_Pmove()
 	  x = (coordplayerx - rcSprite.x)/SPRITE_SIZE + i;
 	  y = (coordplayery - rcSprite.y)/SPRITE_SIZE + j;
 	  draw_GroundPM(i, j, x, y);
-	  if( OBJECTMAP[x+y*MAPlength].objvalue > 0  ||  OBJECTMAP[x+y*MAPlength].objvalue < 9 )
+	  if( OBJECTMAP[x+y*MAPlength].objvalue > 0  &&  OBJECTMAP[x+y*MAPlength].objvalue < 9 )
 	    {
 	      rcSrcLetter.x = (OBJECTMAP[x+y*MAPlength].objvalue -1) * SPRITE_SIZE;
 	      draw_ObjectPM(i, j, x, y, &rcSrcLetter);
