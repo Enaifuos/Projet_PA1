@@ -701,12 +701,30 @@ void set_objectmap(Objmap *map)
 	}
     }
   map[25+10*MAPlength].objsprite = *box;
-  map[25+10*MAPlength].objvalue = 1;
+  map[25+10*MAPlength].objvalue = 9;
   map[25+11*MAPlength].objsprite = *apple;
-  map[25+11*MAPlength].objvalue = 2; 
-  map[24+10*MAPlength].objsprite = *talismant;
+  map[25+11*MAPlength].objvalue = 10; 
+
+  /* letter */
+  map[24+8*MAPlength].objsprite = *letter;
+  map[24+8*MAPlength].objvalue = 1;
+  map[24+9*MAPlength].objsprite = *letter;
+  map[24+9*MAPlength].objvalue = 2;
+  map[24+10*MAPlength].objsprite = *letter;
   map[24+10*MAPlength].objvalue = 3;
-}
+  map[24+11*MAPlength].objsprite = *letter;
+  map[24+11*MAPlength].objvalue = 4;
+  map[24+12*MAPlength].objsprite = *letter;
+  map[24+12*MAPlength].objvalue = 5;
+  map[24+13*MAPlength].objsprite = *letter;
+  map[24+13*MAPlength].objvalue = 6;
+  map[24+14*MAPlength].objsprite = *letter;
+  map[24+14*MAPlength].objvalue = 7;
+  map[24+15*MAPlength].objsprite = *letter;
+  map[24+15*MAPlength].objvalue = 8;
+
+
+    }
 
 /*
 void set_rockwall_map(){
