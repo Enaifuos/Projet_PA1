@@ -684,11 +684,11 @@ void screen_printing_Pmove()
 	  if( OBJECTMAP[x+y*MAPlength].objvalue > 0  ||  OBJECTMAP[x+y*MAPlength].objvalue < 9 )
 	    {
 	      rcSrcLetter.x = (OBJECTMAP[x+y*MAPlength].objvalue -1) * SPRITE_SIZE;
-	      draw_ObjectGM(i, j, x, y, &rcSrcLetter);
+	      draw_ObjectPM(i, j, x, y, &rcSrcLetter);
 	    }
 	  else if( OBJECTMAP[x+y*MAPlength].objvalue > 9 )
 	    {
-	      draw_ObjectGM(i, j, x, y, NULL);
+	      draw_ObjectPM(i, j, x, y, NULL);
 	    }
 	}
     }
