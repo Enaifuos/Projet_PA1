@@ -30,6 +30,7 @@ Uint8 *keystate;
 int colorkey, gameover, day, stepbfdie;
 int coordplayerx, coordplayery;
 int countertalismant, stepcount;
+int SURVIVAL[8];
 
 
 /*---- usefull for the printing ----*/

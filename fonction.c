@@ -13,6 +13,7 @@
 
     //check
 void check_life(int step);
+int check_win();
 int check_move_ground(int x, int y);
 int check_enter_rockwall(int x , int y );
 
@@ -55,8 +56,21 @@ void check_life(int step)
 {
   if( step <= 0 )
     {
-      //you_lose();
+      you_lose();
     }
+}
+
+
+
+int check_win()
+{
+  int i, res;
+  res = 1;
+  for( i = 0 ; i < 8 ; i++ )
+    {
+      res = res * SURVIVAL[i];
+    }
+  return res;
 }
 
 
@@ -72,6 +86,7 @@ int check_move_ground(int x, int y)
 
   if( OBJECTMAP[x+y*MAPlength].objvalue )
     {
+      SURVIVAL[(OBJECTMAP[x+y*MAPlength].objvalue)-1] = 1;
       OBJECTMAP[x+y*MAPlength].objvalue = 0;
     }
 
@@ -360,6 +375,7 @@ void you_lose(double k)
   SDL_Delay(1800);
 
   /* restart the game */
+  set_countletter();
   set_map(MAP, day);
   set_position();
   set_objectmap(OBJECTMAP);
@@ -384,6 +400,7 @@ void you_win()
   SDL_Delay(1800);
 
   /* restart the game */
+  set_countletter();
   set_map(MAP, day);
   set_position();
   set_objectmap(OBJECTMAP);
@@ -536,13 +553,27 @@ void print_player_letter()
   
   rcLetter.x = SCREEN_WIDTH-1 -256;
   rcLetter.y = SCREEN_HEIGHT-1 -SPRITE_SIZE;
-  SDL_BlitSurface(empty_letter, &rcSrcLetter, screen, &rcLetter);
 
+  if( SURVIVAL[0] )
+    {
+      SDL_BlitSurface(letter, &rcSrcLetter, screen, &rcLetter);
+    }
+  else
+    {
+      SDL_BlitSurface(empty_letter, &rcSrcLetter, screen, &rcLetter);
+    }
   for(i = 0; i < 7 ; i++)
     {
       rcSrcLetter.x += SPRITE_SIZE;
       rcLetter.x += SPRITE_SIZE;
-      SDL_BlitSurface(empty_letter, &rcSrcLetter, screen, &rcLetter);
+      if( SURVIVAL[i+1] )
+	{
+	  SDL_BlitSurface(letter, &rcSrcLetter, screen, &rcLetter);
+	}
+      else
+	{
+	  SDL_BlitSurface(empty_letter, &rcSrcLetter, screen, &rcLetter);
+	}     
     }
 }
 

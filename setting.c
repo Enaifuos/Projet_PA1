@@ -10,6 +10,7 @@
 /*---Prototypes---*/
 
 void set_position();
+void set_countletter();
 
 
 //array function
@@ -30,6 +31,20 @@ void set_position()
   rcSprite.x = 9*SPRITE_SIZE;
   rcSprite.y = 7*SPRITE_SIZE;
 }
+
+
+void set_countletter()
+{
+  int i;
+  for( i = 0 ; i < 8 ; i++ )
+    {
+      SURVIVAL[i] = 0;
+    }
+}
+
+
+
+
 
 
 

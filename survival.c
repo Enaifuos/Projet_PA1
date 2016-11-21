@@ -22,6 +22,8 @@ int main(int argc, char* argv[])
   MAP = (SDL_Surface *)malloc(sizeof(SDL_Surface)*MAPlength*MAPheight);
   OBJECTMAP = (Objmap *)malloc(sizeof(Objmap)*MAPlength*MAPheight);
   
+  set_countletter();
+
   /* initialize video system */
   SDL_Init(SDL_INIT_VIDEO);
   
@@ -608,6 +610,10 @@ int main(int argc, char* argv[])
       if( keystate[SDLK_p])
 	{
 	  menu_pause();
+	}
+      if( check_win() )
+	{
+	  you_win();
 	}
     }
   
