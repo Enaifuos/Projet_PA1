@@ -79,19 +79,24 @@ int check_win()
    
 int check_move_ground(int x, int y)
 {
-   int allow = 0;
-   SDL_Surface pos = MAP[x+y*MAPlength];
+  int allow = 0;
+  SDL_Surface pos = MAP[x+y*MAPlength];
 
   //check if there is an object
 
+  
   if( OBJECTMAP[x+y*MAPlength].objvalue )
     {
+      if( OBJECTMAP[x+y*MAPlength].objvalue == 10)
+	{
+	  stepbfdie += 15 ;
+	}
       SURVIVAL[(OBJECTMAP[x+y*MAPlength].objvalue)-1] = 1;
       OBJECTMAP[x+y*MAPlength].objvalue = 0;
     }
-
-
-
+   
+   
+   
   //DAY
   if( day )
     {
@@ -100,7 +105,7 @@ int check_move_ground(int x, int y)
 	{
 	  allow = 1;
 	}
-      
+       
       //special sandg
       else if( pos.pixels == (*sandg_u).pixels || pos.pixels == (*sandg_d).pixels || pos.pixels == (*sandg_dl).pixels || pos.pixels == (*sandg_dr).pixels || pos.pixels == (*sandg_ul).pixels || pos.pixels == (*sandg_ur).pixels || pos.pixels == (*sandg_l).pixels || pos.pixels == (*sandg_r).pixels)
 	{
@@ -527,7 +532,7 @@ void help()
   SDL_SetColorKey(help_picture, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
   SDL_BlitSurface(help_picture, NULL, screen, &rcHelp);
   SDL_Flip(screen);
-  SDL_Delay(1800);
+  SDL_Delay(2800);
   screen_printing_Pmove();
   SDL_FreeSurface(help_picture);
 }
