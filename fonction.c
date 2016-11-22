@@ -380,7 +380,6 @@ void you_lose(double k)
   set_position();
   set_objectmap(OBJECTMAP);
   stepbfdie = 75;
-  countertalismant = 0;
   screen_printing_Gmove();
 
   SDL_FreeSurface(lose);
@@ -405,7 +404,6 @@ void you_win()
   set_position();
   set_objectmap(OBJECTMAP);
   stepbfdie = 75;
-  countertalismant = 0;
   screen_printing_Gmove();
 
 
@@ -538,8 +536,7 @@ void help()
 
 void bag()
 {
-  int nbtofind = NumbTalis - countertalismant;
-  printf("You have find %d talismant, %d more to win!\n\n", countertalismant , nbtofind);
+
 }
 
 

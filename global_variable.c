@@ -6,7 +6,6 @@
 #define SPRITE_SIZE    32
 #define MAPlength      64
 #define MAPheight      44
-#define NumbTalis       6
 #define DAY_DURATION   10
 
 
@@ -27,9 +26,9 @@ struct Objectmap
 /*---- usufull for the code ----*/
 SDL_Event event;
 Uint8 *keystate;
-int colorkey, gameover, day, stepbfdie;
+int colorkey, gameover, day;
 int coordplayerx, coordplayery;
-int countertalismant, stepcount;
+int stepcount, stepbfdie;
 int SURVIVAL[8];
 
 
@@ -48,7 +47,7 @@ SDL_Rect rcLadder, rcTrap;
 
 //Object in the map
 Objmap *OBJECTMAP; //[MAPlength][MAPheight]
-SDL_Surface  *box, *apple, *talismant, *letter, *empty_letter;
+SDL_Surface  *box, *apple, *letter, *empty_letter;
 SDL_Rect rcObject, rcLetter, rcSrcLetter;
 
 //pause menu & life

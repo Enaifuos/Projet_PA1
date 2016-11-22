@@ -460,19 +460,11 @@ int main(int argc, char* argv[])
   colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
   SDL_SetColorKey(apple, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
   
-  /* load the talismant */
-  temp = SDL_LoadBMP("ressources/dragon_talismant.bmp");
-  talismant = SDL_DisplayFormat(temp);
-  SDL_FreeSurface(temp);
   
   /* load the insiede rockwall sprites */
   temp = SDL_LoadBMP("ressources/rockwall_inside.bmp");
   rockwall_inside = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
-
-  /* setup heart colorkey and turn on RLE */
-  colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
-  SDL_SetColorKey(talismant, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
 
   /* load the insiede rockwall sprites */
   temp = SDL_LoadBMP("ressources/Survival.bmp");
@@ -697,8 +689,13 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(bridge2_night);
   
 
-  /* cleaning the mystery box */
+  /* cleaning the object */
   SDL_FreeSurface(box);
+  SDL_FreeSurface(heart);
+  SDL_FreeSurface(empty_heart);
+  SDL_FreeSurface(redrect);
+  SDL_FreeSurface(empty_letter);
+
 
   /* cleaning the ladder */
   SDL_FreeSurface(ladder1);
