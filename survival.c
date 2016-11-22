@@ -526,6 +526,7 @@ int main(int argc, char* argv[])
   int inside_rock = 0 ;
   while (!gameover)
     {
+      check_enter_rockwall(coordplayerx,coordplayery);
       /*int printed = 0 ;
       if ( printed < 10 && check_enter_rockwall(coordplayerx,coordplayery))
 	{
