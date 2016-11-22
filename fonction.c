@@ -56,7 +56,7 @@ void check_life(int step)
 {
   if( step <= 0 )
     {
-      you_lose();
+      //  you_lose();
     }
 }
 
@@ -532,7 +532,7 @@ void help()
   SDL_SetColorKey(help_picture, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
   SDL_BlitSurface(help_picture, NULL, screen, &rcHelp);
   SDL_Flip(screen);
-  SDL_Delay(2800);
+  SDL_Delay(7200);
   screen_printing_Pmove();
   SDL_FreeSurface(help_picture);
 }
