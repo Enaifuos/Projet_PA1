@@ -6,7 +6,7 @@
 #define SPRITE_SIZE    32
 #define MAPlength      64
 #define MAPheight      44
-#define DAY_DURATION   15
+#define DAY_DURATION   10
 
 
 

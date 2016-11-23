@@ -91,7 +91,10 @@ int check_move_ground(int x, int y)
 	{
 	  stepbfdie += 15 ;
 	}
-      SURVIVAL[(OBJECTMAP[x+y*MAPlength].objvalue)-1] = 1;
+      if( OBJECTMAP[x+y*MAPlength].objvalue < 9 )
+	{
+	  SURVIVAL[(OBJECTMAP[x+y*MAPlength].objvalue)-1] = 1;
+	}
       OBJECTMAP[x+y*MAPlength].objvalue = 0;
     }
    
