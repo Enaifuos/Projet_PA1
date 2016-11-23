@@ -1,5 +1,5 @@
 #include "SDL.h"
-#include "setting.c"
+#include "cave_function.c"
 
 #define SPRITE_SIZE    32
 

@@ -524,8 +524,6 @@ int main(int argc, char* argv[])
 
   while (!gameover)
     {
-      check_enter_rockwall(coordplayerx,coordplayery);     
-
       /* managing the time to set the day or the night */
       Time = SDL_GetTicks();
       Time = ((Time / 1000)/ DAY_DURATION) % 2; 

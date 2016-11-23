@@ -84,7 +84,6 @@ int check_move_ground(int x, int y)
 
   //check if there is an object
 
-  
   if( OBJECTMAP[x+y*MAPlength].objvalue )
     {
       if( OBJECTMAP[x+y*MAPlength].objvalue == 10)
@@ -96,9 +95,8 @@ int check_move_ground(int x, int y)
 	  SURVIVAL[(OBJECTMAP[x+y*MAPlength].objvalue)-1] = 1;
 	}
       OBJECTMAP[x+y*MAPlength].objvalue = 0;
-    }
-   
-   
+    }   
+
    
   //DAY
   if( day )
@@ -160,6 +158,14 @@ int check_move_ground(int x, int y)
 	allow = 1;
       }
     }
+
+
+  if( check_enter_rockwall(x , y) )
+    {
+      printf("entree de grotte\n");
+      allow = 0;
+    }  
+
   //return allow;
   return 1;
 }
@@ -728,7 +734,7 @@ void screen_printing_Pmove()
 
 int check_enter_rockwall(int x , int y )
 {
-  if( (y == 192 && (x == 448 || x == 800)) || (x == 384 && y == 704) || ( x == 800 && y == 768) )
+  if( (y == 5 && (x == 14 || x == 25)) || (x == 12 && y == 21) || ( x == 25 && y == 23) )
     {
       SDL_Surface *enter;
       SDL_Rect rcEnter;
@@ -740,8 +746,8 @@ int check_enter_rockwall(int x , int y )
       SDL_SetColorKey(enter, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
       SDL_BlitSurface(enter, NULL, screen, &rcEnter);
       SDL_Flip(screen);
-      SDL_Delay(1000);
-      // screen_printing_Pmove();
+      SDL_Delay(500);
+      screen_printing_Pmove();
       SDL_FreeSurface(enter);
       return 1;
     }
