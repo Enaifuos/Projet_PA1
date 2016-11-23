@@ -50,39 +50,6 @@ void set_countletter()
 
 
 
-SDL_Surface * CreateTable(int c , int l)
-{
-  SDL_Surface * t1;
-  t1 = (SDL_Surface *)malloc(sizeof(SDL_Surface)*c*l);
-  return t1 ;
-}
-
-
-
-Objmap ** CreateObjtable(int c , int l)
-{
-  Objmap ** t1 = (Objmap **)malloc(sizeof(Objmap*)*c);
-  if ( t1 == NULL ) // test if the malloc run
-    {
-      printf("missing dynamic memory to run the game (error table)\n");
-    }
-
-  else
-    {      
-      int i ;
-      for (i = 0 ; i < c ; i++) 
-	{
-	  t1[i] = (Objmap *)malloc(sizeof(Objmap)*l);
-	}
-    }
-  return t1 ;
-}
-
-
-
-
-
-
 
 
 /*------------------- SET THE MAP ---------------------*/
@@ -391,7 +358,7 @@ void set_map(SDL_Surface * map, int DAY) //
 
 
 
-  /*------ NIGHT ------*/
+  /*----------- NIGHT -----------*/
   else
     {
       /* set grass everywhere */  
@@ -579,7 +546,7 @@ void set_map(SDL_Surface * map, int DAY) //
       map[25+16*MAPlength] = *bridge2_night;
    
 
-      // map[24][17] = *trap;
+      // map[24][17] = *trap_night;
       for ( i = 19 ; i < 30 ; i++)
 	{
 	  if ( i != 24 && i != 25 )
@@ -719,7 +686,8 @@ void set_objectmap(Objmap *map)
   map[25+10*MAPlength].objvalue = 9;
   map[25+11*MAPlength].objsprite = *apple;
   map[25+11*MAPlength].objvalue = 10; 
-
+  map[26+10*MAPlength].objsprite = *box;
+  map[26+10*MAPlength].objvalue = 9;
   /* letter */
   map[24+8*MAPlength].objsprite = *letter;
   map[24+8*MAPlength].objvalue = 1;
@@ -739,7 +707,7 @@ void set_objectmap(Objmap *map)
   map[24+15*MAPlength].objvalue = 8;
 
 
-    }
+}
 
 /*
 void set_rockwall_map(){

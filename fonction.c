@@ -365,7 +365,7 @@ void move_left()
 /*--------action in the game---------*/
 
 
-void you_lose(double k)
+void you_lose()
 {
   printf("**********\n YOU LOSE\n**********\n");
   
@@ -388,6 +388,7 @@ void you_lose(double k)
   screen_printing_Gmove();
 
   SDL_FreeSurface(lose);
+  printf("**********\n fin youlose\n**********\n");
 }
 
 
@@ -413,6 +414,8 @@ void you_win()
 
 
   SDL_FreeSurface(win);
+  printf(" fin you win!!!! \n\n");
+
 }
 
 
@@ -633,7 +636,7 @@ void screen_printing_Gmove()
 		  rcSrcLetter.x = (OBJECTMAP[x+y*MAPlength].objvalue -1) * SPRITE_SIZE;
 		  draw_ObjectGM(i, j, x, y, &rcSrcLetter);
 		}
-	      else if( OBJECTMAP[x+y*MAPlength].objvalue > 9 )
+	      else if( OBJECTMAP[x+y*MAPlength].objvalue >= 9 )
 		{
 		  draw_ObjectGM(i, j, x, y, NULL);
 		}
@@ -656,7 +659,7 @@ void screen_printing_Gmove()
 		  rcSrcLetter.x = (OBJECTMAP[x+y*MAPlength].objvalue -1) * SPRITE_SIZE;
 		  draw_ObjectGM(i, j, x, y, &rcSrcLetter);
 		}
-	      else if( OBJECTMAP[x+y*MAPlength].objvalue > 9 )
+	      else if( OBJECTMAP[x+y*MAPlength].objvalue >= 9 )
 		{
 		  draw_ObjectGM(i, j, x, y, NULL);
 		}
@@ -697,7 +700,7 @@ void screen_printing_Pmove()
 	      rcSrcLetter.x = (OBJECTMAP[x+y*MAPlength].objvalue -1) * SPRITE_SIZE;
 	      draw_ObjectPM(i, j, x, y, &rcSrcLetter);
 	    }
-	  else if( OBJECTMAP[x+y*MAPlength].objvalue > 9 )
+	  else if( OBJECTMAP[x+y*MAPlength].objvalue >= 9 )
 	    {
 	      draw_ObjectPM(i, j, x, y, NULL);
 	    }
@@ -722,24 +725,25 @@ void screen_printing_Pmove()
 
 int check_enter_rockwall(int x , int y )
 {
-  if ((y == 192 && (x == 448 || x == 800)) || (x == 384 && y == 704) || ( x == 800 && y == 768)){
-    SDL_Surface *enter;
-    SDL_Rect rcEnter;
-    rcEnter.x = 10;
-    rcEnter.y = 240;
-    temp = SDL_LoadBMP("ressources/enter.bmp");
-    enter = SDL_DisplayFormat(temp);
-    SDL_FreeSurface(temp);
-    SDL_SetColorKey(enter, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
-    SDL_BlitSurface(enter, NULL, screen, &rcEnter);
-    SDL_Flip(screen);
-    SDL_Delay(1000);
-    // screen_printing_Pmove();
-    SDL_FreeSurface(enter);
-    return 1;
-  }
-  else{
-    return 0;
-  }
-    //return ( (y == 192 && (x == 448 || x == 800)) || (x == 384 && y == 704) || ( x == 800 && y == 768));
+  if( (y == 192 && (x == 448 || x == 800)) || (x == 384 && y == 704) || ( x == 800 && y == 768) )
+    {
+      SDL_Surface *enter;
+      SDL_Rect rcEnter;
+      rcEnter.x = 10;
+      rcEnter.y = 240;
+      temp = SDL_LoadBMP("ressources/enter.bmp");
+      enter = SDL_DisplayFormat(temp);
+      SDL_FreeSurface(temp);
+      SDL_SetColorKey(enter, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+      SDL_BlitSurface(enter, NULL, screen, &rcEnter);
+      SDL_Flip(screen);
+      SDL_Delay(1000);
+      // screen_printing_Pmove();
+      SDL_FreeSurface(enter);
+      return 1;
+    }
+  else
+    {
+      return 0;
+    }
 }

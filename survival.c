@@ -517,43 +517,31 @@ int main(int argc, char* argv[])
   gameover = 0;
   
   /* set the MAP and objectMAP*/
-  set_map(MAP, Time);
+  set_map(MAP, 1);
   set_objectmap(OBJECTMAP);
   
   screen_printing_Gmove();
 
-  /* message pump */
-  int inside_rock = 0 ;
   while (!gameover)
     {
-      check_enter_rockwall(coordplayerx,coordplayery);
-      /*int printed = 0 ;
-      if ( printed < 10 && check_enter_rockwall(coordplayerx,coordplayery))
-	{
-	  inside_rock = 1 ;
-	  
-	  //set_rockwall_map();
-	  if ( !printed)
-	    {
-	      screen_printing_Gmove();
-	      printed++;
-	    }
-	    }*/
+      check_enter_rockwall(coordplayerx,coordplayery);     
 
       /* managing the time to set the day or the night */
       Time = SDL_GetTicks();
       Time = ((Time / 1000)/ DAY_DURATION) % 2; 
-      if( !Time && Time != TimePrev && !inside_rock ) //day
+      if( !Time && Time != TimePrev)// && !inside_rock ) //day
 	{
 	  day = 1;
 	  set_map(MAP, day);
 	  screen_printing_Gmove();
 	  TimePrev = Time;
 	}
-      else if( Time && Time != TimePrev  && !inside_rock) // night
+	else if( Time && Time != TimePrev)//  && !inside_rock) // night
 	{
 	  day = 0;
+	  printf("1\n");
 	  set_map(MAP, day);
+	  printf("2\n");
 	  screen_printing_Gmove();
 	  TimePrev = Time;
 	}
