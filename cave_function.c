@@ -154,7 +154,7 @@ void print_cave(SDL_Surface * CAVE)
   int i,j;
   for(i = 0 ; i < CAVEheight ; i++ )
     {
-      for( j = 0 ; j < CAVElength ; j++ )
+      for( j = 0 ; j < CAVElength +5; j++ )
 	{
 	  rcGround.x = i * SPRITE_SIZE;
 	  rcGround.y = j * SPRITE_SIZE;
