@@ -705,14 +705,19 @@ void set_letter_pos (Objmap *objectmap )
   int i = 0 ;
   int j = 0 ;
   int c = 0 ;
-  for ( c = 1 ; c < 9 ; c ++  ){
+  for ( c = 1 ; c < 10 ; c ++  ){
     while ( !check_ground_MAP(i , j)  ) 
       {
 	i = rand()%MAPlength;
 	j = rand()%MAPheight;
       }
     objectmap[i+j*MAPlength].objvalue = c ;
-    objectmap[i+j*MAPlength].objsprite = *letter ;
+    if(c<9){
+      objectmap[i+j*MAPlength].objsprite = *letter ;
+    }
+    else{
+      objectmap[i+j*MAPlength].objsprite = *apple ;
+    }
     i = rand()%MAPlength ;
     j = rand()%MAPheight ;
   }
