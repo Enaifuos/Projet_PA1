@@ -414,6 +414,31 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(temp);
 
 
+  /*load cave*/
+  temp = SDL_LoadBMP("ressources/inside_rockwall/cave_u.bmp");
+  cave_u = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/inside_rockwall/cave_d.bmp");
+  cave_d = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/inside_rockwall/cave_l.bmp");
+  cave_l = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/inside_rockwall/cave_r.bmp");
+  cave_r = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/inside_rockwall/cave_top.bmp");
+  cave_top = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  
+  temp = SDL_LoadBMP("ressources/inside_rockwall/cave_ground.bmp");
+  cave_ground = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
   /* load the mystery_box */
   temp = SDL_LoadBMP("ressources/box/mystery_box.bmp");
   box = SDL_DisplayFormat(temp);
@@ -557,12 +582,13 @@ int main(int argc, char* argv[])
 	      
 	      /* handle the keyboard */
 	    case SDL_KEYDOWN:
-	      switch (event.key.keysym.sym) {
-	      case SDLK_ESCAPE:
-	      case SDLK_q:
-		gameover = 1;
-		break;
-	      }
+	      switch (event.key.keysym.sym) 
+		{
+		case SDLK_ESCAPE:
+		case SDLK_q:
+		  gameover = 1;
+		  break;
+		}
 	      break;
 	    }
 	}
