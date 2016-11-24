@@ -153,21 +153,18 @@ int check_move_ground(int x, int y)
 	{
 	  allow = 1;
 	}
-      //inside the rockwall 
-      else if( pos.pixels == (*rockwall_inside).pixels ){
-	allow = 1;
-      }
     }
 
 
   if( check_enter_rockwall(x , y) )
     {
       printf("entree de grotte\n");
+      cave();
       allow = 0;
     }  
 
   //return allow;
-  return 1;
+  return allow;
 }
 
 

@@ -45,13 +45,6 @@ void cave()
 	      
 	      /* handle the keyboard */
 	    case SDL_KEYDOWN:
-	      switch (event.key.keysym.sym) 
-		{
-		case SDLK_ESCAPE:
-		case SDLK_q:
-		  gameover = 1;
-		  break;
-		}
 	      break;
 	    }
 	}
@@ -77,13 +70,6 @@ void cave()
 	}
     }
 
-}
-
-
-
-
-
-
 
   
   free(CAVE);
@@ -103,3 +89,26 @@ void set_cave(SDL_Surface * map)
 }
 
 
+void cave_move_left()
+{
+  printf("left");
+}
+
+
+void cave_move_right()
+{
+  printf("right");
+}
+
+
+void cave_move_up()
+{
+  printf("up");
+}
+
+
+
+void cave_move_down()
+{
+  printf("down");
+}
