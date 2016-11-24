@@ -15,15 +15,15 @@ void set_cave(SDL_Surface * map);
 
 
 
-void cave_move_left(SDL_Rect *Coordplayer);
-void cave_move_right(SDL_Rect *Coordplayer);
-void cave_move_up(SDL_Rect *Coordplayer);
-void cave_move_down(SDL_Rect *Coordplayer);
+void cave_move_left(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map);
+void cave_move_right(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map);
+void cave_move_up(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map);
+void cave_move_down(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map);
 
 
-
-void print_cave(SDL_Surface * CAVE);
-void print_player_cave(SDL_Rect * rcCoord);
+void print_cave(SDL_Surface * CAVE, SDL_Rect * rcCoord, SDL_Rect * rcSrcCoord);
+void print_ground_cave(SDL_Surface * CAVE);
+void print_player_cave(SDL_Rect * rcCoord, SDL_Rect * rcSrcCoord);
 
 
 
@@ -40,14 +40,18 @@ void cave()
   coordplayertemp.y = SPRITE_SIZE*7;
   SDL_Rect rcSrcPcave;
 
+  rcSrcPcave.x = 0;
+  rcSrcPcave.y = 0;
+  rcSrcPcave.h = SPRITE_SIZE;
+  rcSrcPcave.w = SPRITE_SIZE;
 
   /*set the cave */
   SDL_Surface * CAVE;
   CAVE = (SDL_Surface *)malloc(sizeof(SDL_Surface)*CAVElength*CAVEheight);
   set_cave(CAVE);
-  print_cave(CAVE);
-  print_player_cave(&coordplayertemp);
-  int quit = 0;
+  print_ground_cave(CAVE);
+  print_player_cave(&coordplayertemp, &rcSrcPcave);
+  quit = 0;
   while (!quit)
     {
       /* look for an event */
@@ -80,23 +84,21 @@ void cave()
       
       if( keystate[SDLK_LEFT] )
 	{
-	   cave_move_left(&coordplayertemp);
+	  cave_move_left(&coordplayertemp, &rcSrcPcave, CAVE);
 	}
       if( keystate[SDLK_RIGHT] )
 	{
-	  cave_move_right(&coordplayertemp);
+	  cave_move_right(&coordplayertemp, &rcSrcPcave, CAVE);
 	}
       if( keystate[SDLK_UP] )
 	{
-	  cave_move_up(&coordplayertemp);
+	  cave_move_up(&coordplayertemp, &rcSrcPcave, CAVE);
 	}
       if( keystate[SDLK_DOWN] )
 	{
-	  cave_move_down(&coordplayertemp);
+	  cave_move_down(&coordplayertemp, &rcSrcPcave, CAVE);
 	}
     }
-
-
   
   free(CAVE);
 }
@@ -148,58 +150,97 @@ void set_cave(SDL_Surface * map)
 
 
 /* movement*/
-void cave_move_left(SDL_Rect *Coordplayer)
+void cave_move_left(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
 {
+  (*rcSrc).y = SPRITE_SIZE * 6;
   if( (*Coordplayer).x > 4*SPRITE_SIZE)
     {
+      stepbfdie -= 1;
       printf("left\n");
       int i;
       for( i = 0 ; i < SPRITE_SIZE ; i++)
 	{
 	  (*Coordplayer).x -= 1;
+	  if( i%8 == 0 && i != 0)
+	    {
+	      (*rcSrc).y += SPRITE_SIZE+1;
+	    }
+	  SDL_Delay(5);
+	  print_cave(map, Coordplayer, rcSrc);
 	}
     }
 }
 
 
-void cave_move_right(SDL_Rect *Coordplayer)
+void cave_move_right(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
 {
-  if( (*Coordplayer).x < 10*SPRITE_SIZE )
+  (*rcSrc).y = SPRITE_SIZE * 12;
+  if( (*Coordplayer).x < 14*SPRITE_SIZE )
     {
+      stepbfdie -= 1;
       printf("right\n");
       int i;
       for( i = 0 ; i < SPRITE_SIZE ; i++)
 	{
 	  (*Coordplayer).x += 1;
+	  if( i%8 == 0 && i != 0)
+	    {
+	      (*rcSrc).y += SPRITE_SIZE+1;
+	    }
+	  SDL_Delay(5);
+	  print_cave(map, Coordplayer, rcSrc);		  
 	}
     }
 }
 
 
-void cave_move_up(SDL_Rect *Coordplayer)
+void cave_move_up(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
 {
-  if( (*Coordplayer).y > 5*SPRITE_SIZE )
+  (*rcSrc).y = SPRITE_SIZE * 18;
+  if( (*Coordplayer).y > 3*SPRITE_SIZE )
     {
+      stepbfdie -= 1;
       printf("up\n");
       int i;
       for( i = 0 ; i < SPRITE_SIZE ; i++)
 	{
 	  (*Coordplayer).y -= 1;
+	  if( i%8 == 0 && i != 0)
+	    {
+	      (*rcSrc).y += SPRITE_SIZE;
+	    }
+	  SDL_Delay(5);
+	  print_cave(map, Coordplayer, rcSrc);
 	}
     }
 }
 
 
 
-void cave_move_down(SDL_Rect *Coordplayer)
+void cave_move_down(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
 {
-  if( (*Coordplayer).y < 10*SPRITE_SIZE )
+  if( (*Coordplayer).x == SPRITE_SIZE*9 && (*Coordplayer).y == SPRITE_SIZE*11 )
     {
-      printf("down\n");
-      int i;
-      for( i = 0 ; i < SPRITE_SIZE ; i++)
+      stepbfdie -= 1;
+      quit = 1;
+    }
+  else
+    {
+      (*rcSrc).y = 0;
+      if( (*Coordplayer).y < 11*SPRITE_SIZE )
 	{
-	  (*Coordplayer).y += 1;
+	  printf("down\n");
+	  int i;
+	  for( i = 0 ; i < SPRITE_SIZE ; i++)
+	    {
+	      (*Coordplayer).y += 1;
+	      if( i%8 == 0 && i != 0)
+		{
+		  (*rcSrc).y += SPRITE_SIZE+1;
+		}
+	      SDL_Delay(5);
+	      print_cave(map, Coordplayer, rcSrc);
+	    }
 	}
     }
 }
@@ -213,7 +254,15 @@ void cave_move_down(SDL_Rect *Coordplayer)
 
 /*---- screen printing ----*/
 
-void print_cave(SDL_Surface * CAVE)
+void print_cave(SDL_Surface * CAVE, SDL_Rect * rcCoord, SDL_Rect * rcSrcCoord)
+{
+  print_ground_cave(CAVE);
+  print_player_cave(rcCoord, rcSrcCoord);
+}
+
+
+
+void print_ground_cave(SDL_Surface * CAVE)
 {
   int i,j;
   for(i = 0 ; i < CAVEheight ; i++ )
@@ -225,13 +274,12 @@ void print_cave(SDL_Surface * CAVE)
 	  SDL_BlitSurface(&CAVE[j+i*CAVElength], NULL, screen, &rcGround);
 	}
     }
-  SDL_UpdateRect(screen,0,0,0,0);
 }
 
 
 
-void print_player_cave(SDL_Rect *rcCoord)
+void print_player_cave(SDL_Rect *rcCoord, SDL_Rect * rcSrcCoord)
 {
-  SDL_BlitSurface(sprite, &rcSrcSprite, screen, rcCoord);
+  SDL_BlitSurface(sprite, rcSrcCoord, screen, rcCoord);
   SDL_UpdateRect(screen,0,0,0,0);
 }

@@ -26,7 +26,7 @@ struct Objectmap
 /*---- usufull for the code ----*/
 SDL_Event event;
 Uint8 *keystate;
-int colorkey, gameover, day;
+int colorkey, gameover, day, quit;
 int coordplayerx, coordplayery;
 int stepcount, stepbfdie;
 int SURVIVAL[8];
