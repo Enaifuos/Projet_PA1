@@ -493,13 +493,7 @@ int main(int argc, char* argv[])
   colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
   SDL_SetColorKey(apple, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
   
-  
-  /* load the insiede rockwall sprites */
-  temp = SDL_LoadBMP("ressources/rockwall_inside.bmp");
-  rockwall_inside = SDL_DisplayFormat(temp);
-  SDL_FreeSurface(temp);
-
-  /* load the insiede rockwall sprites */
+   /* load the insiede rockwall sprites */
   temp = SDL_LoadBMP("ressources/Survival.bmp");
   letter = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
@@ -734,9 +728,6 @@ int main(int argc, char* argv[])
 
   /* cleaning the trap */
   SDL_FreeSurface(trap);
-
-  /* cleaning inside the rockwall */
-  SDL_FreeSurface(rockwall_inside);
  
 
   SDL_Quit();

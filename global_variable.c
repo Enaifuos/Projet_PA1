@@ -36,7 +36,7 @@ int SURVIVAL[8];
 
 //Ground int he map
 SDL_Surface * MAP; //[MAPlength][MAPheight]
-SDL_Surface *screen, *temp, *sprite, *grass, *grass_night, *water, *water_night, *sand, *sand_night, *tree, *tree_night, *dirt, *dirt_night, *rockwall_inside;
+SDL_Surface *screen, *temp, *sprite, *grass, *grass_night, *water, *water_night, *sand, *sand_night, *tree, *tree_night, *dirt, *dirt_night;
 SDL_Surface *dirtg_d, *dirtg_d_night,  *dirtg_dl, *dirtg_dl_night, *dirtg_dr, *dirtg_dr_night, *dirtg_l, *dirtg_l_night, *dirtg_r, *dirtg_r_night, *dirtg_u, *dirtg_u_night, *dirtg_ul, *dirtg_ul_night,  *dirtg_ur, *dirtg_ur_night;
 SDL_Surface *sandg_dl, *sandg_dl_night, *sandg_dr, *sandg_dr_night, *sandg_l, *sandg_l_night,*sandg_r,*sandg_r_night, *sandg_ul,*sandg_ul_night, *sandg_ur, *sandg_ur_night, *sandg_d, *sandg_d_night, *sandg_u, *sandg_u_night;
 SDL_Surface *sandw_dl, *sandw_dl_night, *sandw_dr, *sandw_dr_night, *sandw_l, *sandw_l_night, *sandw_r, *sandw_r_night, *sandw_ul, *sandw_ul_night, *sandw_ur, *sandw_ur_night, *sandw_d, *sandw_d_night, *sandw_u, *sandw_u_night;

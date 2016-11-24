@@ -22,10 +22,10 @@ void set_cave(SDL_Surface * map);
 
 
 
-void cave_move_left(struct coord Coordplayer);
-void cave_move_right(struct coord Coordplayer);
-void cave_move_up(struct coord Coordplayer);
-void cave_move_down(struct coord Coordplayer);
+int cave_move_left(struct coord Coordplayer);
+int cave_move_right(struct coord Coordplayer);
+int cave_move_up(struct coord Coordplayer);
+int cave_move_down(struct coord Coordplayer);
 
 
 
@@ -85,19 +85,19 @@ void cave()
       
       if( keystate[SDLK_LEFT] )
 	{
-	  cave_move_left(coordplayertemp);
+	   coordplayertemp.x = cave_move_left(coordplayertemp);
 	}
       if( keystate[SDLK_RIGHT] )
 	{
-	  cave_move_right(coordplayertemp);
+	  coordplayertemp.x = cave_move_right(coordplayertemp);
 	}
       if( keystate[SDLK_UP] )
 	{
-	  cave_move_up(coordplayertemp);
+	  coordplayertemp.y = cave_move_up(coordplayertemp);
 	}
       if( keystate[SDLK_DOWN] )
 	{
-	  cave_move_down(coordplayertemp);
+	  coordplayertemp.y = cave_move_down(coordplayertemp);
 	}
     }
 
@@ -107,6 +107,8 @@ void cave()
 }
 
 
+
+//---- set the cave
 void set_cave(SDL_Surface * map)
 {
   int i, j;
@@ -120,28 +122,37 @@ void set_cave(SDL_Surface * map)
 }
 
 
-void cave_move_left(struct coord Coordplayer)
+
+
+
+
+/* movement*/
+int cave_move_left(struct coord Coordplayer)
 {
   printf("left");
+  return (Coordplayer.x+SPRITE_SIZE);
 }
 
 
-void cave_move_right(struct coord Coordplayer)
+int cave_move_right(struct coord Coordplayer)
 {
   printf("right");
+  return (Coordplayer.x-SPRITE_SIZE);
 }
 
 
-void cave_move_up(struct coord Coordplayer)
+int cave_move_up(struct coord Coordplayer)
 {
   printf("up");
+  return (Coordplayer.y-SPRITE_SIZE);
 }
 
 
 
-void cave_move_down(struct coord Coordplayer)
+int cave_move_down(struct coord Coordplayer)
 {
   printf("down");
+  return (Coordplayer.y+SPRITE_SIZE);
 }
 
 
@@ -150,6 +161,8 @@ void cave_move_down(struct coord Coordplayer)
 
 
 
+
+/*---- screen printing ----*/
 
 void print_cave(SDL_Surface * CAVE)
 {
@@ -170,5 +183,5 @@ void print_cave(SDL_Surface * CAVE)
 
 void print_player_cave()
 {
-  
+  SDL_BlitSurface(sprite, &rcSrcSprite, screen, &rcSprite);
 }

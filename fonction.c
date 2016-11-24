@@ -15,6 +15,7 @@
 void check_life(int step);
 int check_win();
 int check_move_ground(int x, int y);
+int check_ground_MAP(int x, int y);
 int check_enter_rockwall(int x , int y );
 
     //movement
@@ -80,7 +81,6 @@ int check_win()
 int check_move_ground(int x, int y)
 {
   int allow = 0;
-  SDL_Surface pos = MAP[x+y*MAPlength];
 
   //check if there is an object
 
@@ -97,7 +97,26 @@ int check_move_ground(int x, int y)
       OBJECTMAP[x+y*MAPlength].objvalue = 0;
     }   
 
-   
+  allow = check_ground_MAP(x,y);
+
+  if( check_enter_rockwall(x , y) )
+    {
+      printf("entree de grotte\n");
+      cave();
+      allow = 0;
+    }  
+
+  //return allow;
+  return allow;
+}
+
+
+
+
+int check_ground_MAP(int x, int y)
+{
+  int allow = 0;
+  SDL_Surface pos = MAP[x+y*MAPlength];
   //DAY
   if( day )
     {
@@ -122,17 +141,10 @@ int check_move_ground(int x, int y)
 	{
 	  allow = 1;
 	}
-       //inside the rockwall 
-      else if( pos.pixels == (*rockwall_inside).pixels ){
-	allow = 1;
-      }
     }
 
 
-
-
-
-  //NIGHT
+//------------NIGHT-----------
   else
     {
       if( pos.pixels == (*grass_night).pixels || pos.pixels == (*dirt_night).pixels || pos.pixels == (*sand_night).pixels || pos.pixels == (*bridge1_night).pixels || pos.pixels == (*bridge2_night).pixels)
@@ -155,17 +167,10 @@ int check_move_ground(int x, int y)
 	}
     }
 
-
-  if( check_enter_rockwall(x , y) )
-    {
-      printf("entree de grotte\n");
-      cave();
-      allow = 0;
-    }  
-
-  //return allow;
   return allow;
 }
+
+
 
 
 
