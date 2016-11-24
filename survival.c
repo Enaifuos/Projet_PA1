@@ -431,6 +431,14 @@ int main(int argc, char* argv[])
   cave_r = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
+  temp = SDL_LoadBMP("ressources/inside_rockwall/cave_ur.bmp");
+  cave_ur = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
+  temp = SDL_LoadBMP("ressources/inside_rockwall/cave_ul.bmp");
+  cave_ul = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+
   temp = SDL_LoadBMP("ressources/inside_rockwall/cave_top.bmp");
   cave_top = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
@@ -700,7 +708,17 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(bridge2);
   SDL_FreeSurface(bridge1_night);
   SDL_FreeSurface(bridge2_night);
-  
+
+  /* cleaning the cave */
+  SDL_FreeSurface(cave_u);
+  SDL_FreeSurface(cave_d);
+  SDL_FreeSurface(cave_l);
+  SDL_FreeSurface(cave_r);
+  SDL_FreeSurface(cave_ul);
+  SDL_FreeSurface(cave_ur);
+  SDL_FreeSurface(cave_top);
+  SDL_FreeSurface(cave_ground);
+ 
 
   /* cleaning the object */
   SDL_FreeSurface(box);
