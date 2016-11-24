@@ -112,7 +112,7 @@ void set_cave(SDL_Surface * map)
     {
       for( j= 0 ; j < CAVElength ; j++ )
 	{
-	  map[j+i*CAVEheight] = *cave_ground; //have to be changed by cave ground
+	  map[j+i*CAVElength] = *cave_ground; 
 	}
     }
 }
