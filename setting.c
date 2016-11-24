@@ -1,6 +1,7 @@
 #include "SDL.h" 
 #include "global_variable.c"
 
+
 #define MAPlength      64
 #define MAPheight      44
 #define SPRITE_SIZE    32
@@ -676,6 +677,7 @@ void set_map(SDL_Surface * map, int DAY) //
 void set_objectmap(Objmap *map)
 {
   int i, j;
+  /* initialization of the objects  map */
   for( i = 0 ; i < MAPheight ; i ++)
     {
       for( j = 0 ; j < MAPlength ; j ++)
@@ -691,25 +693,7 @@ void set_objectmap(Objmap *map)
   map[26+10*MAPlength].objsprite = *box;
   map[26+10*MAPlength].objvalue = 9;
 
-  /* letter */
-  /*
-  map[24+8*MAPlength].objsprite = *letter;
-  map[24+8*MAPlength].objvalue = 1;
-  map[24+9*MAPlength].objsprite = *letter;
-  map[24+9*MAPlength].objvalue = 2;
-  map[24+10*MAPlength].objsprite = *letter;
-  map[24+10*MAPlength].objvalue = 3;
-  map[24+11*MAPlength].objsprite = *letter;
-  map[24+11*MAPlength].objvalue = 4;
-  map[24+12*MAPlength].objsprite = *letter;
-  map[24+12*MAPlength].objvalue = 5;
-  map[24+13*MAPlength].objsprite = *letter;
-  map[24+13*MAPlength].objvalue = 6;
-  map[24+14*MAPlength].objsprite = *letter;
-  map[24+14*MAPlength].objvalue = 7;
-  map[24+15*MAPlength].objsprite = *letter;
-  map[24+15*MAPlength].objvalue = 8;
-*/
+  /* setting letters */
   set_letter_pos(map);
 }
 
@@ -729,7 +713,6 @@ void set_letter_pos (Objmap *objectmap )
       }
     objectmap[i+j*MAPlength].objvalue = c ;
     objectmap[i+j*MAPlength].objsprite = *letter ;
-    printf("\n%d-%d\n",i,j);
     i = rand()%MAPlength ;
     j = rand()%MAPheight ;
   }

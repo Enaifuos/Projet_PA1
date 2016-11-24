@@ -1,6 +1,6 @@
 #include "SDL.h"
 #include "fonction.c"
-
+#include <time.h>
 
 
 
@@ -14,6 +14,7 @@
 
 int main(int argc, char* argv[])
 {
+  srand(time(NULL));
   int i, j;
   unsigned int Time = 0 ;
   unsigned int TimePrev = 1;
