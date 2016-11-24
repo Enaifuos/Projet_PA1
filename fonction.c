@@ -56,7 +56,7 @@ void check_life(int step)
 {
   if( step <= 0 )
     {
-      //  you_lose();
+      you_lose();
     }
 }
 
