@@ -688,8 +688,6 @@ void set_objectmap(Objmap *map)
   
   map[25+10*MAPlength].objsprite = *box;
   map[25+10*MAPlength].objvalue = 9;
-  map[25+11*MAPlength].objsprite = *apple;
-  map[25+11*MAPlength].objvalue = 10; 
   map[26+10*MAPlength].objsprite = *box;
   map[26+10*MAPlength].objvalue = 9;
 
