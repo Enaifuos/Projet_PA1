@@ -86,11 +86,11 @@ int check_move_ground(int x, int y)
 
   if( OBJECTMAP[x+y*MAPlength].objvalue )
     {
-      if( OBJECTMAP[x+y*MAPlength].objvalue == 10)
+      if( OBJECTMAP[x+y*MAPlength].objvalue == 10) // apple
 	{
 	  stepbfdie += 15 ;
 	}
-      if( OBJECTMAP[x+y*MAPlength].objvalue < 9 )
+      if( OBJECTMAP[x+y*MAPlength].objvalue < 9 ) // letter
 	{
 	  SURVIVAL[(OBJECTMAP[x+y*MAPlength].objvalue)-1] = 1;
 	}

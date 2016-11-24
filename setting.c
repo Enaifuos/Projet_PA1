@@ -688,6 +688,7 @@ void set_objectmap(Objmap *map)
   map[25+11*MAPlength].objvalue = 10; 
   map[26+10*MAPlength].objsprite = *box;
   map[26+10*MAPlength].objvalue = 9;
+
   /* letter */
   map[24+8*MAPlength].objsprite = *letter;
   map[24+8*MAPlength].objvalue = 1;

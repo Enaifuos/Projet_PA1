@@ -30,6 +30,8 @@ void cave_move_down(struct coord Coordplayer);
 
 
 void print_cave(SDL_Surface * CAVE);
+void print_player_cave();
+
 
 
 
@@ -162,5 +164,11 @@ void print_cave(SDL_Surface * CAVE)
 	}
     }
   SDL_UpdateRect(screen,0,0,0,0);
-    
+}
+
+
+
+void print_player_cave()
+{
+  
 }
