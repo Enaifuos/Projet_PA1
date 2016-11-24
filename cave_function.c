@@ -45,6 +45,8 @@ void cave()
   struct coord coordplayertemp;
   coordplayertemp.x = SPRITE_SIZE*9;
   coordplayertemp.y = SPRITE_SIZE*7;
+  SDL_Rect rcSrcPcave, rcPcave;
+
 
   /*set the cave */
   SDL_Surface * CAVE;
@@ -143,6 +145,7 @@ void set_cave(SDL_Surface * map)
   map[15+2*CAVElength] = *cave_ur;
   map[3+CAVElength*(CAVEheight-3)] = *cave_top;
   map[15+CAVElength*(CAVEheight-3)] = *cave_top;
+  map[9+CAVElength*(CAVEheight-3)] = *cave_door;
 
 }
 

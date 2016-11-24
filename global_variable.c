@@ -41,7 +41,7 @@ SDL_Surface *dirtg_d, *dirtg_d_night,  *dirtg_dl, *dirtg_dl_night, *dirtg_dr, *d
 SDL_Surface *sandg_dl, *sandg_dl_night, *sandg_dr, *sandg_dr_night, *sandg_l, *sandg_l_night,*sandg_r,*sandg_r_night, *sandg_ul,*sandg_ul_night, *sandg_ur, *sandg_ur_night, *sandg_d, *sandg_d_night, *sandg_u, *sandg_u_night;
 SDL_Surface *sandw_dl, *sandw_dl_night, *sandw_dr, *sandw_dr_night, *sandw_l, *sandw_l_night, *sandw_r, *sandw_r_night, *sandw_ul, *sandw_ul_night, *sandw_ur, *sandw_ur_night, *sandw_d, *sandw_d_night, *sandw_u, *sandw_u_night;
 SDL_Surface *rockwall, *rockwall_night,  *rockwall_dl, *rockwall_dl_night, *rockwall_dr, *rockwall_dr_night, *rockwall_l, *rockwall_l_night, *rockwall_r, *rockwall_r_night, *rockwall_top, *rockwall_top_night, *rockwall_ucl, *rockwall_ucl_night, *rockwall_ucr, *rockwall_ucr_night, *rockwall_ul, *rockwall_ul_night, *rockwall_ur, *rockwall_ur_night, *rockwall_door, *rockwall_door_night, *bridge1, *bridge1_night, *bridge2, *bridge2_night;
-SDL_Surface *cave_d, *cave_u, *cave_l, *cave_r,*cave_ur, *cave_ul, *cave_top, *cave_ground;
+SDL_Surface *cave_d, *cave_u, *cave_l, *cave_r,*cave_ur, *cave_ul, *cave_top, *cave_ground, *cave_door;
 SDL_Surface *ladder1, *ladder2, *trap;
 SDL_Rect rcSprite, rcSrcSprite, rcGround; 
 SDL_Rect rcLadder, rcTrap;
