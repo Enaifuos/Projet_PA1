@@ -9,6 +9,7 @@
 
 /*---Prototypes---*/
 
+
 void set_position();
 void set_countletter();
 
@@ -17,7 +18,7 @@ void set_countletter();
 void set_map(SDL_Surface * map, int day);
 void set_objectmap(Objmap * map);
 int check_ground_MAP(int x, int y);
-void set_letter_pos(SDL_Surface * map , Objmap *objectmap );
+void set_letter_pos(Objmap *objectmap );
 
 
 
@@ -682,6 +683,7 @@ void set_objectmap(Objmap *map)
 	  map[j+i*MAPlength].objvalue = 0;
 	}
     }
+  
   map[25+10*MAPlength].objsprite = *box;
   map[25+10*MAPlength].objvalue = 9;
   map[25+11*MAPlength].objsprite = *apple;
@@ -690,6 +692,7 @@ void set_objectmap(Objmap *map)
   map[26+10*MAPlength].objvalue = 9;
 
   /* letter */
+  /*
   map[24+8*MAPlength].objsprite = *letter;
   map[24+8*MAPlength].objvalue = 1;
   map[24+9*MAPlength].objsprite = *letter;
@@ -706,25 +709,29 @@ void set_objectmap(Objmap *map)
   map[24+14*MAPlength].objvalue = 7;
   map[24+15*MAPlength].objsprite = *letter;
   map[24+15*MAPlength].objvalue = 8;
-
-
+*/
+  set_letter_pos(map);
 }
 
 
 
 
-void set_letter_pos(SDL_Surface * map , Objmap *objectmap )
+void set_letter_pos (Objmap *objectmap )
 {
   int i = 0 ;
   int j = 0 ;
   int c = 0 ;
   for ( c = 1 ; c < 9 ; c ++  ){
-    while ( check_ground_MAP(i , j)  ) 
+    while ( !check_ground_MAP(i , j)  ) 
       {
 	i = rand()%MAPlength;
 	j = rand()%MAPheight;
       }
-    objectmap[c-1].objvalue = 1 ;
+    objectmap[i+j*MAPlength].objvalue = c ;
+    objectmap[i+j*MAPlength].objsprite = *letter ;
+    printf("\n%d-%d\n",i,j);
+    i = rand()%MAPlength ;
+    j = rand()%MAPheight ;
   }
 }
 

@@ -1,5 +1,5 @@
 #include "SDL.h"
-
+#include <time.h>
 
 #define SCREEN_WIDTH  608   
 #define SCREEN_HEIGHT 480
