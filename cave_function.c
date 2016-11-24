@@ -15,10 +15,10 @@ void set_cave(SDL_Surface * map);
 
 
 
-int cave_move_left(SDL_Rect Coordplayer);
-int cave_move_right(SDL_Rect Coordplayer);
-int cave_move_up(SDL_Rect Coordplayer);
-int cave_move_down(SDL_Rect Coordplayer);
+void cave_move_left(SDL_Rect *Coordplayer);
+void cave_move_right(SDL_Rect *Coordplayer);
+void cave_move_up(SDL_Rect *Coordplayer);
+void cave_move_down(SDL_Rect *Coordplayer);
 
 
 
@@ -80,19 +80,19 @@ void cave()
       
       if( keystate[SDLK_LEFT] )
 	{
-	   coordplayertemp.x = cave_move_left(coordplayertemp);
+	   cave_move_left(&coordplayertemp);
 	}
       if( keystate[SDLK_RIGHT] )
 	{
-	  coordplayertemp.x = cave_move_right(coordplayertemp);
+	  cave_move_right(&coordplayertemp);
 	}
       if( keystate[SDLK_UP] )
 	{
-	  coordplayertemp.y = cave_move_up(coordplayertemp);
+	  cave_move_up(&coordplayertemp);
 	}
       if( keystate[SDLK_DOWN] )
 	{
-	  coordplayertemp.y = cave_move_down(coordplayertemp);
+	  cave_move_down(&coordplayertemp);
 	}
     }
 
@@ -148,48 +148,60 @@ void set_cave(SDL_Surface * map)
 
 
 /* movement*/
-int cave_move_left(SDL_Rect Coordplayer)
+void cave_move_left(SDL_Rect *Coordplayer)
 {
-  if( Coordplayer.x > 4*SPRITE_SIZE)
+  if( (*Coordplayer).x > 4*SPRITE_SIZE)
     {
-      printf("left");
-      return (Coordplayer.x+SPRITE_SIZE);
+      printf("left\n");
+      int i;
+      for( i = 0 ; i < SPRITE_SIZE ; i++)
+	{
+	  (*Coordplayer).x -= 1;
+	}
     }
-  return Coordplayer.x;
 }
 
 
-int cave_move_right(SDL_Rect Coordplayer)
+void cave_move_right(SDL_Rect *Coordplayer)
 {
-  if( Coordplayer.x < 10*SPRITE_SIZE )
+  if( (*Coordplayer).x < 10*SPRITE_SIZE )
     {
-      printf("right");
-      return (Coordplayer.x-SPRITE_SIZE);
+      printf("right\n");
+      int i;
+      for( i = 0 ; i < SPRITE_SIZE ; i++)
+	{
+	  (*Coordplayer).x += 1;
+	}
     }
-  return Coordplayer.x;
 }
 
 
-int cave_move_up(SDL_Rect Coordplayer)
+void cave_move_up(SDL_Rect *Coordplayer)
 {
-  if( Coordplayer.y > 5*SPRITE_SIZE )
+  if( (*Coordplayer).y > 5*SPRITE_SIZE )
     {
-      printf("up");
-      return (Coordplayer.y-SPRITE_SIZE);
+      printf("up\n");
+      int i;
+      for( i = 0 ; i < SPRITE_SIZE ; i++)
+	{
+	  (*Coordplayer).y -= 1;
+	}
     }
-  return Coordplayer.y;
 }
 
 
 
-int cave_move_down(SDL_Rect Coordplayer)
+void cave_move_down(SDL_Rect *Coordplayer)
 {
-  if( Coordplayer.y < 10*SPRITE_SIZE )
+  if( (*Coordplayer).y < 10*SPRITE_SIZE )
     {
-      printf("down");
-      return (Coordplayer.y+SPRITE_SIZE);
+      printf("down\n");
+      int i;
+      for( i = 0 ; i < SPRITE_SIZE ; i++)
+	{
+	  (*Coordplayer).y += 1;
+	}
     }
-  return Coordplayer.y;
 }
 
 
