@@ -251,7 +251,7 @@ void set_map(SDL_Surface * map, int DAY) //
       // map[24][17] = *trap;
       for ( i = 19 ; i < 30 ; i++)
 	{
-	  if ( i != 24 && i != 25 )
+	  if ( i != 24 && i != 25 ) 
 	    {
 	      for ( j = 6 ; j < 10 ; j ++ )
 		{
@@ -656,6 +656,9 @@ void set_map(SDL_Surface * map, int DAY) //
       map[31+10*MAPlength] = *dirtg_ur_night;
       map[31+11*MAPlength] = *dirtg_dr_night;
       map[30+11*MAPlength] = *dirtg_dl_night;
+
+      map[3+11*MAPlength] = *grass_night;
+      map[4+11*MAPlength] = *grass_night;
     }
 
 }

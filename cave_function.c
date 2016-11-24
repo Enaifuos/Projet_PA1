@@ -4,13 +4,6 @@
 
 
 
-struct coord
-{
-  int y;
-  int x;
-};
-
-
 
 
 
@@ -22,15 +15,15 @@ void set_cave(SDL_Surface * map);
 
 
 
-int cave_move_left(struct coord Coordplayer);
-int cave_move_right(struct coord Coordplayer);
-int cave_move_up(struct coord Coordplayer);
-int cave_move_down(struct coord Coordplayer);
+int cave_move_left(SDL_Rect Coordplayer);
+int cave_move_right(SDL_Rect Coordplayer);
+int cave_move_up(SDL_Rect Coordplayer);
+int cave_move_down(SDL_Rect Coordplayer);
 
 
 
 void print_cave(SDL_Surface * CAVE);
-void print_player_cave();
+void print_player_cave(SDL_Rect * rcCoord);
 
 
 
@@ -42,10 +35,10 @@ void print_player_cave();
 void cave()
 {
   /*set the player cave coord */
-  struct coord coordplayertemp;
+  SDL_Rect coordplayertemp;
   coordplayertemp.x = SPRITE_SIZE*9;
   coordplayertemp.y = SPRITE_SIZE*7;
-  SDL_Rect rcSrcPcave, rcPcave;
+  SDL_Rect rcSrcPcave;
 
 
   /*set the cave */
@@ -53,7 +46,7 @@ void cave()
   CAVE = (SDL_Surface *)malloc(sizeof(SDL_Surface)*CAVElength*CAVEheight);
   set_cave(CAVE);
   print_cave(CAVE);
-
+  print_player_cave(&coordplayertemp);
   int quit = 0;
   while (!quit)
     {
@@ -155,32 +148,48 @@ void set_cave(SDL_Surface * map)
 
 
 /* movement*/
-int cave_move_left(struct coord Coordplayer)
+int cave_move_left(SDL_Rect Coordplayer)
 {
-  printf("left");
-  return (Coordplayer.x+SPRITE_SIZE);
+  if( Coordplayer.x > 4*SPRITE_SIZE)
+    {
+      printf("left");
+      return (Coordplayer.x+SPRITE_SIZE);
+    }
+  return Coordplayer.x;
 }
 
 
-int cave_move_right(struct coord Coordplayer)
+int cave_move_right(SDL_Rect Coordplayer)
 {
-  printf("right");
-  return (Coordplayer.x-SPRITE_SIZE);
+  if( Coordplayer.x < 10*SPRITE_SIZE )
+    {
+      printf("right");
+      return (Coordplayer.x-SPRITE_SIZE);
+    }
+  return Coordplayer.x;
 }
 
 
-int cave_move_up(struct coord Coordplayer)
+int cave_move_up(SDL_Rect Coordplayer)
 {
-  printf("up");
-  return (Coordplayer.y-SPRITE_SIZE);
+  if( Coordplayer.y > 5*SPRITE_SIZE )
+    {
+      printf("up");
+      return (Coordplayer.y-SPRITE_SIZE);
+    }
+  return Coordplayer.y;
 }
 
 
 
-int cave_move_down(struct coord Coordplayer)
+int cave_move_down(SDL_Rect Coordplayer)
 {
-  printf("down");
-  return (Coordplayer.y+SPRITE_SIZE);
+  if( Coordplayer.y < 10*SPRITE_SIZE )
+    {
+      printf("down");
+      return (Coordplayer.y+SPRITE_SIZE);
+    }
+  return Coordplayer.y;
 }
 
 
@@ -209,7 +218,8 @@ void print_cave(SDL_Surface * CAVE)
 
 
 
-void print_player_cave()
+void print_player_cave(SDL_Rect *rcCoord)
 {
-  SDL_BlitSurface(sprite, &rcSrcSprite, screen, &rcSprite);
+  SDL_BlitSurface(sprite, &rcSrcSprite, screen, rcCoord);
+  SDL_UpdateRect(screen,0,0,0,0);
 }
