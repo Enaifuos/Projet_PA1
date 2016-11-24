@@ -119,6 +119,31 @@ void set_cave(SDL_Surface * map)
 	  map[j+i*CAVElength] = *cave_ground; 
 	}
     }
+  for( i = 0 ; i < CAVElength ; i++ )
+    {
+      map[i] = *cave_top;
+      map[i+CAVElength] = *cave_top;
+      map[i+2*CAVElength] = *cave_u;
+      map[i+(CAVElength*(CAVEheight-1))] = *cave_top;
+      map[i+(CAVElength*(CAVEheight-2))] = *cave_top;
+      map[i+(CAVElength*(CAVEheight-3))] = *cave_d;
+    }
+  for( i = 2 ; i < CAVEheight-2 ; i++ )
+    {
+      map[i*CAVElength] = *cave_top;
+      map[i*CAVElength+1] = *cave_top;
+      map[i*CAVElength+2] = *cave_top;  
+      map[i*CAVElength+3] = *cave_l;
+      map[i*CAVElength+15] = *cave_r;
+      map[i*CAVElength+16] = *cave_top;
+      map[i*CAVElength+17] = *cave_top;
+      map[i*CAVElength+18] = *cave_top;
+    }
+  map[3+2*CAVElength] = *cave_ul;
+  map[15+2*CAVElength] = *cave_ur;
+  map[3+CAVElength*(CAVEheight-3)] = *cave_top;
+  map[15+CAVElength*(CAVEheight-3)] = *cave_top;
+
 }
 
 
