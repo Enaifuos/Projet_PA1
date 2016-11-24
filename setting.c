@@ -113,12 +113,12 @@ void set_map(SDL_Surface * map, int DAY) //
 	      map[j+i*MAPlength] = *tree;	    
 	    }
 	}
-      for ( j = 0 ; j < 13 ; j++)
+      for ( j = 0 ; j < 11 ; j++)
 	{            
 	  map[3+j*MAPlength] = *tree;
 	  map[4+j*MAPlength] = *tree;
 	}
-      for ( i = 5 ; i < 17 ; i++)
+      for ( i = 3 ; i < 17 ; i++)
 	{      
 	  map[i+12*MAPlength] = *tree;
 

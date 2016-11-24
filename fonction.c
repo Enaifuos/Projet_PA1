@@ -28,6 +28,7 @@ void move_left();
 void you_lose();
 void you_win();
 void menu_pause();
+void transition();
 
    //help for the player
 void stats();
@@ -56,7 +57,7 @@ void check_life(int step)
 {
   if( step <= 0 )
     {
-      you_lose();
+      // you_lose();
     }
 }
 
@@ -100,6 +101,7 @@ int check_move_ground(int x, int y)
 
   if( check_enter_rockwall(x , y) )
     {
+      transition();
       printf("entree de grotte\n");
       cave();
       allow = 0;
@@ -694,4 +696,22 @@ int check_enter_rockwall(int x , int y )
     {
       return 0;
     }
+}
+
+
+void transition()
+{
+  SDL_Surface *transit;
+  SDL_Rect rcTransit;
+  rcTransit.x = 0;
+  rcTransit.y = 0;
+  temp = SDL_LoadBMP("ressources/transition.bmp");
+  transit = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  SDL_SetColorKey(transit, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+  SDL_BlitSurface(transit, NULL, screen, &rcTransit);
+  SDL_Flip(screen);
+  SDL_Delay(1600);
+  screen_printing_Pmove();
+  SDL_FreeSurface(transit);
 }
