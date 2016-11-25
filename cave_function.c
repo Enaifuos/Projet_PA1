@@ -156,7 +156,6 @@ void cave_move_left(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
   if( (*Coordplayer).x > 4*SPRITE_SIZE)
     {
       stepbfdie -= 1;
-      printf("left\n");
       int i;
       for( i = 0 ; i < SPRITE_SIZE ; i++)
 	{
@@ -178,7 +177,6 @@ void cave_move_right(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
   if( (*Coordplayer).x < 14*SPRITE_SIZE )
     {
       stepbfdie -= 1;
-      printf("right\n");
       int i;
       for( i = 0 ; i < SPRITE_SIZE ; i++)
 	{
@@ -200,7 +198,6 @@ void cave_move_up(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
   if( (*Coordplayer).y > 3*SPRITE_SIZE )
     {
       stepbfdie -= 1;
-      printf("up\n");
       int i;
       for( i = 0 ; i < SPRITE_SIZE ; i++)
 	{
@@ -229,7 +226,6 @@ void cave_move_down(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
       (*rcSrc).y = 0;
       if( (*Coordplayer).y < 11*SPRITE_SIZE )
 	{
-	  printf("down\n");
 	  int i;
 	  for( i = 0 ; i < SPRITE_SIZE ; i++)
 	    {
@@ -274,7 +270,8 @@ void print_ground_cave(SDL_Surface * CAVE)
 	  SDL_BlitSurface(&CAVE[j+i*CAVElength], NULL, screen, &rcGround);
 	}
     }
-}
+
+} 
 
 
 

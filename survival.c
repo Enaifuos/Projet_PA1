@@ -569,9 +569,7 @@ int main(int argc, char* argv[])
 	else if( Time && Time != TimePrev)//  && !inside_rock) // night
 	{
 	  day = 0;
-	  printf("1\n");
 	  set_map(MAP, day);
-	  printf("2\n");
 	  screen_printing_Gmove();
 	  TimePrev = Time;
 	}
