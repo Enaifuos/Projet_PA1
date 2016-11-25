@@ -708,7 +708,7 @@ void set_letter_pos (Objmap *objectmap )
   int c = 0 ;
   for ( c = 1 ; c < 10 ; c ++  )
     {
-      while ( !check_ground_MAP(i , j)  && objectmap[i+j*MAPlength].objvalue != 0) 
+      while ( !check_ground_MAP(i , j)  && objectmap[i+j*MAPlength].objvalue == 0)  // J'ai changé != 0 par == 0 , sinon ça met les lettres dans des endroits inaccessibles 
 	{
 	  i = rand()%MAPlength;
 	  j = rand()%MAPheight;
