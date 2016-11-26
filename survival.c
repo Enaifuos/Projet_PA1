@@ -633,6 +633,10 @@ int main(int argc, char* argv[])
     /* clean the array */ 
   free(MAP);
   free(OBJECTMAP);
+  free(OBJECTCAVE1);
+  free(OBJECTCAVE2);
+  free(OBJECTCAVE3);
+  free(OBJECTCAVE4);
 
        /* clean up */
   SDL_FreeSurface(sprite);

@@ -16,7 +16,7 @@ void cave_move_down(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, Ob
 
 
 void check_life_win();
-void check_object_cave();
+void check_object_cave(int x, int y, Objmap * objcave);
 
 
 void print_cave(SDL_Surface * CAVE, SDL_Rect * rcCoord, SDL_Rect * rcSrcCoord, Objmap * objcave);
@@ -167,6 +167,7 @@ void cave_move_left(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, Ob
 	  print_cave(map, Coordplayer, rcSrc, objcave);
 	}
     }
+  check_object_cave((*Coordplayer).x/SPRITE_SIZE, (*Coordplayer).y/SPRITE_SIZE, objcave);
   check_life_win();
 }
 
@@ -189,6 +190,7 @@ void cave_move_right(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, O
 	  print_cave(map, Coordplayer, rcSrc, objcave);		  
 	}
     }
+  check_object_cave((*Coordplayer).x/SPRITE_SIZE, (*Coordplayer).y/SPRITE_SIZE, objcave);
   check_life_win();
 }
 
@@ -211,6 +213,7 @@ void cave_move_up(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, Objm
 	  print_cave(map, Coordplayer, rcSrc, objcave);
 	}
     }
+  check_object_cave((*Coordplayer).x/SPRITE_SIZE, (*Coordplayer).y/SPRITE_SIZE, objcave);
   check_life_win();
 }
 
@@ -241,6 +244,7 @@ void cave_move_down(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, Ob
 	    }
 	}
     }
+  check_object_cave((*Coordplayer).x/SPRITE_SIZE, (*Coordplayer).y/SPRITE_SIZE, objcave);
   check_life_win();
 }
 
@@ -271,6 +275,17 @@ void check_life_win()
     }
 }
 
+
+
+
+void check_object_cave(int x, int y, Objmap * objcave)
+{
+  if( objcave[x+y*CAVElength].objvalue && objcave[x+y*CAVElength].objvalue < 9)
+    {
+      SURVIVAL[(objcave[x+y*CAVElength].objvalue)-1] = 1;
+      objcave[x+y*CAVElength].objvalue = 0;
+    }
+}
 
 
 
@@ -316,7 +331,7 @@ void print_object_cave(int i,int j, SDL_Rect *rcSrc, Objmap * objcav)
   printf("i = %d j = %d\n",i,j);
   rcObject.x = i * SPRITE_SIZE;
   rcObject.y = j * SPRITE_SIZE;
-  SDL_BlitSurface(&objcav[i+j*CAVElength].objsprite, rcSrc, screen, &rcObject);
+  SDL_BlitSurface(letter, rcSrc, screen, &rcObject);
   SDL_UpdateRect(screen,0,0,0,0);
 }
 
