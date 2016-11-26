@@ -103,12 +103,58 @@ int check_move_ground(int x, int y)
     {
       transition();
       printf("entree de grotte\n");
-      cave();
+      switch (y)
+	{
+	case 5: 
+	  if( x == 14)
+	    {
+	      cave(OBJECTCAVE1);
+	    }
+	  else
+	    {
+	      cave(OBJECTCAVE2);
+	    }
+	  break;
+	case 21:
+	  cave(OBJECTCAVE3);
+	  break;
+	case 23:
+	  cave(OBJECTCAVE4);
+	  break;
+	} 
+      screen_printing_Pmove();
       allow = 0;
     }  
 
   //return allow;
   return allow;
+}
+
+
+
+int check_enter_rockwall(int x , int y )
+{
+  if( (y == 5 && (x == 14 || x == 25)) || (x == 12 && y == 21) || ( x == 25 && y == 23) )
+    {
+      SDL_Surface *enter;
+      SDL_Rect rcEnter;
+      rcEnter.x = 10;
+      rcEnter.y = 240;
+      temp = SDL_LoadBMP("ressources/enter.bmp");
+      enter = SDL_DisplayFormat(temp);
+      SDL_FreeSurface(temp);
+      SDL_SetColorKey(enter, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
+      SDL_BlitSurface(enter, NULL, screen, &rcEnter);
+      SDL_Flip(screen);
+      SDL_Delay(500);
+      screen_printing_Pmove();
+      SDL_FreeSurface(enter);
+      return 1;
+    }
+  else
+    {
+      return 0;
+    }
 }
 
 
@@ -670,33 +716,6 @@ void screen_printing_Pmove()
   SDL_UpdateRect(screen,0,0,0,0);
 }
 
-
-
-
-int check_enter_rockwall(int x , int y )
-{
-  if( (y == 5 && (x == 14 || x == 25)) || (x == 12 && y == 21) || ( x == 25 && y == 23) )
-    {
-      SDL_Surface *enter;
-      SDL_Rect rcEnter;
-      rcEnter.x = 10;
-      rcEnter.y = 240;
-      temp = SDL_LoadBMP("ressources/enter.bmp");
-      enter = SDL_DisplayFormat(temp);
-      SDL_FreeSurface(temp);
-      SDL_SetColorKey(enter, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
-      SDL_BlitSurface(enter, NULL, screen, &rcEnter);
-      SDL_Flip(screen);
-      SDL_Delay(500);
-      screen_printing_Pmove();
-      SDL_FreeSurface(enter);
-      return 1;
-    }
-  else
-    {
-      return 0;
-    }
-}
 
 
 void transition()

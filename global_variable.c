@@ -7,6 +7,8 @@
 #define MAPlength      64
 #define MAPheight      44
 #define DAY_DURATION   10
+#define CAVElength 19
+#define CAVEheight 15
 
 
 
@@ -48,6 +50,7 @@ SDL_Rect rcLadder, rcTrap;
 
 //Object in the map
 Objmap *OBJECTMAP; //[MAPlength][MAPheight]
+Objmap *OBJECTCAVE1, *OBJECTCAVE2, *OBJECTCAVE3, *OBJECTCAVE4; //[CAVElength][CAVEheight]
 SDL_Surface  *box, *apple, *letter, *empty_letter;
 SDL_Rect rcObject, rcLetter, rcSrcLetter;
 

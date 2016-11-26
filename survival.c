@@ -19,10 +19,12 @@ int main(int argc, char* argv[])
   unsigned int Time = 0 ;
   unsigned int TimePrev = 1;
   day = 1; // use to check if it's the day
-
   MAP = (SDL_Surface *)malloc(sizeof(SDL_Surface)*MAPlength*MAPheight);
   OBJECTMAP = (Objmap *)malloc(sizeof(Objmap)*MAPlength*MAPheight);
-  
+  OBJECTCAVE1 = (Objmap *)malloc(sizeof(Objmap)*CAVElength*CAVEheight);
+  OBJECTCAVE2 = (Objmap *)malloc(sizeof(Objmap)*CAVElength*CAVEheight);
+  OBJECTCAVE3 = (Objmap *)malloc(sizeof(Objmap)*CAVElength*CAVEheight);
+  OBJECTCAVE4 = (Objmap *)malloc(sizeof(Objmap)*CAVElength*CAVEheight);
   set_countletter();
 
   /* initialize video system */
@@ -547,7 +549,6 @@ int main(int argc, char* argv[])
   stepbfdie = 75;
   
   gameover = 0;
-  
   /* set the MAP and objectMAP*/
   set_map(MAP, 1);
   set_objectmap(OBJECTMAP);

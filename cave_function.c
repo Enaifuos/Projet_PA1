@@ -1,47 +1,45 @@
 #include "setting.c"
-#define CAVElength 19
-#define CAVEheight 15
-
-
-
-
 
 
 
 
 /*----- prototypes -----*/
-void cave();
+void cave(Objmap * objcave);
 void set_cave(SDL_Surface * map);
 
 
 
-void cave_move_left(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map);
-void cave_move_right(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map);
-void cave_move_up(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map);
-void cave_move_down(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map);
+void cave_move_left(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, Objmap * objcave);
+void cave_move_right(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, Objmap * objcave);
+void cave_move_up(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, Objmap * objcave);
+void cave_move_down(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, Objmap * objcave);
 
 
-void print_cave(SDL_Surface * CAVE, SDL_Rect * rcCoord, SDL_Rect * rcSrcCoord);
-void print_ground_cave(SDL_Surface * CAVE);
+void check_life_win();
+void check_object_cave();
+
+
+void print_cave(SDL_Surface * CAVE, SDL_Rect * rcCoord, SDL_Rect * rcSrcCoord, Objmap * objcave);
+void print_ground_cave(SDL_Surface * CAVE, Objmap * objcave);
+void print_object_cave(int i,int j, SDL_Rect *rcSrc, Objmap * objcav);
 void print_player_cave(SDL_Rect * rcCoord, SDL_Rect * rcSrcCoord);
-
-
+void print_life_letter();
 
 
 
 
 /*------ function -----*/
 
-void cave()
+void cave(Objmap * objcave)
 {
   /*set the player cave coord */
   SDL_Rect coordplayertemp;
   coordplayertemp.x = SPRITE_SIZE*9;
-  coordplayertemp.y = SPRITE_SIZE*7;
+  coordplayertemp.y = SPRITE_SIZE*11;
   SDL_Rect rcSrcPcave;
 
   rcSrcPcave.x = 0;
-  rcSrcPcave.y = 0;
+  rcSrcPcave.y = SPRITE_SIZE * 18;
   rcSrcPcave.h = SPRITE_SIZE;
   rcSrcPcave.w = SPRITE_SIZE;
 
@@ -49,9 +47,9 @@ void cave()
   SDL_Surface * CAVE;
   CAVE = (SDL_Surface *)malloc(sizeof(SDL_Surface)*CAVElength*CAVEheight);
   set_cave(CAVE);
-  print_ground_cave(CAVE);
-  print_player_cave(&coordplayertemp, &rcSrcPcave);
+  print_cave(CAVE, &coordplayertemp, &rcSrcPcave, objcave);
   quit = 0;
+  check_life_win();
   while (!quit)
     {
       /* look for an event */
@@ -62,6 +60,7 @@ void cave()
 	    {
 	      /* close button clicked */
 	    case SDL_QUIT:
+	      quit = 1;
 	      gameover = 1;
 	      break;
 	      
@@ -84,19 +83,19 @@ void cave()
       
       if( keystate[SDLK_LEFT] )
 	{
-	  cave_move_left(&coordplayertemp, &rcSrcPcave, CAVE);
+	  cave_move_left(&coordplayertemp, &rcSrcPcave, CAVE, objcave);
 	}
       if( keystate[SDLK_RIGHT] )
 	{
-	  cave_move_right(&coordplayertemp, &rcSrcPcave, CAVE);
+	  cave_move_right(&coordplayertemp, &rcSrcPcave, CAVE, objcave);
 	}
       if( keystate[SDLK_UP] )
 	{
-	  cave_move_up(&coordplayertemp, &rcSrcPcave, CAVE);
+	  cave_move_up(&coordplayertemp, &rcSrcPcave, CAVE, objcave);
 	}
       if( keystate[SDLK_DOWN] )
 	{
-	  cave_move_down(&coordplayertemp, &rcSrcPcave, CAVE);
+	  cave_move_down(&coordplayertemp, &rcSrcPcave, CAVE, objcave);
 	}
     }
   
@@ -150,7 +149,7 @@ void set_cave(SDL_Surface * map)
 
 
 /* movement*/
-void cave_move_left(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
+void cave_move_left(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, Objmap * objcave)
 {
   (*rcSrc).y = SPRITE_SIZE * 6;
   if( (*Coordplayer).x > 4*SPRITE_SIZE)
@@ -165,13 +164,14 @@ void cave_move_left(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
 	      (*rcSrc).y += SPRITE_SIZE+1;
 	    }
 	  SDL_Delay(5);
-	  print_cave(map, Coordplayer, rcSrc);
+	  print_cave(map, Coordplayer, rcSrc, objcave);
 	}
     }
+  check_life_win();
 }
 
 
-void cave_move_right(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
+void cave_move_right(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, Objmap * objcave)
 {
   (*rcSrc).y = SPRITE_SIZE * 12;
   if( (*Coordplayer).x < 14*SPRITE_SIZE )
@@ -186,13 +186,14 @@ void cave_move_right(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
 	      (*rcSrc).y += SPRITE_SIZE+1;
 	    }
 	  SDL_Delay(5);
-	  print_cave(map, Coordplayer, rcSrc);		  
+	  print_cave(map, Coordplayer, rcSrc, objcave);		  
 	}
     }
+  check_life_win();
 }
 
 
-void cave_move_up(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
+void cave_move_up(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, Objmap * objcave)
 {
   (*rcSrc).y = SPRITE_SIZE * 18;
   if( (*Coordplayer).y > 3*SPRITE_SIZE )
@@ -207,14 +208,15 @@ void cave_move_up(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
 	      (*rcSrc).y += SPRITE_SIZE;
 	    }
 	  SDL_Delay(5);
-	  print_cave(map, Coordplayer, rcSrc);
+	  print_cave(map, Coordplayer, rcSrc, objcave);
 	}
     }
+  check_life_win();
 }
 
 
 
-void cave_move_down(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
+void cave_move_down(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, Objmap * objcave)
 {
   if( (*Coordplayer).x == SPRITE_SIZE*9 && (*Coordplayer).y == SPRITE_SIZE*11 )
     {
@@ -235,9 +237,37 @@ void cave_move_down(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
 		  (*rcSrc).y += SPRITE_SIZE+1;
 		}
 	      SDL_Delay(5);
-	      print_cave(map, Coordplayer, rcSrc);
+	      print_cave(map, Coordplayer, rcSrc, objcave);
 	    }
 	}
+    }
+  check_life_win();
+}
+
+
+
+
+
+
+
+void check_life_win()
+{
+  /*----- check the life -----*/
+  if( stepbfdie <= 0 )
+    {
+      quit = 1;
+    }
+
+  /*------ check le letter ------*/
+  int i, res;
+  res = 1;
+  for( i = 0 ; i < 8 ; i++ )
+    {
+      res = res * SURVIVAL[i];
+    }
+  if( res > 0 )
+    {
+      quit = 1;
     }
 }
 
@@ -247,18 +277,19 @@ void cave_move_down(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map)
 
 
 
+/*-------------- screen printing ----------------*/
 
-/*---- screen printing ----*/
-
-void print_cave(SDL_Surface * CAVE, SDL_Rect * rcCoord, SDL_Rect * rcSrcCoord)
+void print_cave(SDL_Surface * CAVE, SDL_Rect * rcCoord, SDL_Rect * rcSrcCoord, Objmap * objcave)
 {
-  print_ground_cave(CAVE);
+  print_ground_cave(CAVE, objcave);
   print_player_cave(rcCoord, rcSrcCoord);
+  print_life_letter();
+  SDL_UpdateRect(screen,0,0,0,0);
 }
 
 
 
-void print_ground_cave(SDL_Surface * CAVE)
+void print_ground_cave(SDL_Surface * CAVE, Objmap * objcave)
 {
   int i,j;
   for(i = 0 ; i < CAVEheight ; i++ )
@@ -268,15 +299,89 @@ void print_ground_cave(SDL_Surface * CAVE)
 	  rcGround.x = j * SPRITE_SIZE;
 	  rcGround.y = i * SPRITE_SIZE;
 	  SDL_BlitSurface(&CAVE[j+i*CAVElength], NULL, screen, &rcGround);
+	  if( objcave[j+i*CAVElength].objvalue )
+	    {
+	      printf("on entre dans le if\n");
+	      rcSrcLetter.x = 0;
+	      print_object_cave(i, j, &rcSrcLetter, objcave);
+	    }
 	}
     }
-
 } 
+
+
+
+void print_object_cave(int i,int j, SDL_Rect *rcSrc, Objmap * objcav)
+{
+  printf("i = %d j = %d\n",i,j);
+  rcObject.x = i * SPRITE_SIZE;
+  rcObject.y = j * SPRITE_SIZE;
+  SDL_BlitSurface(&objcav[i+j*CAVElength].objsprite, rcSrc, screen, &rcObject);
+  SDL_UpdateRect(screen,0,0,0,0);
+}
+
 
 
 
 void print_player_cave(SDL_Rect *rcCoord, SDL_Rect * rcSrcCoord)
 {
   SDL_BlitSurface(sprite, rcSrcCoord, screen, rcCoord);
-  SDL_UpdateRect(screen,0,0,0,0);
+}
+
+
+
+
+
+void print_life_letter()
+{
+  /*----- life -----*/
+  int i;
+  rcHeart.x = 1 ;
+  rcHeart.y = SCREEN_HEIGHT - 20;
+  SDL_BlitSurface(heart, NULL, screen, &rcHeart);
+  for( i = 0 ; i < 4 ; i++ )
+    {
+      rcHeart.x += 20 ;
+      if( stepbfdie/10 >= i+1 )
+	{
+	  SDL_BlitSurface(heart, NULL, screen, &rcHeart);
+	}
+      else
+	{
+	  SDL_BlitSurface(empty_heart, NULL, screen, &rcHeart);
+	}
+    }
+
+
+
+  /*----- letter ------*/
+  rcSrcLetter.x = 0;
+  rcSrcLetter.y = 0;
+  rcSrcLetter.w = SPRITE_SIZE;
+  rcSrcLetter.h = SPRITE_SIZE;
+  
+  rcLetter.x = SCREEN_WIDTH-1 -256;
+  rcLetter.y = SCREEN_HEIGHT-1 -SPRITE_SIZE;
+
+  if( SURVIVAL[0] )
+    {
+      SDL_BlitSurface(letter, &rcSrcLetter, screen, &rcLetter);
+    }
+  else
+    {
+      SDL_BlitSurface(empty_letter, &rcSrcLetter, screen, &rcLetter);
+    }
+  for(i = 0; i < 7 ; i++)
+    {
+      rcSrcLetter.x += SPRITE_SIZE;
+      rcLetter.x += SPRITE_SIZE;
+      if( SURVIVAL[i+1] )
+	{
+	  SDL_BlitSurface(letter, &rcSrcLetter, screen, &rcLetter);
+	}
+      else
+	{
+	  SDL_BlitSurface(empty_letter, &rcSrcLetter, screen, &rcLetter);
+	}     
+    }
 }

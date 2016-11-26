@@ -10,6 +10,7 @@
 
 /*---Prototypes---*/
 
+int check_ground_MAP(int x, int y);
 
 void set_position();
 void set_countletter();
@@ -18,14 +19,89 @@ void set_countletter();
 //array function
 void set_map(SDL_Surface * map, int day);
 void set_objectmap(Objmap * map);
-int check_ground_MAP(int x, int y);
-void set_letter_pos(Objmap *objectmap );
+void set_objectcave(Objmap * map);
+void set_object_pos(Objmap *objectmap );
+
+
+
+
+
+
+
+
 
 
 
 
 
 /*-----function------*/
+
+int check_ground_MAP(int x, int y)
+{
+  int allow = 0;
+  SDL_Surface pos = MAP[x+y*MAPlength];
+  //DAY
+  if( day )
+    {
+      /* check if the player can go*/
+      if( pos.pixels == (*grass).pixels || pos.pixels == (*dirt).pixels || pos.pixels == (*sand).pixels || pos.pixels == (*bridge1).pixels || pos.pixels == (*bridge2).pixels)
+	{
+	  allow = 1;
+	}
+       
+      //special sandg
+      else if( pos.pixels == (*sandg_u).pixels || pos.pixels == (*sandg_d).pixels || pos.pixels == (*sandg_dl).pixels || pos.pixels == (*sandg_dr).pixels || pos.pixels == (*sandg_ul).pixels || pos.pixels == (*sandg_ur).pixels || pos.pixels == (*sandg_l).pixels || pos.pixels == (*sandg_r).pixels)
+	{
+	  allow = 1;
+	}
+      //special sandw
+      else if( pos.pixels == (*sandw_u).pixels || pos.pixels == (*sandw_d).pixels || pos.pixels == (*sandw_dl).pixels || pos.pixels == (*sandw_dr).pixels || pos.pixels == (*sandw_ul).pixels || pos.pixels == (*sandw_ur).pixels || pos.pixels == (*sandw_l).pixels || pos.pixels == (*sandw_r).pixels )
+	{
+	  allow = 1;
+	}
+      //special dirt
+      else if( pos.pixels == (*dirtg_u).pixels || pos.pixels == (*dirtg_d).pixels || pos.pixels == (*dirtg_ul).pixels || pos.pixels == (*dirtg_ur).pixels || pos.pixels == (*dirtg_dl).pixels || pos.pixels == (*dirtg_dr).pixels || pos.pixels == (*dirtg_l).pixels || pos.pixels == (*dirtg_r).pixels )
+	{
+	  allow = 1;
+	}
+    }
+
+
+//------------NIGHT-----------
+  else
+    {
+      if( pos.pixels == (*grass_night).pixels || pos.pixels == (*dirt_night).pixels || pos.pixels == (*sand_night).pixels || pos.pixels == (*bridge1_night).pixels || pos.pixels == (*bridge2_night).pixels)
+	{
+	  allow = 1;
+	}
+      else if( pos.pixels == (*sandg_u_night).pixels || pos.pixels == (*sandg_d_night).pixels || pos.pixels == (*sandg_dl_night).pixels || pos.pixels == (*sandg_dr_night).pixels || pos.pixels == (*sandg_ul_night).pixels || pos.pixels == (*sandg_ur_night).pixels || pos.pixels == (*sandg_l_night).pixels || pos.pixels == (*sandg_r_night).pixels)
+	{
+	  allow = 1;
+	}
+      //special sandw
+      else if( pos.pixels == (*sandw_u_night).pixels || pos.pixels == (*sandw_d_night).pixels || pos.pixels == (*sandw_dl_night).pixels || pos.pixels == (*sandw_dr_night).pixels || pos.pixels == (*sandw_ul_night).pixels || pos.pixels == (*sandw_ur_night).pixels || pos.pixels == (*sandw_l_night).pixels || pos.pixels == (*sandw_r_night).pixels )
+	{
+	  allow = 1;
+	}
+      //special dirt
+      else if( pos.pixels == (*dirtg_u_night).pixels || pos.pixels == (*dirtg_d_night).pixels || pos.pixels == (*dirtg_ul_night).pixels || pos.pixels == (*dirtg_ur_night).pixels || pos.pixels == (*dirtg_dl_night).pixels || pos.pixels == (*dirtg_dr_night).pixels || pos.pixels == (*dirtg_l_night).pixels || pos.pixels == (*dirtg_r_night).pixels )
+	{
+	  allow = 1;
+	}
+    }
+
+  return allow;
+}
+
+
+
+
+
+
+
+
+/*------- setting ------*/
+
 void set_position()
 {
   coordplayerx = 10*SPRITE_SIZE;   
@@ -688,6 +764,13 @@ void set_objectmap(Objmap *map)
 	  map[j+i*MAPlength].objvalue = 0;
 	}
     }
+
+  
+  set_objectcave(OBJECTCAVE1);
+  set_objectcave(OBJECTCAVE2);
+  set_objectcave(OBJECTCAVE3);
+  set_objectcave(OBJECTCAVE4);
+  
   
   map[25+10*MAPlength].objsprite = *box;
   map[25+10*MAPlength].objvalue = 9;
@@ -695,20 +778,101 @@ void set_objectmap(Objmap *map)
   map[26+10*MAPlength].objvalue = 9;
 
   /* setting letters */
-  set_letter_pos(map);
+  set_object_pos(map);
 }
 
 
 
 
-void set_letter_pos (Objmap *objectmap )
+void set_objectcave(Objmap * map)
+{
+  int i, j;
+  /* initialization of the objects  map */
+  for( i = 0 ; i < CAVEheight ; i ++)
+    {
+      for( j = 0 ; j < CAVElength ; j ++)
+	{
+	  map[j+i*CAVElength].objvalue = 0;
+	}
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+void set_object_pos (Objmap *objectmap)
 {
   int i = 0 ;
   int j = 0 ;
   int c = 0 ;
-  for ( c = 1 ; c < 15 ; c ++  )
+
+  /* set a letter in a random cave */
+  c = rand()%4;
+  printf("c = %d\n",c);
+  switch (c)
     {
-      while ( !check_ground_MAP(i , j)  && objectmap[i+j*MAPlength].objvalue == 0)  // J'ai changé != 0 par == 0 , sinon ça met les lettres dans des endroits inaccessibles 
+    case 0:
+      while( i < 4 && j < 3)
+	{
+	  i = rand()%(CAVElength-5);
+	  j = rand()%(CAVEheight-4);	  
+	}
+      printf("%d",j);
+      printf("%d",i);
+      OBJECTCAVE1[i+j*CAVElength].objsprite = *letter ;
+      OBJECTCAVE1[i+j*CAVElength].objvalue = 1 ;
+      break;
+    case 1:
+      while( i < 4 && j < 3)
+	{
+	  i = rand()%(CAVElength-5);
+	  j = rand()%(CAVEheight-4);	  
+	}
+      printf("%d",j);
+      printf("%d",i);
+      OBJECTCAVE2[i+j*CAVElength].objsprite = *letter ;
+      OBJECTCAVE2[i+j*CAVElength].objvalue = 1 ;
+      break;
+    case 2:
+      while( i < 4 && j < 3)
+	{
+	  i = rand()%(CAVElength-5);
+	  j = rand()%(CAVEheight-4);	  
+	}
+      printf("%d",j);
+      printf("%d",i);
+      OBJECTCAVE3[i+j*CAVElength].objsprite = *letter ;
+      OBJECTCAVE3[i+j*CAVElength].objvalue = 1 ;
+      break;
+    case 3:
+      while( i < 4 && j < 3)
+	{
+	  i = rand()%(CAVElength-5);
+	  j = rand()%(CAVEheight-4);	  
+	}
+      printf("%d",j);
+      printf("%d",i);
+      OBJECTCAVE4[i+j*CAVElength].objsprite = *letter ;
+      OBJECTCAVE4[i+j*CAVElength].objvalue = 1 ;
+      break;
+    }
+
+
+
+  i = 0;
+  j = 0;
+  
+  for ( c = 2 ; c < 15 ; c++ )
+    {
+      while ( !check_ground_MAP(i , j)  && objectmap[i+j*MAPlength].objvalue == 0)  
 	{
 	  i = rand()%MAPlength;
 	  j = rand()%MAPheight;
@@ -729,62 +893,3 @@ void set_letter_pos (Objmap *objectmap )
     }
 }
 
-
-
-
-int check_ground_MAP(int x, int y)
-{
-  int allow = 0;
-  SDL_Surface pos = MAP[x+y*MAPlength];
-  //DAY
-  if( day )
-    {
-      /* check if the player can go*/
-      if( pos.pixels == (*grass).pixels || pos.pixels == (*dirt).pixels || pos.pixels == (*sand).pixels || pos.pixels == (*bridge1).pixels || pos.pixels == (*bridge2).pixels)
-	{
-	  allow = 1;
-	}
-       
-      //special sandg
-      else if( pos.pixels == (*sandg_u).pixels || pos.pixels == (*sandg_d).pixels || pos.pixels == (*sandg_dl).pixels || pos.pixels == (*sandg_dr).pixels || pos.pixels == (*sandg_ul).pixels || pos.pixels == (*sandg_ur).pixels || pos.pixels == (*sandg_l).pixels || pos.pixels == (*sandg_r).pixels)
-	{
-	  allow = 1;
-	}
-      //special sandw
-      else if( pos.pixels == (*sandw_u).pixels || pos.pixels == (*sandw_d).pixels || pos.pixels == (*sandw_dl).pixels || pos.pixels == (*sandw_dr).pixels || pos.pixels == (*sandw_ul).pixels || pos.pixels == (*sandw_ur).pixels || pos.pixels == (*sandw_l).pixels || pos.pixels == (*sandw_r).pixels )
-	{
-	  allow = 1;
-	}
-      //special dirt
-      else if( pos.pixels == (*dirtg_u).pixels || pos.pixels == (*dirtg_d).pixels || pos.pixels == (*dirtg_ul).pixels || pos.pixels == (*dirtg_ur).pixels || pos.pixels == (*dirtg_dl).pixels || pos.pixels == (*dirtg_dr).pixels || pos.pixels == (*dirtg_l).pixels || pos.pixels == (*dirtg_r).pixels )
-	{
-	  allow = 1;
-	}
-    }
-
-
-//------------NIGHT-----------
-  else
-    {
-      if( pos.pixels == (*grass_night).pixels || pos.pixels == (*dirt_night).pixels || pos.pixels == (*sand_night).pixels || pos.pixels == (*bridge1_night).pixels || pos.pixels == (*bridge2_night).pixels)
-	{
-	  allow = 1;
-	}
-      else if( pos.pixels == (*sandg_u_night).pixels || pos.pixels == (*sandg_d_night).pixels || pos.pixels == (*sandg_dl_night).pixels || pos.pixels == (*sandg_dr_night).pixels || pos.pixels == (*sandg_ul_night).pixels || pos.pixels == (*sandg_ur_night).pixels || pos.pixels == (*sandg_l_night).pixels || pos.pixels == (*sandg_r_night).pixels)
-	{
-	  allow = 1;
-	}
-      //special sandw
-      else if( pos.pixels == (*sandw_u_night).pixels || pos.pixels == (*sandw_d_night).pixels || pos.pixels == (*sandw_dl_night).pixels || pos.pixels == (*sandw_dr_night).pixels || pos.pixels == (*sandw_ul_night).pixels || pos.pixels == (*sandw_ur_night).pixels || pos.pixels == (*sandw_l_night).pixels || pos.pixels == (*sandw_r_night).pixels )
-	{
-	  allow = 1;
-	}
-      //special dirt
-      else if( pos.pixels == (*dirtg_u_night).pixels || pos.pixels == (*dirtg_d_night).pixels || pos.pixels == (*dirtg_ul_night).pixels || pos.pixels == (*dirtg_ur_night).pixels || pos.pixels == (*dirtg_dl_night).pixels || pos.pixels == (*dirtg_dr_night).pixels || pos.pixels == (*dirtg_l_night).pixels || pos.pixels == (*dirtg_r_night).pixels )
-	{
-	  allow = 1;
-	}
-    }
-
-  return allow;
-}
