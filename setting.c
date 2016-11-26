@@ -817,56 +817,32 @@ void set_object_pos (Objmap *objectmap)
   /* set a letter in a random cave */
   c = rand()%4;
   printf("c = %d\n",c);
+  i = rand()%(CAVElength-5 -4) +4;
+  j = rand()%(CAVEheight-4 -3) +3;	  
+  printf("%d ",j);
+  printf("%d\n",i);
   switch (c)
     {
     case 0:
-      while( i < 4 && j < 3)
-	{
-	  i = rand()%(CAVElength-5);
-	  j = rand()%(CAVEheight-4);	  
-	}
-      printf("%d",j);
-      printf("%d",i);
       OBJECTCAVE1[i+j*CAVElength].objsprite = *letter ;
       OBJECTCAVE1[i+j*CAVElength].objvalue = 1 ;
       break;
     case 1:
-      while( i < 4 && j < 3)
-	{
-	  i = rand()%(CAVElength-5);
-	  j = rand()%(CAVEheight-4);	  
-	}
-      printf("%d",j);
-      printf("%d",i);
       OBJECTCAVE2[i+j*CAVElength].objsprite = *letter ;
       OBJECTCAVE2[i+j*CAVElength].objvalue = 1 ;
       break;
     case 2:
-      while( i < 4 && j < 3)
-	{
-	  i = rand()%(CAVElength-5);
-	  j = rand()%(CAVEheight-4);	  
-	}
-      printf("%d",j);
-      printf("%d",i);
       OBJECTCAVE3[i+j*CAVElength].objsprite = *letter ;
       OBJECTCAVE3[i+j*CAVElength].objvalue = 1 ;
       break;
     case 3:
-      while( i < 4 && j < 3)
-	{
-	  i = rand()%(CAVElength-5);
-	  j = rand()%(CAVEheight-4);	  
-	}
-      printf("%d",j);
-      printf("%d",i);
       OBJECTCAVE4[i+j*CAVElength].objsprite = *letter ;
       OBJECTCAVE4[i+j*CAVElength].objvalue = 1 ;
       break;
     }
 
 
-
+  /*set the rest of letter in the map */
   i = 0;
   j = 0;
   
