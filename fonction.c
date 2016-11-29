@@ -57,7 +57,7 @@ void check_life(int step)
 {
   if( step <= 0 )
     {
-      // you_lose();
+      you_lose();
     }
 }
 
@@ -90,7 +90,7 @@ int check_move_ground(int x, int y)
 	{
 	  stepbfdie += 15 ;
 	}
-      if( OBJECTMAP[x+y*MAPlength].objvalue < 9 ) // letter
+      else if( OBJECTMAP[x+y*MAPlength].objvalue < 9 ) // letter
 	{
 	  SURVIVAL[(OBJECTMAP[x+y*MAPlength].objvalue)-1] = 1;
 	}
@@ -102,7 +102,6 @@ int check_move_ground(int x, int y)
   if( check_enter_rockwall(x , y) )
     {
       transition();
-      printf("entree de grotte\n");
       switch (y)
 	{
 	case 5: 
@@ -363,8 +362,6 @@ void move_left()
 
 void you_lose()
 {
-  printf("**********\n YOU LOSE\n**********\n");
-  
   /* print a loosing picture */
   SDL_Surface *lose;
   temp = SDL_LoadBMP("ressources/you_lose.bmp");
@@ -384,13 +381,11 @@ void you_lose()
   screen_printing_Gmove();
 
   SDL_FreeSurface(lose);
-  printf("**********\n fin youlose\n**********\n");
 }
 
 
 void you_win()
 {
-  printf(" YOU WIN !!!!! \n\n");
   SDL_Surface *win;
   temp = SDL_LoadBMP("ressources/you_win.bmp");
   win = SDL_DisplayFormat(temp);
@@ -410,8 +405,6 @@ void you_win()
 
 
   SDL_FreeSurface(win);
-  printf(" fin you win!!!! \n\n");
-
 }
 
 

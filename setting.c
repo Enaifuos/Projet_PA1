@@ -862,7 +862,7 @@ void set_object_pos (Objmap *objectmap)
       else
 	{
 	  objectmap[i+j*MAPlength].objsprite = *apple ;
-	  objectmap[i+j*MAPlength].objvalue = 9 ;
+	  objectmap[i+j*MAPlength].objvalue = 10 ;
 	}
       i = rand()%MAPlength ;
       j = rand()%MAPheight ;
