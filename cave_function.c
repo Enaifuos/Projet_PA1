@@ -155,6 +155,7 @@ void cave_move_left(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, Ob
   if( (*Coordplayer).x > 4*SPRITE_SIZE)
     {
       stepbfdie -= 1;
+      check_object_cave((*Coordplayer).x/SPRITE_SIZE-1, (*Coordplayer).y/SPRITE_SIZE, objcave);
       int i;
       for( i = 0 ; i < SPRITE_SIZE ; i++)
 	{
@@ -178,6 +179,7 @@ void cave_move_right(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, O
   if( (*Coordplayer).x < 14*SPRITE_SIZE )
     {
       stepbfdie -= 1;
+      check_object_cave((*Coordplayer).x/SPRITE_SIZE+1, (*Coordplayer).y/SPRITE_SIZE, objcave);
       int i;
       for( i = 0 ; i < SPRITE_SIZE ; i++)
 	{
@@ -201,6 +203,7 @@ void cave_move_up(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, Objm
   if( (*Coordplayer).y > 3*SPRITE_SIZE )
     {
       stepbfdie -= 1;
+      check_object_cave((*Coordplayer).x/SPRITE_SIZE, (*Coordplayer).y/SPRITE_SIZE-1, objcave);
       int i;
       for( i = 0 ; i < SPRITE_SIZE ; i++)
 	{
@@ -232,6 +235,7 @@ void cave_move_down(SDL_Rect *Coordplayer, SDL_Rect *rcSrc, SDL_Surface *map, Ob
       if( (*Coordplayer).y < 11*SPRITE_SIZE )
 	{
 	  int i;
+	  check_object_cave((*Coordplayer).x/SPRITE_SIZE, (*Coordplayer).y/SPRITE_SIZE+1, objcave);
 	  for( i = 0 ; i < SPRITE_SIZE ; i++)
 	    {
 	      (*Coordplayer).y += 1;
@@ -280,7 +284,7 @@ void check_life_win()
 
 void check_object_cave(int x, int y, Objmap * objcave)
 {
-  if( objcave[x+y*CAVElength].objvalue && objcave[x+y*CAVElength].objvalue < 9)
+  if( objcave[x+y*CAVElength].objvalue > 0 && objcave[x+y*CAVElength].objvalue < 9)
     {
       SURVIVAL[(objcave[x+y*CAVElength].objvalue)-1] = 1;
       objcave[x+y*CAVElength].objvalue = 0;
@@ -314,9 +318,9 @@ void print_ground_cave(SDL_Surface * CAVE, Objmap * objcave)
 	  rcGround.x = j * SPRITE_SIZE;
 	  rcGround.y = i * SPRITE_SIZE;
 	  SDL_BlitSurface(&CAVE[j+i*CAVElength], NULL, screen, &rcGround);
-	  if( objcave[j+i*CAVElength].objvalue )
+	  if( objcave[i+j*CAVElength].objvalue > 0 && objcave[i+j*CAVElength].objvalue < 9 )
 	    {
-	      printf("on entre dans le if\n");
+	      printf("on a un objet\n");
 	      rcSrcLetter.x = 0;
 	      print_object_cave(i, j, &rcSrcLetter, objcave);
 	    }
@@ -328,7 +332,6 @@ void print_ground_cave(SDL_Surface * CAVE, Objmap * objcave)
 
 void print_object_cave(int i,int j, SDL_Rect *rcSrc, Objmap * objcav)
 {
-  printf("i = %d j = %d\n",i,j);
   rcObject.x = i * SPRITE_SIZE;
   rcObject.y = j * SPRITE_SIZE;
   SDL_BlitSurface(letter, rcSrc, screen, &rcObject);
