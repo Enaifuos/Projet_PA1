@@ -16,7 +16,7 @@ void set_position();
 void set_countletter();
 
 
-//array function
+//array functions
 void set_map(SDL_Surface * map, int day);
 void set_objectmap(Objmap * map);
 void set_objectcave(Objmap * map);
@@ -34,8 +34,9 @@ void set_object_pos(Objmap *objectmap );
 
 
 
-/*-----function------*/
+/*-----functions------*/
 
+// A function that check if we can walk on the ground type 
 int check_ground_MAP(int x, int y)
 {
   int allow = 0;
@@ -43,7 +44,7 @@ int check_ground_MAP(int x, int y)
   //DAY
   if( day )
     {
-      /* check if the player can go*/
+      /* check if the player can walk on */
       if( pos.pixels == (*grass).pixels || pos.pixels == (*dirt).pixels || pos.pixels == (*sand).pixels || pos.pixels == (*bridge1).pixels || pos.pixels == (*bridge2).pixels)
 	{
 	  allow = 1;
@@ -133,6 +134,7 @@ void set_countletter()
 /*------------------- SET THE MAP ---------------------*/
 
 
+// A void to draw the map 
 void set_map(SDL_Surface * map, int DAY) //
 {
   int i,j;
@@ -144,7 +146,7 @@ void set_map(SDL_Surface * map, int DAY) //
 	{
 	  for( j=0 ; j < MAPheight  ; j++)
 	    {
-	      map[i+j*MAPlength] = *grass;       // it blocks the program 
+	      map[i+j*MAPlength] = *grass;       
 	    }
 	}
   
@@ -219,7 +221,7 @@ void set_map(SDL_Surface * map, int DAY) //
 	}
 
 
-
+      // rockwall
       for( i = 1 ; i < 5 ; i++)
 	{
 	  map[10+i*MAPlength] = *rockwall_l;
@@ -324,7 +326,7 @@ void set_map(SDL_Surface * map, int DAY) //
       map[25+16*MAPlength] = *bridge2;
    
 
-      // map[24][17] = *trap;
+    
       for ( i = 19 ; i < 30 ; i++)
 	{
 	  if ( i != 24 && i != 25 ) 
@@ -369,7 +371,7 @@ void set_map(SDL_Surface * map, int DAY) //
       map[3+39*MAPlength] = *dirtg_dl;
     
   
-      // remplissage 
+      // filling
       for ( i = 4 ; i < 18 ; i ++ )
 	{
 	  for ( j = 23 ; j < 39 ; j ++ )
@@ -404,8 +406,7 @@ void set_map(SDL_Surface * map, int DAY) //
 	  map[i+39*MAPlength] = *dirtg_d;
 	}
   
-      // ======================
-      // Drawing the escape zone 
+  
       for( j=0 ; j < MAPheight  ; j++)
 	{
 	  for( i=50 ; i < MAPlength ; i++)
@@ -424,7 +425,6 @@ void set_map(SDL_Surface * map, int DAY) //
       map[49+(MAPheight-3)*MAPlength] = *sandw_dr;
 
   
-      // ======================
 
       //test
   
@@ -444,7 +444,7 @@ void set_map(SDL_Surface * map, int DAY) //
 	{
 	  for( j=0 ; j < MAPheight  ; j++)
 	    {
-	      map[i+j*MAPlength] = *grass_night;       // it blocks the program 
+	      map[i+j*MAPlength] = *grass_night;        
 	    }
 	}
   
@@ -624,7 +624,6 @@ void set_map(SDL_Surface * map, int DAY) //
       map[25+16*MAPlength] = *bridge2_night;
    
 
-      // map[24][17] = *trap_night;
       for ( i = 19 ; i < 30 ; i++)
 	{
 	  if ( i != 24 && i != 25 )
@@ -669,7 +668,7 @@ void set_map(SDL_Surface * map, int DAY) //
       map[3+39*MAPlength] = *dirtg_dl_night;
     
   
-      // remplissage 
+      // filling
       for ( i = 4 ; i < 18 ; i ++ )
 	{
 	  for ( j = 23 ; j < 39 ; j ++ )
@@ -704,8 +703,7 @@ void set_map(SDL_Surface * map, int DAY) //
 	  map[i+39*MAPlength] = *dirtg_d_night;
 	}
   
-      // ======================
-      // Drawing the escape zone 
+
       for( j=0 ; j < MAPheight  ; j++)
 	{
 	  for( i=50 ; i < MAPlength ; i++)
@@ -724,7 +722,6 @@ void set_map(SDL_Surface * map, int DAY) //
       map[49+(MAPheight-3)*MAPlength] = *sandw_dr_night;
 
   
-      // ======================
 
       //test
   
@@ -807,11 +804,11 @@ void set_objectcave(Objmap * map)
 
 
 
-
+// void to set objects's positions 
 void set_object_pos (Objmap *objectmap)
 {
-  int i = 0 ;
-  int j = 0 ;
+  int i = 0 ; 
+  int j = 0 ; 
   int c = 0 ;
 
   /* set a letter in a random cave */
@@ -819,8 +816,9 @@ void set_object_pos (Objmap *objectmap)
   printf("c = %d\n",c);
   i = rand()%(CAVElength-5 -4) +4;
   j = rand()%(CAVEheight-4 -3) +3;	  
-  printf("%d ",j);
-  printf("%d\n",i);
+  // printf("%d ",j);
+  //printf("%d\n",i);
+  printf("%d\n",c);
   switch (c)
     {
     case 0:
@@ -843,22 +841,26 @@ void set_object_pos (Objmap *objectmap)
 
 
   /*set the rest of letter in the map */
-  i = 0;
-  j = 0;
+  i = 0;  
+  j = 0;  // i & j initialized to 0 to constrain entring in the loop
+  
   
   for ( c = 2 ; c < 15 ; c++ )
     {
+      // while we can't walk on the ground type <=> we can't set an object above , we regenerate the i,j ( position )
       while ( !check_ground_MAP(i , j)  && objectmap[i+j*MAPlength].objvalue == 0)  
 	{
 	  i = rand()%MAPlength;
 	  j = rand()%MAPheight;
 	}
       
+      // Letters
       if( c < 9 )
 	{
 	  objectmap[i+j*MAPlength].objsprite = *letter ;
 	  objectmap[i+j*MAPlength].objvalue = c ;
 	}
+      // other objects ( apple )
       else
 	{
 	  objectmap[i+j*MAPlength].objsprite = *apple ;

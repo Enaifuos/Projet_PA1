@@ -468,10 +468,6 @@ int main(int argc, char* argv[])
   ladder2 = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
-  /* load the trap */
-  temp = SDL_LoadBMP("ressources/trap/trap.bmp");
-  trap = SDL_DisplayFormat(temp);
-  SDL_FreeSurface(temp);
 
   /* load the empty heart */
   temp = SDL_LoadBMP("ressources/empty_heart.bmp");
@@ -555,19 +551,25 @@ int main(int argc, char* argv[])
   
   screen_printing_Gmove();
 
+
+
+
   while (!gameover)
     {
       /* managing the time to set the day or the night */
       Time = SDL_GetTicks();
       Time = ((Time / 1000)/ DAY_DURATION) % 2; 
-      if( !Time && Time != TimePrev)// && !inside_rock ) //day
+
+      // Day 
+      if( !Time && Time != TimePrev)
 	{
 	  day = 1;
 	  set_map(MAP, day);
 	  screen_printing_Gmove();
 	  TimePrev = Time;
 	}
-	else if( Time && Time != TimePrev)//  && !inside_rock) // night
+      // night
+      else if( Time && Time != TimePrev) 
 	{
 	  day = 0;
 	  set_map(MAP, day);
@@ -735,8 +737,7 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(ladder1);
   SDL_FreeSurface(ladder2);
 
-  /* cleaning the trap */
-  SDL_FreeSurface(trap);
+
  
 
   SDL_Quit();
