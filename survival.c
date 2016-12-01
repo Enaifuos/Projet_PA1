@@ -15,6 +15,7 @@
 int main(int argc, char* argv[])
 {
   srand(time(NULL));
+ 
   int i, j;
   unsigned int Time = 0 ;
   unsigned int TimePrev = 1;
@@ -507,6 +508,11 @@ int main(int argc, char* argv[])
   colorkey = SDL_MapRGB(screen->format, 255, 0, 255);
   SDL_SetColorKey(empty_letter, SDL_SRCCOLORKEY | SDL_RLEACCEL, colorkey);
 
+
+
+  /* set the intro */
+  intro();
+ 
   /*set the letter fram */
   rcSrcLetter.x = 0;
   rcSrcLetter.y = 0;

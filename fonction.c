@@ -29,6 +29,7 @@ void you_lose();
 void you_win();
 void menu_pause();
 void transition();
+void intro();
 
    //help for the player
 void stats();
@@ -726,4 +727,19 @@ void transition()
   SDL_Delay(1600);
   screen_printing_Pmove();
   SDL_FreeSurface(transit);
+}
+
+
+// A void to set an intro picture 
+void intro(){
+  SDL_Surface *intro;
+  SDL_Rect rcIntro ;
+  temp = SDL_LoadBMP("ressources/intro.bmp");
+  intro = SDL_DisplayFormat(temp);
+  SDL_FreeSurface(temp);
+  rcIntro.x = 0 ;
+  rcIntro.y = 0 ;
+  SDL_BlitSurface(intro, NULL, screen,&rcIntro);
+  SDL_Flip(screen);
+  SDL_Delay(2500);
 }
