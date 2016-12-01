@@ -813,12 +813,9 @@ void set_object_pos (Objmap *objectmap)
 
   /* set a letter in a random cave */
   c = rand()%4;
-  printf("c = %d\n",c);
   i = rand()%(CAVElength-5 -4) +4;
   j = rand()%(CAVEheight-4 -3) +3;	  
-  // printf("%d ",j);
-  //printf("%d\n",i);
-  printf("%d\n",c);
+
   switch (c)
     {
     case 0:
@@ -840,6 +837,7 @@ void set_object_pos (Objmap *objectmap)
     }
 
 
+  
   /*set the rest of letter in the map */
   i = 0;  
   j = 0;  // i & j initialized to 0 to constrain entring in the loop

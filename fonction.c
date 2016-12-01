@@ -9,7 +9,7 @@
 
 
 
-/* action in the game */
+/* actions in the game */
 
     //check
 void check_life(int step);
@@ -17,14 +17,14 @@ int check_win();
 int check_move_ground(int x, int y);
 int check_enter_rockwall(int x , int y );
 
-    //movement
+    //movements
 void move_down();
 void move_up();
 void move_right();
 void move_left();
 
 
-   //action in the game
+   //actions in the game
 void you_lose();
 void you_win();
 void menu_pause();
@@ -53,16 +53,17 @@ void screen_printing_Pmove();
 
 /*----------- check -----------*/
 
+// A void to check if the player's life runs out 
 void check_life(int step)
 {
   if( step <= 0 )
     {
-      // you_lose();
+      you_lose();
     }
 }
 
 
-
+// A void to check if the player has win ( if all SURVIVAL lettes are collected )
 int check_win()
 {
   int i, res;
@@ -77,7 +78,7 @@ int check_win()
 
 
 
-   
+// Function returns 1 if we can walk on the ground type 
 int check_move_ground(int x, int y)
 {
   int allow = 0;
@@ -125,12 +126,11 @@ int check_move_ground(int x, int y)
       allow = 0;
     }  
 
-  //return allow;
   return allow;
 }
 
 
-
+// Function returns 1 if the player can enter into the cave rockwall
 int check_enter_rockwall(int x , int y )
 {
   if( (y == 5 && (x == 14 || x == 25)) || (x == 12 && y == 21) || ( x == 25 && y == 23) )
@@ -710,7 +710,7 @@ void screen_printing_Pmove()
 }
 
 
-
+// Transition when the player enters into the rockwall cave
 void transition()
 {
   SDL_Surface *transit;

@@ -320,7 +320,6 @@ void print_ground_cave(SDL_Surface * CAVE, Objmap * objcave)
 	  SDL_BlitSurface(&CAVE[j+i*CAVElength], NULL, screen, &rcGround);
 	  if( objcave[i+j*CAVElength].objvalue > 0 && objcave[i+j*CAVElength].objvalue < 9 )
 	    {
-	      printf("on a un objet\n");
 	      rcSrcLetter.x = 0;
 	      print_object_cave(i, j, &rcSrcLetter, objcave);
 	    }
@@ -372,7 +371,7 @@ void print_life_letter()
 
 
 
-  /*----- letter ------*/
+  /*----- letters ------*/
   rcSrcLetter.x = 0;
   rcSrcLetter.y = 0;
   rcSrcLetter.w = SPRITE_SIZE;

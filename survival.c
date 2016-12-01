@@ -459,14 +459,7 @@ int main(int argc, char* argv[])
   box = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
-  /* load the ladder */
-  temp = SDL_LoadBMP("ressources/ladder/ladder1.bmp");
-  ladder1 = SDL_DisplayFormat(temp);
-  SDL_FreeSurface(temp);
-
-  temp = SDL_LoadBMP("ressources/ladder/ladder2.bmp");
-  ladder2 = SDL_DisplayFormat(temp);
-  SDL_FreeSurface(temp);
+ 
 
 
   /* load the empty heart */
@@ -733,9 +726,6 @@ int main(int argc, char* argv[])
   SDL_FreeSurface(empty_letter);
 
 
-  /* cleaning the ladder */
-  SDL_FreeSurface(ladder1);
-  SDL_FreeSurface(ladder2);
 
 
  
